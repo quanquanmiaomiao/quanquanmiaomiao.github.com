@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-AndroidHandler" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-多线程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/22/AndroidHandler/" class="article-date">
-  <time datetime="2017-02-22T08:13:21.000Z" itemprop="datePublished">2017-02-22</time>
+    <a href="/2017/06/27/多线程/" class="article-date">
+  <time datetime="2017-06-27T03:54:10.000Z" itemprop="datePublished">2017-06-27</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/22/AndroidHandler/">AndroidHandler</a>
+      <a class="article-title" href="/2017/06/27/多线程/">多线程</a>
     </h1>
   
 
@@ -83,493 +83,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>就应用程序而言，Android系统中的java的应用程序和其他系统相同，都是靠消息驱动来工作的，它们大致工作原理如下<br>1.有一个消息队列，可以往这个消息队列中投递消息<br>2.有一个消息循环，不断的从消息队列中取出消息，然后处理。<br>Android Handler 就实现这样的一件事情。提到Android Handler就不得不提到Looper、Message以及它们之间的暧昧关系，下面将揭示它们神秘的面纱。</p>
-<h2 id="Looper"><a href="#Looper" class="headerlink" title="Looper"></a>Looper</h2><p><a href="https://developer.android.google.cn/reference/android/os/Looper.html" title="悬停显示" target="_blank" rel="external">Looper的官方介绍</a><br>Looper中有一个MessageQueue,里面存储了一个个待处理的Message。<br>列子代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LooperThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> Handler mHandler;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">	Looper.prepare();</div><div class="line">	mHandler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">                  <span class="comment">// process incoming messages here</span></div><div class="line">              &#125;</div><div class="line">          &#125;;</div><div class="line">	Looper.loop();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上述代码中 Looper.prepare()中构造了一个Looper并且在该Looper中构造了一个MessageQueue。Looper的庐山真面目如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">Looper</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">// 构造一个消息队列</span></div><div class="line">    mQueue = <span class="keyword">new</span> MessageQueue();</div><div class="line">    mRun = <span class="keyword">true</span>;</div><div class="line">    <span class="comment">// 得到当前线程的Thread</span></div><div class="line">    mThread = Thread.currentThread();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="comment">// 一个Looper只能调用一次prepare</span></div><div class="line">  <span class="keyword">if</span>(sThreadLocal.get!=<span class="keyword">null</span>)&#123;</div><div class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"only one Looper may be created per thread"</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 构造一个Looper对象，设置到调用线程的局部变量中</span></div><div class="line">  sThreadLocal.set(<span class="keyword">new</span> Looper());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>注:prepare通过ThreadLocal机制(有兴趣google),将Looper与调用线程关联在一起  </p>
-<p>Looper.loop() 循环遍历消息队列,并将其dispatch出去</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</div><div class="line">	Looper me = myLooper(); <span class="comment">// myLooper返回prepare中的Looper对象</span></div><div class="line">	MessageQueue queue = me.mQueue;</div><div class="line">	<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</div><div class="line">	  Message msg = queue.next();</div><div class="line">	  <span class="keyword">if</span>(msg != <span class="keyword">null</span>) &#123;</div><div class="line">	   <span class="keyword">if</span>(msg.target == <span class="keyword">null</span>) &#123;</div><div class="line">	      <span class="keyword">return</span>;</div><div class="line">	   &#125;</div><div class="line">	   msg.target.dispatchMessage(msg);</div><div class="line">	   msg.recycle();</div><div class="line">	&#125;</div><div class="line">  &#125;	   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="不得不说的Handler"><a href="#不得不说的Handler" class="headerlink" title="不得不说的Handler"></a>不得不说的Handler</h2><p>Handler所包括的成员</p>
-<ol>
-<li>final MessageQueue mQueue;</li>
-<li>final Looper mLooper;</li>
-<li>Callback mCallback;</li>
-</ol>
-<p>Handler的构造函数<br>Handler一共有四种构造函数，它们的区别就在上面三个成员的初始化。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">构造函数<span class="number">1</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">()</span></span>&#123;</div><div class="line">  mLooper=Looper.myLooper();</div><div class="line">  <span class="keyword">if</span>(mLooper == <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(......);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//得到Looper中的消息队列</span></div><div class="line">  mQueue = mLooper.mQueue;</div><div class="line">  <span class="comment">//无callback设置</span></div><div class="line">  mCallback = <span class="keyword">null</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">构造函数<span class="number">2</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Callback callback)</span></span>&#123;</div><div class="line">  mLooper=Looper.myLooper();</div><div class="line">  <span class="keyword">if</span>(mLooper == <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(......);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//得到Looper中的消息队列</span></div><div class="line">  mQueue = mLooper.mQueue;</div><div class="line">  mCallback = callback; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">构造函数<span class="number">3</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Looper looper)</span></span>&#123;</div><div class="line">  <span class="comment">//Looper由外部传入，是哪个线程不确定</span></div><div class="line">  mLooper=looper;</div><div class="line">  <span class="comment">//得到Looper中的消息队列</span></div><div class="line">  mQueue = mLooper.mQueue;</div><div class="line">  mCallback = <span class="keyword">null</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">构造函数<span class="number">4</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Looper looper,Callback callback)</span></span>&#123;</div><div class="line">  <span class="comment">//Looper由外部传入，是哪个线程不确定</span></div><div class="line">  mLooper=looper;</div><div class="line">  <span class="comment">//得到Looper中的消息队列</span></div><div class="line">  mQueue = mLooper.mQueue;</div><div class="line">  mCallback = callback; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>从上面的构造函数可以看出Handler中的消息队列实际就是Looper中的消息队列，Handler为何这样安排呢？插入消息方便！方便！方便！<br>Handler提供了一系列API帮助我们创建并插入消息队列,例如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 查看消息队列中是否有消息码是what的消息</span></div><div class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">hasMessage</span><span class="params">(<span class="keyword">int</span> what)</span></span>;</div><div class="line"><span class="comment">// 从Handler中创建一个消息码是what的消息</span></div><div class="line"><span class="function"><span class="keyword">final</span> Message <span class="title">obtainMessage</span><span class="params">(<span class="keyword">int</span> what)</span></span>;</div><div class="line"><span class="comment">// 从消息队列中移除消息码为what的消息</span></div><div class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">removeMessage</span><span class="params">(<span class="keyword">int</span> what)</span></span>;</div><div class="line"><span class="comment">// 发送一个只填充的消息码的消息</span></div><div class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendEmptyMessage</span><span class="params">(<span class="keyword">int</span> what)</span></span>;</div><div class="line"><span class="comment">// 发送一个消息，并且该消息添加到消息队列的队尾</span></div><div class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessage</span><span class="params">(Message msg)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>现在以sendMessage为例<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// Handler.java</span></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessage</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">   <span class="keyword">return</span> sendMessageDelayed(msg,<span class="number">0</span>);</div><div class="line"> &#125;</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessageDelayed</span><span class="params">(Message msg,<span class="keyword">long</span> delayMills)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(delayMills &lt; <span class="number">0</span>)&#123;</div><div class="line">   delayMills = <span class="number">0</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> sendMessageAtTime(msg,SystemClock.uptimeMillis()+delayMills);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessageAtTime</span><span class="params">(Message msg,<span class="keyword">long</span> uptimeMillis)</span></span>&#123;</div><div class="line">  <span class="keyword">boolean</span> sent = <span class="keyword">false</span>;</div><div class="line">  MessageQueue queue = mQueue;</div><div class="line">  <span class="keyword">if</span>(queue!= <span class="keyword">null</span>)&#123;</div><div class="line">   <span class="comment">// 注意消息的target是Handler自己</span></div><div class="line">   <span class="comment">// 注意消息的target是Handler自己</span></div><div class="line">   <span class="comment">// 注意消息的target是Handler自己</span></div><div class="line">   msg.target = <span class="keyword">this</span>;</div><div class="line">   set = queue.enqueueMessage(msg,uptimeMillis);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>具体API请看<a href="https://developer.android.google.cn/reference/android/os/Handler.html" title="悬停显示" target="_blank" rel="external">Handler的官方介绍</a><br>Handler封装了添加、删除消息等功能，并且把Message的target设置为自己，是因为Handler还封装了消息处理的API.<br><strong>Handler的消息处理</strong><br>刚才我们往Looper的消息队列中加入了一个消息，按照Looper的处理规则，他在获取消息后会调用target的dispatchMessage函数，再把这个消息派发给Handler处理，Handler是如何处理消息的呢？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispatchMessage</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">  <span class="comment">// 如果Message本身有callback，则直接交给Message的callback处理</span></div><div class="line">  <span class="keyword">if</span>(msg.callback != <span class="keyword">null</span>)&#123;</div><div class="line">    handleCallback(msg);</div><div class="line">  &#125;<span class="keyword">else</span>&#123;</div><div class="line">  <span class="comment">// 如果本Handler设置了mCallback,则交给mCallback处理</span></div><div class="line">    <span class="keyword">if</span>(mCallback != <span class="keyword">null</span>)&#123;</div><div class="line">      <span class="keyword">if</span>(mCallback.handleMessage(msg))</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 最后才交给子类去处理</span></div><div class="line">    handleMessage(msg);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>dispatchMessage定义了一套消息处理的优先级机制，它们分别是:</p>
-<ol>
-<li>Message如果自带callback，则交给callback处理</li>
-<li>Handler如果设置的全局的mCallback,则交给mCallback处理</li>
-<li>如果上述都没有，该消息则会被交给Handler子类实现的handleMessage处理。当然这需要从Handler派生并重写handleMessage</li>
-</ol>
-<p><a href="https://github.com/quanquanmiaomiao/LearnAndroidHandler" title="悬停显示" target="_blank" rel="external">Handler处理消息的三种方式DEMO地址</a> </p>
+        <h3 id="为什么使用多线程"><a href="#为什么使用多线程" class="headerlink" title="为什么使用多线程?"></a>为什么使用多线程?</h3><p>通过减少CPU空闲的时间来达到提高效率的目的。</p>
+<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p><strong>进程</strong>:指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间，并且一个进程可以启动多个线程。比如在Android系统中一个运行一个apk就相当于启动了一个进程。 </p>
+<p><strong>线程</strong>:指进程中的一个执行流程。线程总是属于某个进程，进程中的多个线程共享进程的内存。<br>“同时”执行是人的感觉，线程之间实际上轮换执行。  </p>
+<h3 id="Java中的线程"><a href="#Java中的线程" class="headerlink" title="Java中的线程"></a>Java中的线程</h3><p>1.Thread类  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	<span class="keyword">new</span> Thread(<span class="string">"测试线程1"</span>)&#123;</div><div class="line"> 		<span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">               <span class="keyword">super</span>.run();</div><div class="line">               <span class="comment">//处理耗时操作</span></div><div class="line">           &#125;</div><div class="line"> 	&#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.Runnable接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">		<span class="meta">@Override</span></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">			<span class="comment">// 处理耗时操作</span></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">new</span> Thread(runnable,<span class="string">"测试线程2"</span>).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="线程中的一些常见问题"><a href="#线程中的一些常见问题" class="headerlink" title="线程中的一些常见问题"></a>线程中的一些常见问题</h3><p>1.线程的名字可以开发者自己设置，也可以是JVM给定。<br>2.通过Thread.currentThread()获取线程的名称，且只能获取当前线程名称。<br>3.一系列线程按照一定的顺序启动，但不能保证按照该顺序执行完成。<br>4.当线程run方法结束时该线程完成。<br>5.线程只能启动一次，多次启动回报java.lang.IllegalThreadStateException:Thread already started。<br>6.在一个CPU的机器上，实际上在同一时刻只能运行一个线程。<br>7.尽管我们没有办法控制线程调度，但我们可以通过别的方式来影响线程调度。  </p>
+<h3 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h3><p><img src="/2017/06/27/多线程/thread1.png" alt="线程转换"><br>1.新状态:new了线程对象，但是没有调用start方法。<br>2.可运行状态:线程有资格运行，但是调度还没有把他选定为运行状态时所处的状态。此时该线程已经调用的start方法。<br>3.运行状态:线程调运从运行池中选定一个线程作为当前线程时所处的状态。线程唯一进入运行状态的方式。<br>4.等待/阻塞/睡眠状态:线程没有条件运行，如果某件事件出现会返回到可运行状态。<br> sleep()&lt;–&gt;sleep()结束<br> yield()&lt;–&gt;再次获取CPU<br> wait() &lt;–&gt; notify()/notifyAll()<br> join() &lt;–&gt; join()中断 直到加入的线程执行完之后，当前线程才能继续执行<br> synchronized/lock&lt;–&gt;同步锁被释放<br> 上述几种情况可导致运行状态到阻塞、阻塞到可运行状态或运行状态<br>5.死亡状态:当线程的run方法完成就认为它死去。这个线程对象也许是活的，但是他已经不是一个单独执行的线程。</p>
+<h3 id="影响线程调度"><a href="#影响线程调度" class="headerlink" title="影响线程调度"></a>影响线程调度</h3><p>1.线程的交互<br>wait()/wait(long timeout)/wait(long timeout,int nanos)<br>当前线程等待，直到其他线程调用此对象的notify()或notifyAll()或超过指定的时间量<br>notify()/notifyAll()<br>唤醒此对象上等待的单个(所有)线程<br>注意:上述这些方法必须在同步环境中调用。换句话说线程不能调用对象上等待或通知的方法，除非该线程拥有此对象的锁。<br>2.线程的休眠<br>sleep(long millis)/sleep(long millis,int nanos)<br>当前线程休眠，使该线程让出CPU资源给其他线程，被休眠线程的休眠时间大于或等于mills<br>3.线程的优先级<br>setPriority(int priority) 0~10<br>优先级高的线程获取CPU资源的概率更大。<br>4.线程的让步<br>yield()<br>当前运行的线程让出CPU资源，并且该线程变为可运行状态，线程调度可以再一次选中该线程<br>5.线程的合并<br>join()/join(long mills)/join(long mills,int nanos)<br>一个线程必须等待另一个线程执行完毕才能执行。(等待时间最长为mills/mills+nanos)    </p>
+<h3 id="线程的同步"><a href="#线程的同步" class="headerlink" title="线程的同步"></a>线程的同步</h3><p><strong>为什么会有同步问题的提出？</strong><br>当多个线程访问同一个数据对象时，会对数据造成破快。 列子。<br>通过锁的方式保证数据的合理性。<br><strong>Java中内置的锁</strong></p>
+<p>1.synchronized<br>注意:释放锁就是指持锁的线程退出了synchronized同步的方法或代码块  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data + data;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">20</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"当前值"</span> + <span class="keyword">this</span>.data);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="number">2</span>.<span class="keyword">volatile</span>  </div><div class="line">缺点:同步性差，容易出错  </div><div class="line">有点:简单，开销小   </div><div class="line">场景:i++操作，计算机的处理:读取 -&gt; 修改 -&gt; 写入，在多线程情况下，当这些步骤操作了一部分，另一个线程就引用该变量此时读到的就是脏数据。 采用<span class="keyword">volatile</span>来同步变量i,避免脏数据的产生。</div><div class="line">注意:Java以及不推荐使用了，Java5已经引入了原子量的概念来解决该问题。</div><div class="line"></div><div class="line"><span class="number">3.1</span> Lock  </div><div class="line">注意:需要手动释放锁</div><div class="line"></div><div class="line">```<span class="function">java</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> &#123;</div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data+data;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">20</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"当前值"</span> + <span class="keyword">this</span>.data);</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="number">4</span>.Semaphore 信号量的方式实现同步  </div><div class="line">场景举例:<span class="number">5</span>个班需要开班会，但是现在只有<span class="number">3</span>个教室</div><div class="line"></div><div class="line">```<span class="function">java</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            semaphore.acquire();</div><div class="line">            String name = Thread.currentThread().getName();</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data + data;</div><div class="line">            Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line">            System.out.println(name + <span class="string">"当前值 = "</span> + <span class="keyword">this</span>.data);</div><div class="line">            semaphore.release();</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>5.原子量 AtomicLong(XXX)<br>注意:原子量只能保证单个变量在某一个操作过程是安全的，无法保证在整个代码块的安全性， 所以还是需要Lock/synchronized来保证整个代码块的安全性。  </p>
+<p><strong>小结</strong><br>1.当一个类能很好的同步来保护它的数据时，我们称这个类为“线程安全的”。<br>2.线程同步的目的是保护多个线程操作数据时不被破坏。<br>3.锁同步的是方法，不是对象或者变量。<br>4.线程同步是通过锁来实现，每个对象有且只有一个锁,一旦某一线程获取了该锁，其他访问该对象的线程就不能再访问该对象的同步方法(发送阻塞)。<br>5.死锁是线程间相互等待锁造成的，在开发过程中需要注意。  </p>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p><strong>为什么会出现线程池，这是什么鬼？</strong><br>执行一个线程所需要的时间 = 线程创建的时间 + run方法执行的时间(包括同步的时间) + 线程销毁的时间<br>线程池的思想就是开辟一块内存空间，里面存放众多(未死亡)的线程，当有线程任务时，从池中直接取出一个，该任务执行完之后再放入池中，这样可以避免反复创建和销毁线程带来的性能开销，节省系统资源。</p>
+<p><strong>各种类型的线程池</strong><br>1.newCachedThreadPool()  </p>
+<p>可缓存线程池，先查看池中有没有前创建好的线程，有，复用，没有，创建新的线程加入池中。<br>注意:可复用的线程必须是timeout idle内的池中线程，缺省是60s,超过这个idle时长，线程实例会被终止并移出池。所以该类型的线程池适用于一些生存周期比较短的任务。  </p>
+<p>2.newFixedThreadPool()   </p>
+<p>固定大小的线程池，也能复用线程，但不能随时创建新线程，在任意时间点，最多只有固定数量的活动线程，如果有新的线程要创建，只能放到另外的队列中等待，直到当前线程中的某个线程终止直接被移出池子。<br>注意:该类型的线程池没有idle,创建的线程会一直存在。  </p>
+<p>3.newScheduledThreadPool() </p>
+<p>调度型线程池，线程池中的线程数也是固定的，但是可以根据schedule一次delay执行，换句话可周期性执行 </p>
+<p>4.SingleThreadExecutor </p>
+<p>单任务线程池，任意时间线程池中只有一个线程  </p>
+<p>5.ThreadPoolExecutor</p>
+<p>自定义线程池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line">                   <span class="keyword">int</span> maximumPoolSize,</div><div class="line">                   <span class="keyword">long</span> keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure>
+<p>corePoolSize:核心大小，线程池初始化的时候，就会有这么大<br>maximumPoolSize:线程池最大线程数<br>keepAliveTime:如果当前线程池中线程数大于corePoolSize,多余的线程，在等待keepAliveTime时间后如果还没有新的线程任务指派给它，它就会被回收。但若将allowCoreThreadTimeOut为true,不论线程池中的线程数是否大于corePoolSize，只要是空闲的线程超过keepAliveTime都会被回收。<br>unit:超时时间的单位。<br>workQueue:线程池的任务队列，通过execute方法提交的runnable对象会存储在这个队列中。  默认长度128<br>threadFactory:线程工厂，为线程池通过创建新线程的功能。<br>handler:任务无法执行时，回调handler的rejectedExecution方法来通知调用者。  </p>
+<p><img src="/2017/06/27/多线程/thread3.png" alt="线程转换"></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="单线程的JavaScript"><a href="#单线程的JavaScript" class="headerlink" title="单线程的JavaScript"></a>单线程的JavaScript</h3><p>浏览器的内核是多线程的，它们在内核控制下相互配合以保持同步，一个浏览器中至少会实现三个常驻线程:<br><strong>javascript引擎线程</strong>:javascript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。<br><strong>GUI渲染线程</strong>:GUI渲染线程负责渲染浏览器界面，当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时,该线程就会执行。但需要注意GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。<br><strong>浏览器事件触发线程</strong>:事件触发线程，当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。（当线程中没有执行任何同步代码的前提下才会执行异步代码）  </p>
+<h3 id="js工作线程实现的方式"><a href="#js工作线程实现的方式" class="headerlink" title="js工作线程实现的方式"></a>js工作线程实现的方式</h3><p>1.setTimeout()  使用该函数将任务进行分割<br>2.Google Gears谷歌开发的浏览器插件工具，不提倡使用。<br>3.Web Worker借鉴Google Gears，规范定义了一套API，允许 Web 应用创建在后台执行 JavaScript 代码的工作线程。即工作线程在执行过程中不会对主页面造成影响。Web Worker 规范中定义了两类工作线程:  </p>
+<p>专属工作线程:只能为一个页面所使用,创建专属线程时要指定需要执行的js文件的URL。通过postMessage和onmessage来接收和发送消息。</p>
+<p>共享工作线程:可以被多个页面使用。共享工作线程所执行的 JavaScript 代码中，不能使用 onmessage来直接定义接收到消息时的处理方法，而需要使用 onconnect来定义接收到连接时的处理逻辑  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/22/AndroidHandler/" data-id="cj4htciy700027q3roiluf148" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/27/多线程/" data-id="cj4i95evy000rin3rqx1jntdj" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android机型适配" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/15/Android机型适配/" class="article-date">
-  <time datetime="2017-02-15T08:36:39.000Z" itemprop="datePublished">2017-02-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/15/Android机型适配/">Android机型适配</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配</code></p>
-<h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>若决定支持某种语言，则需要创建资源子目录和字符串资源文件<br>    eg:<br>    MyProject/<br>    —res/<br>    ——values/<br>    ———strings.xml<br>    ——values-es/     西班牙语<br>    ———strings.xml<br>    ——values-fr/     法语<br>    ———strings.xml<br>添加不同区域语言的字符串到相应的文件</p>
-<h2 id="屏幕适配"><a href="#屏幕适配" class="headerlink" title="屏幕适配"></a>屏幕适配</h2><p>4种普通尺寸:小(small)、普通(normal)、大(large)、超大(xlarge)<br>4种普通分辨率:低精度(ldpi)、中精度(mdpi)、高精度(hdpi)、超高精度(xhdpi)</p>
-<p>屏幕的方向也是一种考虑适配的尺寸变化<br>解决方案:创建不同的layout<br>    eg:<br>    MyProject/<br>    —res/<br>    ——layout/<br>    ———main.xml<br>    ——layout-large/<br>    ———main.xml<br>    ——layout-land/<br>    ———main.xml<br>    ——layout-large-land/<br>    ———main.xml</p>
-<p><code>注意:Android3.2及以上版本支持定义屏幕尺寸的高级方法，它允许根据屏幕的长度和宽度指定layout</code></p>
-<p>适配不同屏幕的注意点</p>
-<ol>
-<li>使用wrap_content、match_parent尺寸值代替硬编码的尺寸</li>
-<li>尽可能多的使用RelativeLayout,精准得到layout与子控件的关系</li>
-<li>使用最小宽度限定词 (最小限定词允许你根据设备的最小宽度(dp单位)来指定不同布局)<br><code>注意:最小宽度限定词只能在Android3.2或者更高版本使用</code></li>
-<li><p>使用布局别名<br> eg:<br> res/layout/main.xml<br> res/layout-large/main.xml<br> res/layout-sw600dp/main.xml<br> 最后两个文件是一样的,layout-sw600dp适配的是Android3.2的设备,layout-large适配的是其他低版本的Android设备,为了避免重复以及后期维护的复杂性采用别名方式进行适配<br> eg:<br> res/layout/main.xml<br> res/layout/main_two_pans.xml<br> 然后添加这两个文件:<br> res/values-large/layout.xml</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
-<p> res/values-sw600dp/layout.xml</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>背景图使用.9图</p>
-</li>
-<li>使用密度独立像素(dp、sp)的单位</li>
-<li>提供不同分辨率的图片</li>
-</ol>
-<h2 id="适配不同系统版本"><a href="#适配不同系统版本" class="headerlink" title="适配不同系统版本"></a>适配不同系统版本</h2><ol>
-<li>指定最小和目标API级别</li>
-<li>运行时检查系统版本<br><code>Android在Build常类中提供了对每一个版本的唯一代号，我们可以利用这些代号在我们的app中建立条件，保证依赖于高级别的API代码</code></li>
-<li>使用平台风格和主题</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/Android机型适配/" data-id="cj4htciyf00057q3rs7xap4hu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Buck" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/14/Buck/" class="article-date">
-  <time datetime="2017-02-14T07:16:03.000Z" itemprop="datePublished">2017-02-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/Buck/">Buck</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android Buck支持Mac os x 、Linux 、 Windows<br>IOS Buck只支持Mac os x、Linux 、 Windows</p>
-<p>Mac OS X下构建Android</p>
-<h1 id="搭建Buck环境"><a href="#搭建Buck环境" class="headerlink" title="搭建Buck环境"></a>搭建Buck环境</h1><h2 id="1-Homebrew方式下载Buck"><a href="#1-Homebrew方式下载Buck" class="headerlink" title="1.Homebrew方式下载Buck"></a>1.Homebrew方式下载Buck</h2><pre><code>$ brew update
-$ brew tap facebook/fb
-$ brew install --HEAD buck
-</code></pre><h2 id="2-手动方式下载Buck"><a href="#2-手动方式下载Buck" class="headerlink" title="2.手动方式下载Buck"></a>2.手动方式下载Buck</h2><p>手动构建Buck的前提要下载以下工具:<br><a href="https://developer.apple.com/xcode/features/" title="悬停显示" target="_blank" rel="external">Command Line Tools </a><br><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" title="悬停显示" target="_blank" rel="external">Oracle Java Development Kit</a><br><a href="http://ant.apache.org/" title="悬停显示" target="_blank" rel="external">Apache Ant 1.9 (or newer) </a><br><a href="https://www.python.org/downloads/" title="悬停显示" target="_blank" rel="external">Python 2.7 </a><br><a href="https://git-scm.com/download" title="悬停显示" target="_blank" rel="external">Git</a><br><a href="https://facebook.github.io/watchman/docs/install.html" title="悬停显示" target="_blank" rel="external">Watchman</a></p>
-<p>你可以选择使用Homebrew安装上面的工具.</p>
-<p>上面工具安装成后可以按照下面的方式 install buck<br>    git clone <a href="https://github.com/facebook/buck.git" target="_blank" rel="external">https://github.com/facebook/buck.git</a><br>    cd buck<br>    ant<br>    ./bin/buck –help</p>
-<p>build安装成功界面<br><img src="Buck/buck_android_success.png" alt="Build成功">        </p>
-<p>配置环境变量</p>
-<pre><code>$ cd ~
-$ vim ~/.bash_profile
-添加如下配置
-export PATH=$HOME/buck/bin:$PATH
-使配置立即生效
-$ source ~/.bash_profile
-</code></pre><h1 id="Buck构建Android"><a href="#Buck构建Android" class="headerlink" title="Buck构建Android"></a>Buck构建Android</h1><ol>
-<li><p>快速构建<br> $ touch .buckconfig &amp;&amp; buck quickstart</p>
-<p> 该命令在执行过程中会要求补全两个参数的值:<br> –dest-dir: 生成的Android工程的目录<br> –android-sdk: 本地Android SDK的目录<br> 注意:新版本–android-sdk参数失效了,可以在开发平台手动设置SDK</p>
-<p>Buck构建Android的目录结构<br><img src="Buck/buck_android.png" alt="Buck构建Android的目录结构"><br>进入到项目根目录执行如下命令</p>
-<p> 编译应用程序<br> $ buck build android别名<br> 安装应用到设备<br> $ buck install –run android别名 </p>
-<p>  创建IntelliJ工程<br> $ buck project –ide IntelliJ</p>
-</li>
-</ol>
-<h1 id="Buck的基本理解"><a href="#Buck的基本理解" class="headerlink" title="Buck的基本理解"></a>Buck的基本理解</h1><h2 id="Build-Rule"><a href="#Build-Rule" class="headerlink" title="Build Rule"></a>Build Rule</h2><p>   构建规则是从一组输入文件中生成一组输出文件的过程，是一种泛称。Buck已经内建了一系列的构建规则。比如构建Android代码是会用到规则</p>
-<p>   android_binary()生成一个apk文件，android_library() 生成jar包等</p>
-<p>   每个构建规则至少包括三个参数</p>
-<p>   1.name:构建规则的名称，在一个构建文件中必须保持其唯一性</p>
-<p>   2.deps:构建规则的依赖项，以一个构建目标的列表的形式表示</p>
-<p>   3.visibility:可见性，表明其他构建规则是否可以依赖该规则构建，以一个构建目标模式的列表形式表示</p>
-<p>   示例1</p>
-<pre><code>android_resource(
-  name = &apos;res&apos;,
-  res = &apos;res&apos;,
-  assets = &apos;assets&apos;,
-)
-
-android_library(
-  name = &apos;src&apos;,
-  srcs = glob([&apos;src/**/*.java&apos;]),
-  deps = [
-    &apos;:res&apos;,
-  ],)
-
-android_binary(
-  name = &apos;hello&apos;,
-  manifest = &apos;AndroidManifest.xml&apos;,
-  keystore = &apos;//keystores:prod&apos;,
-  package_type = &apos;release&apos;,
-  proguard_config = &apos;proguard.cfg&apos;,
-  deps = [
-    &apos;:res&apos;,
-    &apos;:src&apos;,
-  ],)
-</code></pre><p> 注意:buck中构建规则依赖的规则，会先于构建规则本身进行构建，构建规则和它的依赖之间是一个有向图，并且这个图的无闭环的。     </p>
-<h2 id="Build-Target"><a href="#Build-Target" class="headerlink" title="Build Target"></a>Build Target</h2><p>   Build Target 构建目标是一个字符串，用于标识工程中的某个构建规则，它常常作为Build Rule的参数使用。</p>
-<pre><code>&apos;//java/com/example/activity:activity&apos;
-</code></pre><p>   主要有三部分组成:</p>
-<p>   1.// 前缀表示路径是相对于工程的根目录</p>
-<p>   2.java/com/example/activity表示构建文件buck位于该目录中</p>
-<p>   3.:后面的activity表示构建文件里面定义的构建规则的名称，在一个构建文件中，构建规则的名字是唯一的</p>
-<p>   在同一个构建文件中，可以使用构建目标的相对路径来引用。相对路径以(:)冒号开始，后面紧跟三大组成部分的第三部分。如示例1</p>
-<h2 id="Build-File"><a href="#Build-File" class="headerlink" title="Build File"></a>Build File</h2><p>Build File 构建文件用于定义一个或者过个构建规则，统一命名为Buck.在一个工程中的java源文件只能被离它最近的Buck文件引用。</p>
-<p>示例</p>
-<pre><code>java/com/facebook/base/BUCK
-java/com/facebook/common/BUCK
-java/com/facebook/common/collect/BUCK
-</code></pre><p>base/Buck文件中的构建规则只能引用base/目录下的源文件</p>
-<p>common/Buck文件中的构建规则可以引用该目录下除去子目录collect之外的所有源文件</p>
-<p>collect/Buck文件中的构建规则只能引用collect中的源文件</p>
-<p>那么我们如何在common中引用base和collect中的构建规则呢?答案是 使用deps引用这些文件</p>
-<p>示例</p>
-<p>java/com/facebook/common/test/的代码需要依赖java/com/facebook/common/collect/包下面的代码,假设java/com/facebook/common/collect/BUCK文件中有一个构建规则如下：</p>
-<pre><code>java_library(
-   name = &apos;collect&apos;,
-   srcs = glob([&apos;*.java&apos;]),
-   deps = [
- &apos;//java/com/facebook/base:base&apos;,
-  ],)
-</code></pre><p>那么java/com/facebook/common/BUCK文件应该定义规则如下：</p>
-<pre><code>java_library(
-   name = &apos;test&apos;,
-  srcs = glob([&apos;test/*.java&apos;]),
-  deps = [
-        &apos;//java/com/facebook/base:base&apos;,
-    &apos;//java/com/facebook/common/collect:collect&apos;,
-  ],)
-</code></pre><h2 id="Build-Target-Pattern"><a href="#Build-Target-Pattern" class="headerlink" title="Build Target Pattern"></a>Build Target Pattern</h2><p>Build Target Pattern构建目标模式是一个用来匹配一个或者多个构建目标的字符串，一般作为参数传递给构建规则中的visibility属性。一个构建目标其实也是一个构建模式，只是它匹配到的是它自己.</p>
-<pre><code># 匹配到 &apos;//apps/myapp:app&apos;
-&apos;//apps/myapp:app&apos;
-</code></pre><p>以冒号:结尾的构建目标模式可以匹配到同一目录中的构建目标</p>
-<pre><code># 匹配到 &apos;//apps/myapp:app_debug&apos; 和&apos;//apps/myapp:app_release&apos;
-&apos;//apps/myapp:&apos;
-</code></pre><p>以/…结尾的构建目标模式可以匹配到该目录及其子目录中的构建目标：</p>
-<pre><code># 匹配到 &apos;//apps:common&apos; and &apos;//apps/myapp:app&apos;
-&apos;//apps/...&apos;
-</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://buckbuild.com/setup/getting_started.html" title="悬停显示" target="_blank" rel="external">Buck官方文档</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/14/Buck/" data-id="cj4htciyj00067q3rb4a16ilz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RN组件收藏" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/13/RN组件收藏/" class="article-date">
-  <time datetime="2017-02-13T14:03:08.000Z" itemprop="datePublished">2017-02-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/文章/">文章</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/RN组件收藏/">RN组件收藏</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>WebView相关<br><a href="https://github.com/alinz/react-native-webview-bridge" title="悬停显示" target="_blank" rel="external">WebView</a></p>
-</li>
-<li><p>毛玻璃<br><a href="https://github.com/wasabeef/Blurry" title="悬停显示" target="_blank" rel="external">毛玻璃效果</a></p>
-</li>
-<li><p>获取设备信息<br><a href="https://github.com/rebeccahughes/react-native-device-info" title="悬停显示" target="_blank" rel="external">获取设备信息</a></p>
-</li>
-<li><p>下拉-上拉-刷新<br><a href="https://github.com/greatbsky/react-native-pull/wiki" title="悬停显示" target="_blank" rel="external">下拉-上拉-刷新1</a><br><a href="https://github.com/jsdf/react-native-refreshable-listview" title="悬停显示" target="_blank" rel="external">下拉-上拉-刷新2</a></p>
-</li>
-<li><p>下拉菜单<br><a href="https://github.com/alinz/react-native-dropdown" title="悬停显示" target="_blank" rel="external">下拉菜单</a></p>
-</li>
-<li><p>图片查看<br><a href="https://github.com/alinz/react-native-dropdown" title="悬停显示" target="_blank" rel="external">图片查看</a></p>
-</li>
-<li><p>图片选择<br><a href="https://github.com/marcshilling/react-native-image-picker" title="悬停显示" target="_blank" rel="external">图片选择1</a><br><a href="https://github.com/ivpusic/react-native-image-crop-picker" title="悬停显示" target="_blank" rel="external">图片选择2</a></p>
-</li>
-<li><p>图片加载进度条<br><a href="https://github.com/oblador/react-native-image-progress" title="悬停显示" target="_blank" rel="external">图片加载进度条</a></p>
-</li>
-<li><p>轮番视图<br><a href="https://github.com/race604/react-native-viewpager" title="悬停显示" target="_blank" rel="external">轮番视图1</a><br><a href="https://github.com/FuYaoDe/react-native-app-intro" title="悬停显示" target="_blank" rel="external">轮番视图2</a><br><a href="https://github.com/appintheair/react-native-looped-carousel" title="悬停显示" target="_blank" rel="external">轮番视图3</a><br><a href="https://github.com/leecade/react-native-swiper" title="悬停显示" target="_blank" rel="external">轮番视图4</a></p>
-</li>
-<li><p>图标<br><a href="https://github.com/oblador/react-native-vector-icons" title="悬停显示" target="_blank" rel="external">图标-icons</a></p>
-</li>
-<li><p>选项卡<br><a href="https://github.com/exponentjs/react-native-tab-navigator" title="悬停显示" target="_blank" rel="external">选项卡-tab-navigator</a></p>
-</li>
-<li><p>滑动选项卡<br><a href="https://github.com/skv-headless/react-native-scrollable-tab-view&quot;悬停显示&quot;" target="_blank" rel="external">滑动选项卡-scrooltable-tab-view</a></p>
-</li>
-<li><p>模态视图<br><a href="https://github.com/maxs15/react-native-modalbox" title="悬停显示" target="_blank" rel="external">模态视图1</a><br><a href="https://github.com/brentvatne/react-native-modal" title="悬停显示" target="_blank" rel="external">模态视图2</a><br><a href="https://github.com/bodyflex/react-native-simple-modal&quot;悬停显示&quot;" target="_blank" rel="external">模态视图3</a></p>
-</li>
-<li><p>material组件库<br><a href="https://github.com/xinthink/react-native-material-kit" title="悬停显示" target="_blank" rel="external">各种漂亮的小组件</a></p>
-</li>
-<li><p>base 组件库<br><a href="http://nativebase.io/docs/v0.4.6/components#anatomy" title="悬停显示" target="_blank" rel="external">各种封装不错的小组件1</a><br><a href="https://github.com/GeekyAnts/NativeBase" title="悬停显示" target="_blank" rel="external">各种封装不错的小组件2</a></p>
-</li>
-</ol>
-<ol>
-<li>按钮<br><a href="https://github.com/mastermoo/react-native-action-button" title="悬停显示" target="_blank" rel="external">不错的按钮1</a><br><a href="https://github.com/mastermoo/react-native-action-button" title="悬停显示" target="_blank" rel="external">不错的按钮2</a></li>
-</ol>
-<ol>
-<li><p>TextInput<br><a href="https://github.com/halilb/react-native-textinput-effects" title="悬停显示" target="_blank" rel="external">炫酷效果的TextInput</a></p>
-</li>
-<li><p>聊天<br><a href="https://github.com/FaridSafi/react-native-gifted-chat&quot;悬停显示&quot;" target="_blank" rel="external">聊天组件</a></p>
-</li>
-<li><p>地图<br><a href="https://github.com/lelandrichardson/react-native-maps" title="悬停显示" target="_blank" rel="external">地图</a></p>
-</li>
-<li><p>动画<br><a href="https://github.com/oblador/react-native-animatable" title="悬停显示" target="_blank" rel="external">动画特效</a><br><a href="https://github.com/maxs15/react-native-spinkit" title="悬停显示" target="_blank" rel="external">加载动画</a></p>
-</li>
-<li><p>抽屉效果<br><a href="https://github.com/root-two/react-native-drawer" title="悬停显示" target="_blank" rel="external">抽屉效果1</a><br><a href="https://github.com/react-native-fellowship/react-native-side-menu" title="悬停显示" target="_blank" rel="external">抽屉效果2</a></p>
-</li>
-</ol>
-<p>22.侧滑按钮<br><a href="https://github.com/dancormier/react-native-swipeout" title="悬停显示" target="_blank" rel="external">侧滑按钮1</a><br><a href="https://github.com/jemise111/react-native-swipe-list-view" title="悬停显示" target="_blank" rel="external">侧滑按钮2</a></p>
-<ol>
-<li><p>图标<br><a href="https://github.com/tomauty/react-native-chart" title="悬停显示" target="_blank" rel="external">图标</a></p>
-</li>
-<li><p>下拉放大<br><a href="https://github.com/lelandrichardson/react-native-parallax-view" title="悬停显示" target="_blank" rel="external">下拉放大</a></p>
-</li>
-<li><p>可滑动日历组件<br><a href="https://github.com/cqm1994617/react-native-myCalendar" title="悬停显示" target="_blank" rel="external">可滑动日历组件</a></p>
-</li>
-<li><p>单选、多选的额ListView<br><a href="https://github.com/hinet/react-native-checkboxlist" title="悬停显示" target="_blank" rel="external">单选、多选的额ListView</a></p>
-</li>
-<li><p>制作本地库<br><a href="https://github.com/frostney/react-native-create-library" title="悬停显示" target="_blank" rel="external">制作本地库</a></p>
-</li>
-<li><p>影音相关<br><a href="https://github.com/MisterAlex95/react-native-record-sound" title="悬停显示" target="_blank" rel="external">影音相关</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/RN组件收藏/" data-id="cj4htciyw000l7q3rbcy5xxjs" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RreactNative/">RreactNative</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RNGM基于0-0-23版本的改动" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/13/RNGM基于0-0-23版本的改动/" class="article-date">
-  <time datetime="2017-02-13T13:41:33.000Z" itemprop="datePublished">2017-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/RNGM基于0-0-23版本的改动/">RNGM基于0.0.23版本的改动</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>RNGF(react-native-gifted-messenger)的缩写</p>
-<ol>
-<li><p>文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能</p>
-</li>
-<li><p>根据产品需求自定义了一些Bubble 包括：<br>ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble</p>
-</li>
-<li><p>修改时间展示的格式，添加中文支持</p>
-</li>
-<li><p>在渲染每一行消息时，添加position为middle的属性渲染SystemBubble</p>
-</li>
-<li><p>修改消息发送错误ErrorButton的样式去掉GiftedSpinner，添加重新发送消息功能</p>
-</li>
-<li><p>修改input处的样式并添加MenuButton(+)，修改TextInput的onChange事件</p>
-</li>
-<li><p>添加MenuView:随访模板、患者病例、快捷回复、就诊小结、发送图片、随访方案、WorkBook</p>
-</li>
-<li><p>发送消息时，重新组合消息</p>
-</li>
-<li><p>暴露关于聊天消息数据数组到组件外面去注入。删掉所有关于消息数据增删改的控制</p>
-</li>
-<li><p>去除顶部 获取更多历史消息按钮，转变为下拉刷新</p>
-</li>
-<li><p>添加TextBubble 关于多行文本展示，限制最大宽度</p>
-</li>
-<li><p>修改几乎所有的展示样式，颜色搭配等。</p>
-</li>
-<li><p>添加输入框多行文本支持</p>
-</li>
-<li><p>添加Image放大展示</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/RNGM基于0-0-23版本的改动/" data-id="cj4htciyv000i7q3refj5ondu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RN-Pad端优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/13/RN-Pad端优化/" class="article-date">
-  <time datetime="2017-02-13T10:38:09.000Z" itemprop="datePublished">2017-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/RN-Pad端优化/">RN_Pad端优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本篇文章是介绍在实践开发中遇到的一些性能问题给出的优化方案。</p>
-<h3 id="ListView的优化"><a href="#ListView的优化" class="headerlink" title="ListView的优化"></a>ListView的优化</h3><ol>
-<li><p>注意rowHasChanged函数中条件的设置，如果设置不当会造成全量渲染导致卡顿现象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dataSource = <span class="keyword">new</span> ListView.DataSource(&#123;</div><div class="line">  <span class="attr">rowHasChanged</span>: <span class="function">(<span class="params">r1, r2</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> r1.data.id !== r2.data.id || r1.selected !== r2.selected</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>设置ListView的initialListSize属性，指定组件刚挂载的时候渲染N行，来确保首屏显示合适数量的数据。</p>
-</li>
-<li>ListView进行分页显示.</li>
-</ol>
-<h3 id="ReactNativeRouterFlux的优化"><a href="#ReactNativeRouterFlux的优化" class="headerlink" title="ReactNativeRouterFlux的优化"></a>ReactNativeRouterFlux的优化</h3><ol>
-<li>设置<code>duration={0}</code>,取消页面之间的跳转动画，消除跳转页面卡顿现象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> &lt;Scene </div><div class="line">    key=<span class="string">"root"</span></div><div class="line">    navigationBarStyle=&#123;commonStyle.navigator&#125;</div><div class="line">    titleStyle=&#123;[commonStyle.naviTitle, commonStyle.middleTitle]&#125;</div><div class="line">    backButtonTextStyle=&#123;commonStyle.naviTitle&#125;</div><div class="line">    duration=&#123;<span class="number">0</span>&#125;</div><div class="line">    backButtonImage=&#123;<span class="built_in">require</span>(<span class="string">'../util/image/back_chevron.png'</span>)&#125;</div><div class="line">  &gt;&lt;/Scence&gt;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="优化首次登陆时，融云推送大批量消息时的逻辑"><a href="#优化首次登陆时，融云推送大批量消息时的逻辑" class="headerlink" title="优化首次登陆时，融云推送大批量消息时的逻辑"></a>优化首次登陆时，融云推送大批量消息时的逻辑</h3><ol>
-<li><p>当首次登陆接收融云大批量消息时,将js与原生端的推送消息改为批量推送,减少js端与原生端连接的性能损耗。</p>
-</li>
-<li><p>js端接收到消息后的处理逻辑,一次性设置到Redcer中,消除患者沟通列表的多次渲染。</p>
-</li>
-</ol>
-<h3 id="数据请求时的处理"><a href="#数据请求时的处理" class="headerlink" title="数据请求时的处理"></a>数据请求时的处理</h3><ol>
-<li>为所有有网络请求的页面添加loading效果,提升用户体验,消除不连贯的体验。</li>
-</ol>
-<h3 id="HTTP-Request耗时日志"><a href="#HTTP-Request耗时日志" class="headerlink" title="HTTP Request耗时日志"></a>HTTP Request耗时日志</h3><ol>
-<li>去掉HTTP Request耗时日志,这是由于react-native本身框架的原因造成。</li>
-</ol>
-<h3 id="录音功能"><a href="#录音功能" class="headerlink" title="录音功能"></a>录音功能</h3><ol>
-<li><p>正在录音中可以返回到其他页面做别的任务,也可以黑屏或者后台录音。</p>
-</li>
-<li><p>修改录音绑定和workbook处开始录音的处理逻辑,一次只能有一个录音。</p>
-</li>
-</ol>
-<h3 id="其他页面的优化"><a href="#其他页面的优化" class="headerlink" title="其他页面的优化"></a>其他页面的优化</h3><ol>
-<li><p>无档案患者列表, 数据结构与新UI所需要的数据结构不符,转换数据结构。</p>
-</li>
-<li><p>患者动态页面, 数据结构与新UI所需要的数据结构不符,转换数据结构。</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/RN-Pad端优化/" data-id="cj4htciyu000g7q3rshhuvz5r" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
-
     </footer>
   </div>
   
@@ -580,7 +133,7 @@ java/com/facebook/common/collect/BUCK
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -588,7 +141,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -598,7 +151,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
@@ -608,7 +161,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -627,9 +180,13 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
@@ -647,10 +204,6 @@ java/com/facebook/common/collect/BUCK
             <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
-          <li>
-            <a href="/2017/05/14/Android动画/">Android动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -664,7 +217,7 @@ java/com/facebook/common/collect/BUCK
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

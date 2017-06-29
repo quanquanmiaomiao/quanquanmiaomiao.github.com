@@ -12,13 +12,13 @@
 <meta property="og:url" content="http://yoursite.com/2017/02/14/Buck/index.html">
 <meta property="og:site_name" content="DarkAngel的技术小屋">
 <meta property="og:description" content="Android Buck支持Mac os x 、Linux 、 WindowsIOS Buck只支持Mac os x、Linux 、 Windows Mac OS X下构建Android 搭建Buck环境1.Homebrew方式下载Buck$ brew update $ brew tap facebook/fb $ brew install --HEAD buck 2.手动方式下载Buck手动构建">
-<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android_success.png">
-<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android.png">
+<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/buck_android_success.png">
+<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/buck_android.png">
 <meta property="og:updated_time" content="2017-03-13T09:35:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Buck">
 <meta name="twitter:description" content="Android Buck支持Mac os x 、Linux 、 WindowsIOS Buck只支持Mac os x、Linux 、 Windows Mac OS X下构建Android 搭建Buck环境1.Homebrew方式下载Buck$ brew update $ brew tap facebook/fb $ brew install --HEAD buck 2.手动方式下载Buck手动构建">
-<meta name="twitter:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android_success.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/02/14/Buck/buck_android_success.png">
   
     <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
   
@@ -56,9 +56,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -97,7 +97,7 @@ $ brew install --HEAD buck
 </code></pre><h2 id="2-手动方式下载Buck"><a href="#2-手动方式下载Buck" class="headerlink" title="2.手动方式下载Buck"></a>2.手动方式下载Buck</h2><p>手动构建Buck的前提要下载以下工具:<br><a href="https://developer.apple.com/xcode/features/" title="悬停显示" target="_blank" rel="external">Command Line Tools </a><br><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" title="悬停显示" target="_blank" rel="external">Oracle Java Development Kit</a><br><a href="http://ant.apache.org/" title="悬停显示" target="_blank" rel="external">Apache Ant 1.9 (or newer) </a><br><a href="https://www.python.org/downloads/" title="悬停显示" target="_blank" rel="external">Python 2.7 </a><br><a href="https://git-scm.com/download" title="悬停显示" target="_blank" rel="external">Git</a><br><a href="https://facebook.github.io/watchman/docs/install.html" title="悬停显示" target="_blank" rel="external">Watchman</a></p>
 <p>你可以选择使用Homebrew安装上面的工具.</p>
 <p>上面工具安装成后可以按照下面的方式 install buck<br>    git clone <a href="https://github.com/facebook/buck.git" target="_blank" rel="external">https://github.com/facebook/buck.git</a><br>    cd buck<br>    ant<br>    ./bin/buck –help</p>
-<p>build安装成功界面<br><img src="Buck/buck_android_success.png" alt="Build成功">        </p>
+<p>build安装成功界面<br><img src="/2017/02/14/Buck/buck_android_success.png" alt="Build成功">        </p>
 <p>配置环境变量</p>
 <pre><code>$ cd ~
 $ vim ~/.bash_profile
@@ -108,7 +108,7 @@ $ source ~/.bash_profile
 </code></pre><h1 id="Buck构建Android"><a href="#Buck构建Android" class="headerlink" title="Buck构建Android"></a>Buck构建Android</h1><ol>
 <li><p>快速构建<br> $ touch .buckconfig &amp;&amp; buck quickstart</p>
 <p> 该命令在执行过程中会要求补全两个参数的值:<br> –dest-dir: 生成的Android工程的目录<br> –android-sdk: 本地Android SDK的目录<br> 注意:新版本–android-sdk参数失效了,可以在开发平台手动设置SDK</p>
-<p>Buck构建Android的目录结构<br><img src="Buck/buck_android.png" alt="Buck构建Android的目录结构"><br>进入到项目根目录执行如下命令</p>
+<p>Buck构建Android的目录结构<br><img src="/2017/02/14/Buck/buck_android.png" alt="Buck构建Android的目录结构"><br>进入到项目根目录执行如下命令</p>
 <p> 编译应用程序<br> $ buck build android别名<br> 安装应用到设备<br> $ buck install –run android别名 </p>
 <p>  创建IntelliJ工程<br> $ buck project –ide IntelliJ</p>
 </li>
@@ -190,7 +190,7 @@ java/com/facebook/common/collect/BUCK
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/14/Buck/" data-id="cj4htciyj00067q3rb4a16ilz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/14/Buck/" data-id="cj4i95evi0007in3rjn50njbq" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -202,7 +202,7 @@ java/com/facebook/common/collect/BUCK
 <nav id="article-nav">
   
     <a href="/2017/02/15/Android机型适配/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           Android机型适配
@@ -212,7 +212,7 @@ java/com/facebook/common/collect/BUCK
   
   
     <a href="/2017/02/13/RN组件收藏/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">RN组件收藏</div>
     </a>
   
@@ -227,7 +227,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -237,7 +237,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
@@ -247,7 +247,7 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -266,9 +266,13 @@ java/com/facebook/common/collect/BUCK
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
@@ -286,10 +290,6 @@ java/com/facebook/common/collect/BUCK
             <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
-          <li>
-            <a href="/2017/05/14/Android动画/">Android动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -303,7 +303,7 @@ java/com/facebook/common/collect/BUCK
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

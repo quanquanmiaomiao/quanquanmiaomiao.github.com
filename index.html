@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-多线程" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ES6-String" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/27/多线程/" class="article-date">
-  <time datetime="2017-06-27T03:54:10.000Z" itemprop="datePublished">2017-06-27</time>
+    <a href="/2017/06/29/ES6-String/" class="article-date">
+  <time datetime="2017-06-29T02:56:03.000Z" itemprop="datePublished">2017-06-29</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/27/多线程/">多线程</a>
+      <a class="article-title" href="/2017/06/29/ES6-String/">ES6-String</a>
     </h1>
   
 
@@ -83,655 +83,62 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="为什么使用多线程"><a href="#为什么使用多线程" class="headerlink" title="为什么使用多线程?"></a>为什么使用多线程?</h3><p>通过减少CPU空闲的时间来达到提高效率的目的。</p>
-<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p><strong>进程</strong>:指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间，并且一个进程可以启动多个线程。比如在Android系统中一个运行一个apk就相当于启动了一个进程。 </p>
-<p><strong>线程</strong>:指进程中的一个执行流程。线程总是属于某个进程，进程中的多个线程共享进程的内存。<br>“同时”执行是人的感觉，线程之间实际上轮换执行。  </p>
-<h3 id="Java中的线程"><a href="#Java中的线程" class="headerlink" title="Java中的线程"></a>Java中的线程</h3><p>1.Thread类  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	<span class="keyword">new</span> Thread(<span class="string">"测试线程1"</span>)&#123;</div><div class="line"> 		<span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">               <span class="keyword">super</span>.run();</div><div class="line">               <span class="comment">//处理耗时操作</span></div><div class="line">           &#125;</div><div class="line"> 	&#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.Runnable接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">		<span class="meta">@Override</span></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">			<span class="comment">// 处理耗时操作</span></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">new</span> Thread(runnable,<span class="string">"测试线程2"</span>).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="线程中的一些常见问题"><a href="#线程中的一些常见问题" class="headerlink" title="线程中的一些常见问题"></a>线程中的一些常见问题</h3><p>1.线程的名字可以开发者自己设置，也可以是JVM给定。<br>2.通过Thread.currentThread()获取线程的名称，且只能获取当前线程名称。<br>3.一系列线程按照一定的顺序启动，但不能保证按照该顺序执行完成。<br>4.当线程run方法结束时该线程完成。<br>5.线程只能启动一次，多次启动回报java.lang.IllegalThreadStateException:Thread already started。<br>6.在一个CPU的机器上，实际上在同一时刻只能运行一个线程。<br>7.尽管我们没有办法控制线程调度，但我们可以通过别的方式来影响线程调度。  </p>
-<h3 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h3><p><img src="多线程/thread1.png" alt="线程转换"><br>1.新状态:new了线程对象，但是没有调用start方法。<br>2.可运行状态:线程有资格运行，但是调度还没有把他选定为运行状态时所处的状态。此时该线程已经调用的start方法。<br>3.运行状态:线程调运从运行池中选定一个线程作为当前线程时所处的状态。线程唯一进入运行状态的方式。<br>4.等待/阻塞/睡眠状态:线程没有条件运行，如果某件事件出现会返回到可运行状态。<br> sleep()&lt;–&gt;sleep()结束<br> yield()&lt;–&gt;再次获取CPU<br> wait() &lt;–&gt; notify()/notifyAll()<br> join() &lt;–&gt; join()中断 直到加入的线程执行完之后，当前线程才能继续执行<br> synchronized/lock&lt;–&gt;同步锁被释放<br> 上述几种情况可导致运行状态到阻塞、阻塞到可运行状态或运行状态<br>5.死亡状态:当线程的run方法完成就认为它死去。这个线程对象也许是活的，但是他已经不是一个单独执行的线程。</p>
-<h3 id="影响线程调度"><a href="#影响线程调度" class="headerlink" title="影响线程调度"></a>影响线程调度</h3><p>1.线程的交互<br>wait()/wait(long timeout)/wait(long timeout,int nanos)<br>当前线程等待，直到其他线程调用此对象的notify()或notifyAll()或超过指定的时间量<br>notify()/notifyAll()<br>唤醒此对象上等待的单个(所有)线程<br>注意:上述这些方法必须在同步环境中调用。换句话说线程不能调用对象上等待或通知的方法，除非该线程拥有此对象的锁。<br>2.线程的休眠<br>sleep(long millis)/sleep(long millis,int nanos)<br>当前线程休眠，使该线程让出CPU资源给其他线程，被休眠线程的休眠时间大于或等于mills<br>3.线程的优先级<br>setPriority(int priority) 0~10<br>优先级高的线程获取CPU资源的概率更大。<br>4.线程的让步<br>yield()<br>当前运行的线程让出CPU资源，并且该线程变为可运行状态，线程调度可以再一次选中该线程<br>5.线程的合并<br>join()/join(long mills)/join(long mills,int nanos)<br>一个线程必须等待另一个线程执行完毕才能执行。(等待时间最长为mills/mills+nanos)    </p>
-<h3 id="线程的同步"><a href="#线程的同步" class="headerlink" title="线程的同步"></a>线程的同步</h3><p><strong>为什么会有同步问题的提出？</strong><br>当多个线程访问同一个数据对象时，会对数据造成破快。 列子。<br>通过锁的方式保证数据的合理性。<br><strong>Java中内置的锁</strong></p>
-<p>1.synchronized<br>注意:释放锁就是指持锁的线程退出了synchronized同步的方法或代码块  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data + data;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">20</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"当前值"</span> + <span class="keyword">this</span>.data);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="number">2</span>.<span class="keyword">volatile</span>  </div><div class="line">缺点:同步性差，容易出错  </div><div class="line">有点:简单，开销小   </div><div class="line">场景:i++操作，计算机的处理:读取 -&gt; 修改 -&gt; 写入，在多线程情况下，当这些步骤操作了一部分，另一个线程就引用该变量此时读到的就是脏数据。 采用<span class="keyword">volatile</span>来同步变量i,避免脏数据的产生。</div><div class="line">注意:Java以及不推荐使用了，Java5已经引入了原子量的概念来解决该问题。</div><div class="line"></div><div class="line"><span class="number">3.1</span> Lock  </div><div class="line">注意:需要手动释放锁</div><div class="line"></div><div class="line">```<span class="function">java</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> &#123;</div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data+data;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">20</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"当前值"</span> + <span class="keyword">this</span>.data);</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="number">4</span>.Semaphore 信号量的方式实现同步  </div><div class="line">场景举例:<span class="number">5</span>个班需要开班会，但是现在只有<span class="number">3</span>个教室</div><div class="line"></div><div class="line">```<span class="function">java</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            semaphore.acquire();</div><div class="line">            String name = Thread.currentThread().getName();</div><div class="line">            <span class="keyword">this</span>.data = <span class="keyword">this</span>.data + data;</div><div class="line">            Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line">            System.out.println(name + <span class="string">"当前值 = "</span> + <span class="keyword">this</span>.data);</div><div class="line">            semaphore.release();</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>5.原子量 AtomicLong(XXX)<br>注意:原子量只能保证单个变量在某一个操作过程是安全的，无法保证在整个代码块的安全性， 所以还是需要Lock/synchronized来保证整个代码块的安全性。  </p>
-<p><strong>小结</strong><br>1.当一个类能很好的同步来保护它的数据时，我们称这个类为“线程安全的”。<br>2.线程同步的目的是保护多个线程操作数据时不被破坏。<br>3.锁同步的是方法，不是对象或者变量。<br>4.线程同步是通过锁来实现，每个对象有且只有一个锁,一旦某一线程获取了该锁，其他访问该对象的线程就不能再访问该对象的同步方法(发送阻塞)。<br>5.死锁是线程间相互等待锁造成的，在开发过程中需要注意。  </p>
-<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p><strong>为什么会出现线程池，这是什么鬼？</strong><br>执行一个线程所需要的时间 = 线程创建的时间 + run方法执行的时间(包括同步的时间) + 线程销毁的时间<br>线程池的思想就是开辟一块内存空间，里面存放众多(未死亡)的线程，当有线程任务时，从池中直接取出一个，该任务执行完之后再放入池中，这样可以避免反复创建和销毁线程带来的性能开销，节省系统资源。</p>
-<p><strong>各种类型的线程池</strong><br>1.newCachedThreadPool()  </p>
-<p>可缓存线程池，先查看池中有没有前创建好的线程，有，复用，没有，创建新的线程加入池中。<br>注意:可复用的线程必须是timeout idle内的池中线程，缺省是60s,超过这个idle时长，线程实例会被终止并移出池。所以该类型的线程池适用于一些生存周期比较短的任务。  </p>
-<p>2.newFixedThreadPool()   </p>
-<p>固定大小的线程池，也能复用线程，但不能随时创建新线程，在任意时间点，最多只有固定数量的活动线程，如果有新的线程要创建，只能放到另外的队列中等待，直到当前线程中的某个线程终止直接被移出池子。<br>注意:该类型的线程池没有idle,创建的线程会一直存在。  </p>
-<p>3.newScheduledThreadPool() </p>
-<p>调度型线程池，线程池中的线程数也是固定的，但是可以根据schedule一次delay执行，换句话可周期性执行 </p>
-<p>4.SingleThreadExecutor </p>
-<p>单任务线程池，任意时间线程池中只有一个线程  </p>
-<p>5.ThreadPoolExecutor</p>
-<p>自定义线程池</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line">                   <span class="keyword">int</span> maximumPoolSize,</div><div class="line">                   <span class="keyword">long</span> keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure>
-<p>corePoolSize:核心大小，线程池初始化的时候，就会有这么大<br>maximumPoolSize:线程池最大线程数<br>keepAliveTime:如果当前线程池中线程数大于corePoolSize,多余的线程，在等待keepAliveTime时间后如果还没有新的线程任务指派给它，它就会被回收。但若将allowCoreThreadTimeOut为true,不论线程池中的线程数是否大于corePoolSize，只要是空闲的线程超过keepAliveTime都会被回收。<br>unit:超时时间的单位。<br>workQueue:线程池的任务队列，通过execute方法提交的runnable对象会存储在这个队列中。  默认长度128<br>threadFactory:线程工厂，为线程池通过创建新线程的功能。<br>handler:任务无法执行时，回调handler的rejectedExecution方法来通知调用者。  </p>
-<p><img src="多线程/thread3.png" alt="线程转换"></p>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="单线程的JavaScript"><a href="#单线程的JavaScript" class="headerlink" title="单线程的JavaScript"></a>单线程的JavaScript</h3><p>浏览器的内核是多线程的，它们在内核控制下相互配合以保持同步，一个浏览器中至少会实现三个常驻线程:<br><strong>javascript引擎线程</strong>:javascript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。<br><strong>GUI渲染线程</strong>:GUI渲染线程负责渲染浏览器界面，当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时,该线程就会执行。但需要注意GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。<br><strong>浏览器事件触发线程</strong>:事件触发线程，当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。（当线程中没有执行任何同步代码的前提下才会执行异步代码）  </p>
-<h3 id="js工作线程实现的方式"><a href="#js工作线程实现的方式" class="headerlink" title="js工作线程实现的方式"></a>js工作线程实现的方式</h3><p>1.setTimeout()  使用该函数将任务进行分割<br>2.Google Gears谷歌开发的浏览器插件工具，不提倡使用。<br>3.Web Worker借鉴Google Gears，规范定义了一套API，允许 Web 应用创建在后台执行 JavaScript 代码的工作线程。即工作线程在执行过程中不会对主页面造成影响。Web Worker 规范中定义了两类工作线程:  </p>
-<p>专属工作线程:只能为一个页面所使用,创建专属线程时要指定需要执行的js文件的URL。通过postMessage和onmessage来接收和发送消息。</p>
-<p>共享工作线程:可以被多个页面使用。共享工作线程所执行的 JavaScript 代码中，不能使用 onmessage来直接定义接收到消息时的处理方法，而需要使用 onconnect来定义接收到连接时的处理逻辑  </p>
+        <h3 id="花样方式get-String"><a href="#花样方式get-String" class="headerlink" title="花样方式get String"></a>花样方式get String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var name = &quot;Jack&quot;;</div><div class="line">var str0 = &apos;hi,Jack&apos;;</div><div class="line">var str1 = &quot;hi,Jack&quot;;</div><div class="line">var str2 = `hi,$&#123;name&#125;`;</div><div class="line">var str3 = &quot;hi,&quot;+name;</div></pre></td></tr></table></figure>
+<p>若在字符串中既包含 ‘ 又包含 “ 怎么办？转移字符 \ 来帮你。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;I\&apos;m\&quot;OK\&quot;!&apos;;</div></pre></td></tr></table></figure>
+<p>想要换行怎么办？\n or 模板字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var str1 = &quot;hi,\n Jack&quot;;</div><div class="line">var str2 = `hi,</div><div class="line">Jack`;</div></pre></td></tr></table></figure>
+<h3 id="操作字符串"><a href="#操作字符串" class="headerlink" title="操作字符串"></a>操作字符串</h3><p><strong>String.prototype.startsWith</strong><br>字符串是以“该字符串”开始的吗？  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">// ES5 indexOf 返回值为匹配到的第一个字符的下标，匹配失败返回-1</div><div class="line">	str.indexOf(&quot;hello&quot;); // 0</div><div class="line">	str.indexOf(&quot;ello&quot;); // 1</div><div class="line">	str.indexOf(&quot;hw&quot;); // -1</div><div class="line">	str.startsWith(&quot;hello&quot;); // true</div><div class="line">	str.startsWith(&quot;world&quot;); // true</div></pre></td></tr></table></figure>
+<p>不管是ES5的indexOf还是ES6的startsWith都有一个缺省值，该缺省值默认为0且该缺省值表示从哪个位置开始匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello,hello&quot;;</div><div class="line">str.indexOf(&quot;hello&quot;,6) === 6; // true</div><div class="line">str.startsWith(&quot;hello&quot;,6); // true</div></pre></td></tr></table></figure>
+<p><strong>String.prototype.endsWith</strong><br>字符串是以“该字符串”结束的吗？  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">str.endsWith(&quot;world&quot;); // true</div></pre></td></tr></table></figure>
+<p>缺省值默认值为str.lenght-1且表示匹配到哪个位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">str.sendsWith(&quot;hello&quot;,5); // true</div><div class="line">str.sendsWith(&quot;hello&quot;,6); // false</div></pre></td></tr></table></figure>
+<p><strong>String.prototype.includes</strong><br>字符串包含“该字符串”吗？  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">str.includes(&quot;or&quot;); // true</div><div class="line">str.includes(&quot;hw&quot;); // false</div><div class="line">// 缺省值默认值为0且表示从哪个位置开始匹配</div><div class="line">str.includes(&quot;or&quot;,5); // true</div><div class="line">str.includes(&quot;or&quot;,10); // false</div></pre></td></tr></table></figure>
+<p><strong>String.prototype.repeat</strong><br>字符串重复n遍  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var str = &quot;wo&quot;;</div><div class="line">str.repeat(0); // &apos;&apos;</div><div class="line">str.repeat(1); // &apos;wo&apos;</div><div class="line">str.repeat(3); // &apos;wowowo&apos;</div><div class="line">str.repeat(1.9); // &apos;wo&apos;</div><div class="line">str.repeat(-1); // RangeError</div><div class="line">str.repeat(Infinity); // RangeError</div><div class="line">str.repeat(&apos;wo&apos;); // &apos;&apos;</div><div class="line">str.repeat(&apos;3&apos;); // &apos;wowowo&apos;</div></pre></td></tr></table></figure>
+<p>注意:n必须是正数且有限,当n为小数时向下取整,当n不为number时会被自动转换为number  </p>
+<p><strong>String.prototype[Symbol.iterator]</strong></p>
+<p>在ES6之前，我们可以通过下标访问具体的字符，一个字符串就像是一个数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">for(let i=0;i&lt;str.length;i++)&#123;</div><div class="line">	console.log(str[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在ES6中字符串是可迭代的，所以我们可以通过for..of实现上面的功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">for(let point of str)&#123;</div><div class="line">	console.log(point);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>JS中的字符是以UTF-16的格式存储的，每个字符可以用码点去表示且码点范围为[U+0000,U+FFFF]，每个字符固定2个字节，对于那些需要4个字节存储的字符(unicode码点大于0xFFFF的字符)，JS会认为它们是两个字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = &apos;\u0061&apos;;  // &apos;a&apos;</div><div class="line">var str = &apos;\ud83d\udc0e&apos;; // &apos;🐎&apos;</div><div class="line">// ES6中4个字节的字符表示方法</div><div class="line">var str = &apos;\u&#123;1f40e&#125;&apos;; // &apos;🐎&apos;</div></pre></td></tr></table></figure>
+<p>如果’\u’后面是超过0xFFFF的数值，(比如’\u1f40e’)，js会理解成’\u1f40+e’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;\u1f40e&apos;; // &apos;ὀe&apos;</div></pre></td></tr></table></figure>
+<p>在ES6对上述问题做了改进，我们可以使用{}让码点正确解读</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;\u&#123;1f40e&#125;&apos;; // &apos;🐎&apos;</div></pre></td></tr></table></figure>
+<p>‘🐎👱❤’的长度是多少？ 3也许你会这样回答，❌，应该是5，因为’🐎👱❤’的码点表示是’\ud83d\udc0e\ud83d\udc71\u2764’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&apos;🐎👱❤&apos;.length; // 5</div><div class="line">console.log(Object.keys(&apos;🐎👱❤&apos;)); // [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;]</div></pre></td></tr></table></figure>
+<p>在ES6中，想要得到4个字节的字符的长度我们可以采取下面的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[...&apos;🐎👱❤&apos;].length;  // 3</div></pre></td></tr></table></figure>
+<p>那我们遍历’🐎👱❤’还能得到我们想要得到的字符吗？<br>ES6之前通过下面的方式显然是不行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎👱❤&apos; ;</div><div class="line">for(let i =0;i&lt;str.length;i++)&#123;</div><div class="line">	console.log(str[i]);   // � � � � ❤</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但在ES6中我们可以使用 string iterator可以解决上述问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎👱❤&apos; ;</div><div class="line">for(let point of str)&#123;</div><div class="line">	console.log(point); // 🐎  👱  ❤</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>‘foo̅’的长度是多少？ 3 又❌，是4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&apos;foo\u0305&apos;.length;  // 4</div><div class="line">&apos;foo̅&apos;.length; // 4</div><div class="line">[...&apos;foo̅&apos;].length; // 4</div><div class="line">&apos;\u0305&apos;;  // &apos; ̅&apos;</div><div class="line">&apos;_\u0305&apos;;  // &apos;=&apos;</div><div class="line">&apos;foo\u0305&apos;;  // &apos;foo̅&apos;</div></pre></td></tr></table></figure>
+<p>当我们运气不佳的时候，通过码点来分割字符串时，会发现并不是我们所想象的那样,它们会组合成其他字形，也是下面我们提到的合成符。关于’foo̅’长度到底是多少，我们可以采用正则表达式帮我们解决。感兴趣的请移步<a href="https://mathiasbynens.be/notes/javascript-unicode#other-grapheme-clusters" title="悬停显示" target="_blank" rel="external">这里</a>。想了解JS Unicode存在的问题请移步<a href="https://mathiasbynens.be/notes/javascript-unicode" title="悬停显示" target="_blank" rel="external">这里</a>。</p>
+<h3 id="和编码有关的操作"><a href="#和编码有关的操作" class="headerlink" title="和编码有关的操作"></a>和编码有关的操作</h3><p><strong>String.prototype.codePointAt</strong><br>返回一个字符的码点(该码点是十进制的),并且也能正确返回4个字节字符串的码点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎&apos;;</div><div class="line">// ES6之前</div><div class="line">str.charAt(0); // �</div><div class="line">str.charCodeAt(0); //  55357</div><div class="line">str.charCodeAt(1	); //  56334</div><div class="line">// ES6</div><div class="line">str.codePointAt(0); // 128014</div><div class="line">str.codePointAt(0).toString(16); // &apos;1f40e&apos;</div><div class="line">str.codePointAt(1); // 56334</div></pre></td></tr></table></figure>
+<p><strong>String.fromCodePoint</strong><br>返回码点对应的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// ES6之前,fromCharCode不能正确解读大于0xFFF的码点</div><div class="line">String.fromCharCode(0x1f40e); // &apos;&apos;</div><div class="line">// ES6</div><div class="line">String.fromCodePoint(0x1f40e); // &apos;🐎&apos;</div><div class="line">String.fromCodePoint(128014); // &apos;🐎&apos;</div><div class="line">String.fromCodePoint(128014, 128113, 10084); // &apos;🐎👱❤&apos;</div></pre></td></tr></table></figure>
+<p><strong>String.prototype.normalize</strong><br>为了表示语调和重音符号，Unicode提供了两种方式:<br>方式一:直接提供带重音符号的字符 (如 Ǒ (\u01D1)）<br>方式二:提供合成符,号即原字符与重音符号的合成 (如 O（\u004F）和ˇ（\u030C）合成Ǒ（\u004F\u030C)）<br>‘\u01D1’===’\u004F\u030C’ 意义是等价的但是JS不能识别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;\u01D1&apos;===&apos;\u004F\u030C&apos;; // false</div></pre></td></tr></table></figure>
+<p>ES6提供了String.prototype.normalize方法，将字符的不同表示方法统一为同样的形式，称为Unicode的正规化  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;\u01D1&apos;.normalize()===&apos;\u004F\u030C&apos;.normalize(); // true</div></pre></td></tr></table></figure>
+<p>normalize可以接受四个参数<br>NFC:默认参数，表示“标准等价合成”(视觉和意义上的等价)，返回多个简单字符的合成字符<br>NFD:表示“标准等价分解”，即在标准等价的前提下，返回合成字符分解的多个简单字符<br>NFKC:表示“兼容等价合成”(语义上等价，如“囍”和“喜喜” 视觉不等价但语义是等价的)，返回合成字符<br>NFKD:表示“兼容等价分解”，即在兼容等价的前提下，返回合成字符分解的多个简单字符  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFC&apos;).codePointAt(0); // 465</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFC&apos;).codePointAt(1); // undefined</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFD&apos;).codePointAt(0); // 79</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFD&apos;).codePointAt(1); // 780</div></pre></td></tr></table></figure>
+<p>注意:normalize不能识别三个或三个以上字符合成的字符串。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/27/多线程/" data-id="cj4htcizl000y7q3rmm06qq1a" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CreateReactNativeApp-Expo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/07/CreateReactNativeApp-Expo/" class="article-date">
-  <time datetime="2017-06-07T06:56:35.000Z" itemprop="datePublished">2017-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>###认识###<br>CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以及大部分的API,并支持Expo提供的API。<br>但是当我们不得不用到Native Code时怎么办？<br>Expo提供了对设备系统功能的访问比如(相机、手机联系人、本地存储以及其他硬件的访问)。<br>开发过程中引入需要使用react-native link的依赖时我们又怎么办？<br>我们可以使用ejecting, 提供运行 npm run eject 得到一个与react-native init类似的项目，此时你就需要XCode或者Android Studio。  </p>
-<p>###Expo项目的构建与运行###<br>1.使用桌面工具(XDE)直接构建<br><a href="https://xde-updates.exponentjs.com/download/mac" target="_blank" rel="external">macOS下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/win32" target="_blank" rel="external">Windows下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/linux-x86_64" target="_blank" rel="external">Linux下载地址</a><br>2.使用create-react-native-app构建Expo项目<br> <a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="external">create-react-native-app</a><br> 在使用该方法之前已经安装create-react-native-app</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g create-react-native-app</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ create-react-native-app myApp(应用的名称)</div><div class="line">$ cd myApp</div><div class="line">$ npm start</div></pre></td></tr></table></figure>
-<p> 启动成功出现下图，通过手机端的Expo扫描该二维码即可。  </p>
-<p> <img src="CreateReactNativeApp-Expo/app.png" alt="启动成功"><br>3.使用exp convert 将ReactNaive项目转换为Expo项目<br>在使用该方式之前确保已经安装Exp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g exp</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd your project</div><div class="line">$ exp convert</div></pre></td></tr></table></figure>
-<p>接着会有如下步骤的操作会提示你<br> <img src="CreateReactNativeApp-Expo/app1.png" alt="启动成功"><br>注意:不论使用上面哪种方式都需要在手机端安装Expo来调试你的应用程序<br><a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank" rel="external">安卓下载地址</a><br> PC端使用谷歌商店下载应用程序比较麻烦可以采用下面的方式下载:复制要下载程序的链接地址到<a href="https://apps.evozi.com/apk-downloader/#discuss" target="_blank" rel="external">这个地址</a>，GenerateDownloadLink即可。<br><a href="https://itunes.com/apps/exponent" target="_blank" rel="external">IOS下载地址</a>   </p>
-<p>###XDE工具的介绍###<br>Project<br>Restart<br>Help<br>Publish<br>Share<br>Device   </p>
-<p>###Expo项目的生命周期###<br><img src="CreateReactNativeApp-Expo/app2.png" alt="启动成功">    </p>
-<p>上面介绍了Expo Deploy之前的生命周期，下面具体介绍打包的生命周期(生成独立的APK或者IPA)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在保证需要打包的项目启动成功并配置打包相应的选项</div><div class="line">$ exp build:android(ios)</div><div class="line">$ exp build:status</div></pre></td></tr></table></figure>
-<p>打包成功后会生成类似这样的链接(<a href="https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk" target="_blank" rel="external">https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk</a>)<br><a href="https://docs.expo.io/versions/v17.0.0/guides/building-standalone-apps.html" target="_blank" rel="external">具体介绍请参考</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/" data-id="cj4htciyq000b7q3r1l9rjb89" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Java的基本理解" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/05/Java的基本理解/" class="article-date">
-  <time datetime="2017-06-05T14:12:44.000Z" itemprop="datePublished">2017-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Java是一种强类型语言，所谓强类型语言从两方面解释:<br>1.所有的变量必须先声明后使用<br>2.指定类型的变量只能接受与之类型匹配的值<br>这意味着每个变量或表达式在编译时期就明确了其类型  </p>
-<p>Java数据类型分类<br><strong>基本数据类型</strong>:<br> {<br> (<em>n个字节</em>  一个字节占8位)<br> 整数:[ byte (1)、short (2)、int (4)、long (8) ]<br> 字符:[ char (2) ]<br> 浮点:[ float (4)、double (8) ]<br> 布尔:[ boolean ]<br> }</p>
-<p><strong>引用数据类型</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/05/Java的基本理解/" data-id="cj4htciys000d7q3riq8gd81b" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ReactStorybook" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/05/25/ReactStorybook/" class="article-date">
-  <time datetime="2017-05-25T08:23:37.000Z" itemprop="datePublished">2017-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>介绍:Storybook可以理解为React components的界面开发环境，通过它可视化组件状态并交互式的开发。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>1.快速安装 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ npm i -g getstorybook</div><div class="line">$ cd my-react-app</div><div class="line">$ getstorybook</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm run storybook</div></pre></td></tr></table></figure>
-<p>2.手动安装</p>
-<p>Step1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm i --save-dev @kadira/storybook</div></pre></td></tr></table></figure>
-<p>注意:但是必须保证依赖里有react、react-dom<br>安装成功后在package.json中会自动添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;storybook&quot;: &quot;start-storybook -p 9001 -c .storybook&quot;,</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
-<p>Step2: 创建config file  <strong>.storybook/config.js</strong><br>上面scripts中-c选项指定了配置文件目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import &#123; configure &#125; from &apos;@kadira/storybook&apos;;</div><div class="line">function loadStories() &#123;</div><div class="line">  require(&apos;../stories/index.js&apos;);</div><div class="line">&#125;</div><div class="line">configure(loadStories, module);</div></pre></td></tr></table></figure>
-<p>Step3:Write Stories  <strong>../stories/index.js</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line">import &#123; storiesOf, action &#125; from &apos;@kadira/storybook&apos;;</div><div class="line">import Button from &apos;./Button&apos;;</div><div class="line">storiesOf(&apos;Button&apos;, module)</div><div class="line">  .add(&apos;with text&apos;, () =&gt; (</div><div class="line">    &lt;button onClick=&#123;action(&apos;clicked&apos;)&#125;&gt;Hello Button&lt;/button&gt;</div><div class="line">  ))</div><div class="line">  .add(&apos;with some emoji&apos;, () =&gt; (</div><div class="line">    &lt;button onClick=&#123;action(&apos;clicked&apos;)&#125;&gt;😀 😎 👍 💯&lt;/button&gt;</div><div class="line">  ));</div></pre></td></tr></table></figure>
-<p>Step4:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm run storybook</div></pre></td></tr></table></figure>
-<h3 id="Writing-Stories"><a href="#Writing-Stories" class="headerlink" title="Writing Stories"></a>Writing Stories</h3><p>自定义自己的stories，并动态加载加载想要的stories</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import &#123; configure,addDecorator &#125; from &apos;@kadira/storybook&apos;;</div><div class="line">// 动态加载Stories  </div><div class="line">// 匹配目录(../src/component/mystory)下包括子目录中满足/\.stories\.js$/的文件</div><div class="line">const req = require.context(&apos;../src/component/mystory&apos;, true, /\.stories\.js$/)</div><div class="line">function loadStories() &#123;</div><div class="line">  req.keys().forEach((filename) =&gt; req(filename))</div><div class="line">&#125;</div><div class="line">configure(loadStories, module);</div></pre></td></tr></table></figure>
-<h3 id="导出Storybook作为Static-App"><a href="#导出Storybook作为Static-App" class="headerlink" title="导出Storybook作为Static App"></a>导出Storybook作为Static App</h3><p>在package.json正中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;out_storybook&quot;: &quot;build-storybook -c .storybook -o .out&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>then </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm run out_storybook</div></pre></td></tr></table></figure>
-<p>会在.out文件中生成static app  可以部署到github pages或者其他static hosting service</p>
-<h3 id="Addons-插件"><a href="#Addons-插件" class="headerlink" title="Addons(插件)"></a>Addons(插件)</h3><p>Step1:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install --save-dev 需要的插件</div></pre></td></tr></table></figure>
-<p>Step2:<br>在storybook中创建addons.js的配置文件并注册相应的插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import &apos;@kadira/storybook/addons&apos;;</div><div class="line">import &apos;@kadira/storybook-addon-actions/register&apos;;</div><div class="line">import &apos;@kadira/storybook-addon-notes/register&apos;;</div><div class="line">import &apos;react-storybook-addon-backgrounds/register&apos;;`</div></pre></td></tr></table></figure>
-<p>Step3:</p>
-<p>使用</p>
-<p>Step4:<br>重启storybook<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm run storybook</div></pre></td></tr></table></figure></p>
-<p>Storybook提供了一系列插件<br><a href="https://storybooks.js.org/docs/react-storybook/addons/addon-gallery/" title="悬停显示" target="_blank" rel="external">插件地址</a></p>
-<p>具体使用看介绍，这里不多说</p>
-<p>具体参考<a href="https://storybooks.js.org/" title="悬停显示" target="_blank" rel="external">官网</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/25/ReactStorybook/" data-id="cj4htciyx000m7q3ru5qgv87v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android动画" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/05/14/Android动画/" class="article-date">
-  <time datetime="2017-05-14T07:15:51.000Z" itemprop="datePublished">2017-05-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/14/Android动画/">Android动画</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Android-帧动画"><a href="#Android-帧动画" class="headerlink" title="Android 帧动画"></a>Android 帧动画</h2><p><strong>概念</strong><br>帧动画非常容易理解，就是由N张静态图片收集起来，然后通过我们的控制依次显示这些图片。<br><strong>两种用法</strong><br>1.采用XML文件实现<br>2.Java代码实现(通过类<strong>AnimationDrawable</strong>)<br>具体实现方式在这就不详细说，百度一大堆<del>~</del>  </p>
-<h2 id="Android补间动画-视图动画"><a href="#Android补间动画-视图动画" class="headerlink" title="Android补间动画(视图动画)"></a>Android补间动画(视图动画)</h2><p>Android补间动画提供了AlphaAnimation(透明),RotateAnimation(旋转),TranslateAnimation(平移),ScaleAnimation(缩放)四种动画方式以及提供了AnimationSet动画集合，混合使用多种动画。<br>具体实现请参考百度<del>~</del>~  </p>
-<h2 id="Android属性动画-Android3-0之后出现"><a href="#Android属性动画-Android3-0之后出现" class="headerlink" title="Android属性动画(Android3.0之后出现)"></a>Android属性动画(Android3.0之后出现)</h2><p><strong>为什么会出现属性动画？</strong><br>1.补间动画功能比较单调，只有四种动画(透明度，旋转，缩放，平移)。<br>2.补间动画针对的对象只是UI控件。<br>3.补间动画改变的只是显示效果,不会去改变View的属性。<br>eg:当某元素发生了补间动画之后，该元素的点击事件还在原来的位置。<br><strong>什么是属性动画？</strong><br>1.属性动画是补间动画的增强版，不止可以实现四种动画效果，还可以定义任何属性的变化。<br>2.执行动画的对象不只是UI控件，可以对任何对象执行动画。<br>3.属性动画通过对目标对象进行复制来修改其属性,完美解决了补间动画的缺陷(只是显示效果,不会去改变View的属性)。<br><strong>相关API</strong><br><strong>1.Animator</strong><br>创建属性动画的基类，一般不会直接用，一般使用它的两个子类。<br><strong>2.ValueAnimator</strong><br>ValueAnimator本身不提供任何动画效果，它更像一个数值发生器，用来产生有一定规律的数字，从而让调用者来控制动画的实现过程。<br>使用流程<br>1.调用ValueAnimator的静态方法ofInt(),ofFloat(),或ofObject()创建ValueAnimator的实例。<br>2.调用实例的setXXX方法设置动画持续时间 ，插值方式，重复次数等。<br>3.调用实例的addUpdateListener添加AnimatorUpdateListener监听器，在该监听器中可以获取ValueAnimator计算出来的值，可以将这些值应用到指定对象上。<br>4.调用实例的start方法开启动画。<br><a href="https://github.com/quanquanmiaomiao/LeranValueAnimator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>3.ObjectAnimator</strong><br>ObjectAnimator，通过该类我们可以直接对任意对象的“任意属性”进行动画操作，“任意属性”中的属性必须有get、set方法。<br>使用流程<br>1.调用ObjectAnimator的静态方法ofInt(),ofFloat(),或ofObject()创建ObjectAnimator的实例，与ValueAnimator中的静态方法的区别是，ObjectAnimator中静态方法多了要操作的对象以及对象的属性。<br>2.调用实例的setXXX方法设置动画的持续时间，插值方式，重复次数等。<br>3.调用实例的start方法开启动画。<br>注意:若一个属性没有get、set方法那我们是否就束手无策了呢？当然不，Google提供了两种方案来解决此问题。<br>方案1：提供自定义一个属性类或者包装类间接的给该属性增加get、set方法。<br>方案2：提供ValueAnimator实现。<br><a href="https://github.com/quanquanmiaomiao/LearnObjectAnimator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>4.AnimatorSet</strong><br>对于多个属性动画效果作用于同一个对象，我们可以通过PropertyValuesHolder实现，当然我们也可以通过AnimatorSet来时实现，并且能更精确的控制动画效果的顺序。下面我们来分别介绍两种方案。<br>方案1:PropertyValuesHolder<br>直接上代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">PropertyValuesHolder pvh1 = PropertyValuesHolder.ofFloat(<span class="string">"translationX"</span>,<span class="number">300</span>);</div><div class="line">PropertyValuesHolder pvh2 = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">PropertyValuesHolder pvh3 = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view,pvh1,pvh2,pvh3);</div><div class="line">animator.setDuration(<span class="number">6000</span>).start();</div></pre></td></tr></table></figure></p>
-<p>方案2:AnimatorSet<br>还是直接上代码吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ObjectAnimator oa1 = ObjectAnimator.ofFloat(view,<span class="string">"translationX"</span>,<span class="number">300</span>);</div><div class="line">ObjectAnimator oa2 = ObjectAnimator.ofFloat(view,<span class="string">"scaleX"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">ObjectAnimator oa3 = ObjectAnimator.ofFloat(view,<span class="string">"scaleY"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">AnimatorSet set = <span class="keyword">new</span> AnimatorSet();</div><div class="line">set.setDuration(<span class="number">6000</span>);</div><div class="line">set.playTogether(oa1,oa2,oa3);</div><div class="line">set.start();</div></pre></td></tr></table></figure></p>
-<p>playTogether顾名思义，动画一起执行，在属性动画中AnimatorSet还可以通过playSequentially()、animatorSet.play().width().before().after()等方法控制多个动画协同工作，从而达到动画播放顺序的精确控制。<br><a href="https://github.com/quanquanmiaomiao/LearnAnimatorSet" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>5.Evaluator</strong><br>上面章节中我们用到了ofInt()、ofFloat()、ofObject()等方法多动画进行操作，但是它们是怎么过渡的呢？带着疑问我们一起来认识认识我们的新朋友Evaluator(计算器)。它告诉动画系统如何从初始值过渡到结束值。<br>在Android中有以下几种Evaluator:<br>1.IntEvaluator 用于计算int类型属性值的计算器<br>2.FloatEvaluator 用于计算float类型属性值的计算器<br>3.ArgbEvaluator 用于计算十六进制形式表示的颜色值的计算器<br>4.TypeEvaluator 计算器的接口，可以实现自定义计算器<br>废话不多说，直接看代码。<br><a href="https://github.com/quanquanmiaomiao/LearnEvaluator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br>注意:TyprEvaluetor的主要实现是重载evaluate方法，该方法计算了动画过渡的过程，计算公式为:动画值=初始值+完成度*(结束值-开始值)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PointEvaluator</span> <span class="keyword">implements</span> <span class="title">TypeEvaluator</span>&lt;<span class="title">Point</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Point <span class="title">evaluate</span><span class="params">(<span class="keyword">float</span> fraction, Point start, Point end)</span> </span>&#123;</div><div class="line">        <span class="keyword">float</span> x = start.getX() + fraction * (end.getX() - start.getX());</div><div class="line">        <span class="keyword">float</span> y = start.getY() + fraction * (end.getY() - start.getY());</div><div class="line">        Point point = <span class="keyword">new</span> Point(x, y);</div><div class="line">        <span class="keyword">return</span> point;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Android布局动画"><a href="#Android布局动画" class="headerlink" title="Android布局动画"></a>Android布局动画</h2><p>所谓布局动画是指作用在ViewGroup上，给ViewGroup增加View时添加一个动画过渡效果。<br>两种方式实现<br>方案1:XML中设置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:animateLayoutChanges=<span class="string">"true"</span></div></pre></td></tr></table></figure></p>
-<p>ViewGroup在添加子View会呈现默认的过渡效果</p>
-<p>方案2:通过LayoutAnimationController自定义View的过渡效果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">LinearLayout layout = (LinearLayout)findViewById(R.id.layout);</div><div class="line">ScaleAnimation sa = <span class="keyword">new</span> ScaleAnimation(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">sa.setDuration(<span class="number">3000</span>);</div><div class="line">LayoutAnimationController lac = <span class="keyword">new</span> LayoutAnimationController(sa,<span class="number">0.5f</span>);</div><div class="line">lac.setOrder(LayoutAnimationController.ORDER_NORMAL);</div><div class="line">layout.setLayoutAnimation(lac);</div></pre></td></tr></table></figure></p>
-<p>LayoutAnimationController中第一个参数作用的动画效果，第二个参数(delay)动画的延迟时间，<br>若delay不为0，可以设置View的显示顺序。<br>LayoutAnimationController.ORDER_NORMAL  顺序<br>LayoutAnimationController.ORDER_RANDOM 随机<br>LayoutAnimationController.ORDER_REVERSE 反序</p>
-<h2 id="Android自定义动画"><a href="#Android自定义动画" class="headerlink" title="Android自定义动画"></a>Android自定义动画</h2><h2 id="Android5-X-SVG矢量动画机制"><a href="#Android5-X-SVG矢量动画机制" class="headerlink" title="Android5.X SVG矢量动画机制"></a>Android5.X SVG矢量动画机制</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/14/Android动画/" data-id="cj4htciy100007q3rtmsmied9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android多渠道打包" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/20/Android多渠道打包/" class="article-date">
-  <time datetime="2017-04-20T13:38:53.000Z" itemprop="datePublished">2017-04-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/20/Android多渠道打包/">Android多渠道打包</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="使用gradle构建Android应用的渠道包"><a href="#使用gradle构建Android应用的渠道包" class="headerlink" title="使用gradle构建Android应用的渠道包"></a>使用gradle构建Android应用的渠道包</h2><p>基本原理利用gradle的manifest merger功能，这个功能的主要用途是能够在运行时替换AndroidManifest.xml里面的内容</p>
-<p>注意:下面以友盟统计为例  </p>
-<ul>
-<li>Step1:在AndroidManifest.xml文件中配置PlaceHolder(占位符)</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data </div><div class="line">   android:name=&quot;UMENG_CHANNEL&quot;</div><div class="line">   android:value=&quot;$&#123;UMENG_CHANNEL_VALUE&#125;&quot;</div><div class="line">/&gt;</div><div class="line">注意:UMENG_CHANNEL_VALUE是在Model下面build.gradle里定义的变量</div></pre></td></tr></table></figure>
-<ul>
-<li>Step2:在Module下面的build.gradle中配置相应的内容</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 设置占位符默认值</div><div class="line">defaultConfig &#123;</div><div class="line">   manifestPlaceholders = [ UMENG_CHANNEL_VALUE:&quot;wandoujia&quot; ]</div><div class="line">&#125;</div><div class="line">// 渠道FlavorproductFlavors &#123;   wandoujia &#123;&#125;   baidu &#123;&#125;   c360 &#123;&#125;   uc &#123;&#125;&#125;productFlavors.all &#123;    flavor -&gt;   flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]&#125;signingConfigs &#123;</div><div class="line">   release &#123;</div><div class="line">     storeFile file(MYAPP_RELEASE_STORE_FILE)</div><div class="line">     storePassword MYAPP_RELEASE_STORE_PASSWORD</div><div class="line">     keyAlias MYAPP_RELEASE_KEY_ALIAS</div><div class="line">     keyPassword MYAPP_RELEASE_KEY_PASSWORD</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> 注意:MYAPP等相应的值在gradle-wrapper.properties中设置</div></pre></td></tr></table></figure>
-<p><img src="Android多渠道打包/gradle3.png" alt="gradle3">    </p>
-<ul>
-<li>Step3:此时有两种方式进行打包<br>方式一:使用AS的Generate Signed APK </li>
-</ul>
-<p><img src="Android多渠道打包/gradle2.png" alt="gradle2">    </p>
-<p>方式二:使用Module下的build.gradle配置</p>
-<p><img src="Android多渠道打包/gradle1.png" alt="gradle1"></p>
-<p><a href="https://github.com/quanquanmiaomiao/LearnGradlePack" title="悬停显示" target="_blank" rel="external">多渠道打包DEMO地址</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/20/Android多渠道打包/" data-id="cj4htciy500017q3r48fzv2g3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CSS花样选择器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/18/CSS花样选择器/" class="article-date">
-  <time datetime="2017-04-18T15:04:05.000Z" itemprop="datePublished">2017-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/18/CSS花样选择器/">CSS花样选择器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>通配符选择器<br>用星号“*”类定义，该选择器可以与任何元素匹配</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* &#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;红色字体&lt;/h1&gt;</div><div class="line">&lt;h2&gt;红色字体&lt;/h2&gt;</div><div class="line">&lt;p&gt;红色字体&lt;/p&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>派生选择器<br>通过依据元素在其位置的上下文关系来定义样式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">li strong &#123;</div><div class="line"> font-style: italic; font-weight: normal;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;&lt;strong&gt;粗体字&lt;/strong&gt;&lt;/p&gt;&lt;li&gt;&lt;strong&gt;我是斜体字，因为strong元素位于li元素内&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;我是正常字体&lt;/li&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>id选择器<br>id选择器可以为标有特定id的HTML元素指定特定的样式。id选择器以 “#” 来定义。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#red &#123;color:red;&#125;</div><div class="line">#green &#123;color:green;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;p id=&quot;red&quot;&gt;这个段落是红色&lt;/p&gt;</div><div class="line">&lt;p id=&quot;green&quot;&gt;这个段落是绿色&lt;/p&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>类选择器<br>类选择器可以为标有特定class的HTML元素指定特定的样式。类选择器以 “.” 来定义。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.center &#123;text-align: center;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p class=&quot;center&quot;&gt;这里的文本居中显示&lt;/p&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>元素选择器<br>文档的元素是最基本的选择器</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">div &#123;background-color: green;&#125;</div><div class="line">p &#123;background-color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;该模块的背景色为绿色&lt;/div&gt;</div><div class="line">&lt;p&gt;该段落的背景色为红色&lt;/p&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>属性选择器<br>对带有指定属性的HTML元素设置样式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[title]&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1 title=&quot;hello&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1 title=&quot;world&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1&gt;字体颜色为默认颜色&lt;/h1&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[title=hello]&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1 title=&quot;hello&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1 title=&quot;world&quot;&gt;字体颜色为默认颜色&lt;/h1&gt;</div><div class="line">&lt;h1&gt;字体颜色为默认颜色&lt;/h1&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>子元素选择器<br>为某元素的子元素指定特定的样式  </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">h1 &gt; strong&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&lt;strong&gt;红色字体&lt;/strong&gt;&lt;/h1&gt;</div><div class="line">&lt;h1&gt;&lt;em&gt;&lt;strong&gt;默认颜色的字体&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>相邻兄弟选择器<br>为紧接在另一元素后的元素，且二者有相同父元素指定特定的样式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">h1+p&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&lt;/h1&gt;</div><div class="line">&lt;p&gt;红色字体&lt;/p&gt;</div><div class="line">&lt;p&gt;默认颜色的字体&lt;/p&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>伪类<br>CSS 伪类用于向某些选择器添加特殊的效果 </li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:active</td>
-<td style="text-align:center">向被激活的元素添加样式</td>
-</tr>
-<tr>
-<td>:focus</td>
-<td style="text-align:center">向拥有焦点的元素添加样式</td>
-</tr>
-<tr>
-<td>:hover</td>
-<td style="text-align:center">当鼠标悬浮在元素上方时，向元素添加样式</td>
-</tr>
-<tr>
-<td>:link</td>
-<td style="text-align:center">向未被访问的连接添加样式</td>
-</tr>
-<tr>
-<td>:visited</td>
-<td style="text-align:center">向已被访问的连接添加样式</td>
-</tr>
-<tr>
-<td>:first-child</td>
-<td style="text-align:center">向元素的第一个子元素添加样式</td>
-</tr>
-<tr>
-<td>:lang</td>
-<td style="text-align:center">向带有指定lang属性的元素添加样式</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p :first-child&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"> &lt;p&gt;红色字体&lt;/p&gt;</div><div class="line"> &lt;p&gt;默认颜色的字体&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>伪元素<br>与伪类类似也是向某些选择器设置特殊效果</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:first-letter</td>
-<td style="text-align:center">向文本的第一个字母添加特殊样式</td>
-</tr>
-<tr>
-<td>:first-line</td>
-<td style="text-align:center">向文本的首行添加特殊样式</td>
-</tr>
-<tr>
-<td>:before</td>
-<td style="text-align:center">在元素之前添加内容</td>
-</tr>
-<tr>
-<td>:after</td>
-<td style="text-align:center">在元素之后添加内容</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p:first-letter&#123;color: red;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;红 默认颜色&lt;/p&gt;</div></pre></td></tr></table></figure>
-<h3 id="注意-以上选择器均可组合使用"><a href="#注意-以上选择器均可组合使用" class="headerlink" title="注意:以上选择器均可组合使用"></a>注意:以上选择器均可组合使用</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/18/CSS花样选择器/" data-id="cj4htciym00087q3rhg57jc5d" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android性能优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/Android性能优化/" class="article-date">
-  <time datetime="2017-03-23T02:24:30.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/Android性能优化/">Android性能优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##why<br>大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。</p>
-<h2 id="Android-UI-CPU-GPU"><a href="#Android-UI-CPU-GPU" class="headerlink" title="Android UI CPU GPU"></a>Android UI CPU GPU</h2><p>CPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。</p>
-<p>1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源</p>
-<p>2.减少GPU的Overdraw(过度绘制:屏幕上的某一个像素在同一帧的时间内被渲染多次)<br>检查过度渲染工具:手机设置-&gt;开发者选项-&gt;ShowGPUOverdraw的选项，可以观察到UI的Overdraw情况。</p>
-<p><img src="Android性能优化/overdraw.png" alt="Build成功"><br>蓝、绿、淡红、深红代表了4种不同程度的Overdraw情况。</p>
-<p>优化注意点:</p>
-<p>移除Window默认的Background</p>
-<p>移除XML布局文件中不必要的Background</p>
-<p>按需显示占位图片</p>
-<p>ClipRect &amp;&amp; Quickreject<br>Android系统提供了一些组件来避免不可见组件造成的Overdraw，但是对于那些复杂的自定义的View(重写了onDraw方法)，Android系统无法检测具体操作，系统无法监控并优化，也就无法避免Overdraw，针对上述情况我们可以通过canvas.clipRect()来帮助系统识别可见区域。该方法可以指定一块区域，只有在这个区域才会被绘制，其他区域被忽视。我们也可以使用canvas.quickReject()来判断是否没和某个矩形有交集,从而跳过那些非矩形区域的绘制操作。</p>
-<p>DisplayList<br>避免布局的嵌套<br>Profile GPU Rendering<br>蓝色:绘制DisplayList的时间<br>红色:OpenGL渲染DisplayList需要的时间<br>黄色:CPU等待GPU处理的时间</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/Android性能优化/" data-id="cj4htciy900037q3ry3vz8twg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/22/单例模式/" class="article-date">
-  <time datetime="2017-03-22T15:36:04.000Z" itemprop="datePublished">2017-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/22/单例模式/">单例模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>确保类中只有一个实例，而且自行实例话并向整个系统提供该实例</p>
-<h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>避免产生多个对象消耗过多的资源</p>
-<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><h6 id="饿汉单例模式"><a href="#饿汉单例模式" class="headerlink" title="饿汉单例模式"></a>饿汉单例模式</h6><pre><code>private static final ClassName name = new ClassName();
-public static ClassName getClassName() {
- return name;
-}
-</code></pre><h6 id="懒汉单例模式"><a href="#懒汉单例模式" class="headerlink" title="懒汉单例模式"></a>懒汉单例模式</h6><pre><code>public class ClassName {
- private static ClassName name;
- private ClassName(){}
- public static syntronized ClassName getClassName() {
-  if(name == null) {
-      name = new ClassName();
-  }
-  return name;
- }
-}
-</code></pre><p>注意:syntronized关键字，保证在多线程下单例模式对象的唯一性。</p>
-<p>优点只有在使用的时候才会被实例化，节约资源。</p>
-<p>缺点每次调用都会造成同步开销。</p>
-<h6 id="Double-Check-Lock"><a href="#Double-Check-Lock" class="headerlink" title="Double Check Lock"></a>Double Check Lock</h6><p>既能需要时实例化，又能保证线程安全</p>
-<pre><code>public class ClassName {
- private static ClassName name = null;
- private ClassName(){}
- public static ClassName getClassName() {
- if(name == null) {
-  syntronized (ClassName.class) {
-   if(name == null) {
-    name = new ClassName();
-   }
-  }
- }
- return name;
-}
-</code></pre><p>注意:DCL在一定程度上解决了资源消耗、多余的同步、线程安全等问题，但由于java内存模型的原因偶尔会失败(java6版本下使用会出问题)</p>
-<h6 id="静态内部类单例模式"><a href="#静态内部类单例模式" class="headerlink" title="静态内部类单例模式"></a>静态内部类单例模式</h6><pre><code>public class ClassName {
- private ClassName(){}
- public static ClassName getClassName() {
-  ClasssHolder.name;
- }
- // 静态内部类
- private static class ClassHolder{
-  private static final ClassName name = new ClassName();
- }
-}
-</code></pre><p>注意:保证线程安全以及对象的唯一性，同时也推迟了实例化，推荐使用</p>
-<h6 id="枚举单例模式"><a href="#枚举单例模式" class="headerlink" title="枚举单例模式"></a>枚举单例模式</h6><pre><code>public class ClassName {}
-public enum EnumName {
-NAME;
-private ClassName name;
-EnumName() {
-    name = new ClassName();
-}
-public ClassName getClassName() {
-    return name;
-}
-</code></pre><p>}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/单例模式/" data-id="cj4htciz1000r7q3r47qcob2n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-React学习路线" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/21/React学习路线/" class="article-date">
-  <time datetime="2017-03-21T10:18:11.000Z" itemprop="datePublished">2017-03-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/21/React学习路线/">React学习路线</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##Step1:<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" title="悬停显示" target="_blank" rel="external">React入门</a></p>
-<p>React的基本理解以及注意点</p>
-<h5 id="在html中插入react"><a href="#在html中插入react" class="headerlink" title="在html中插入react"></a>在html中插入react</h5><p>注意:</p>
-<p>（1）jsx与javaScript不兼容,凡是使用jsx都加上type=”text/babel”</p>
-<p>（2）首先加载相关的三个库,react.js:React的核心库、react-dom.js:提供与dom相关的功能、browser.js:将jsx转换为javaScript</p>
-<h5 id="jsx基本语法规则"><a href="#jsx基本语法规则" class="headerlink" title="jsx基本语法规则"></a>jsx基本语法规则</h5><p>遇到html标签(以 &lt; 开头 )，就按照html规则解析，遇到代码块( 以{ 开头 }就用JavaScript规则解析</p>
-<h5 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h5><p>每个组件都有自己的render方法，并在组件中包含一个顶层标签</p>
-<h5 id="PropTypes"><a href="#PropTypes" class="headerlink" title="PropTypes"></a>PropTypes</h5><p>组件类的PropTypes属性。校验React组件属性的数据类型。</p>
-<h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><p>this.props对象的属性与组件属性一一对应。但是注意this.props.children他表示组件的所有子节点，为了避免children数据类型的不确定性带来的问题，react提供了React.Children方法来处理children。</p>
-<h5 id="this-ref"><a href="#this-ref" class="headerlink" title="this.ref"></a>this.ref</h5><p>通过this.ref获取真实的DOM节点</p>
-<h5 id="this-state"><a href="#this-state" class="headerlink" title="this.state"></a>this.state</h5><p>一种React与用户交互的状态机制。注意this.props与this.state的区分</p>
-<h5 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h5><pre><code>Mounting:已插入真实的DOM 
-Updating:正在被重新渲染
-Unmounting:已移除真实的DOM
-</code></pre><p>React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。</p>
-<pre><code>componentWillMount()
-componentDidMount()
-componentWillUpdate(object nextProps, object nextState)
-componentDidUpdate(object prevProps, object prevState)
-componentWillUnmount()
-</code></pre><p>此外，React 还提供两种特殊状态的处理函数</p>
-<pre><code>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
-shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调    用
-</code></pre><p><a href="http://reactjs.cn/react/docs/component-api.html" target="_blank" rel="external">官方文档</a></p>
-<p>##Step2:<a href="https://react-guide.github.io/react-router-cn/" title="悬停显示" target="_blank" rel="external">React Router入门</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/React学习路线/" data-id="cj4htciyz000o7q3r3axgytds" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/29/ES6-String/" data-id="cj4i95evo000ein3rfwho2kaj" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -744,7 +151,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -752,7 +159,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -762,7 +169,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
@@ -772,7 +179,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -791,9 +198,13 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
@@ -811,10 +222,6 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
             <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
-          <li>
-            <a href="/2017/05/14/Android动画/">Android动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -828,7 +235,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

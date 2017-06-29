@@ -11,13 +11,13 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/27/多线程/index.html">
 <meta property="og:site_name" content="DarkAngel的技术小屋">
 <meta property="og:description" content="为什么使用多线程?通过减少CPU空闲的时间来达到提高效率的目的。 进程与线程进程:指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间，并且一个进程可以启动多个线程。比如在Android系统中一个运行一个apk就相当于启动了一个进程。  线程:指进程中的一个执行流程。线程总是属于某个进程，进程中的多个线程共享进程的内存。“同时”执行是人的感觉，线程之间实际上轮换执行。   Java中的线">
-<meta property="og:image" content="http://yoursite.com/2017/06/27/多线程/多线程/thread1.png">
-<meta property="og:image" content="http://yoursite.com/2017/06/27/多线程/多线程/thread3.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/27/多线程/thread1.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/27/多线程/thread3.png">
 <meta property="og:updated_time" content="2017-06-28T09:07:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程">
 <meta name="twitter:description" content="为什么使用多线程?通过减少CPU空闲的时间来达到提高效率的目的。 进程与线程进程:指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间，并且一个进程可以启动多个线程。比如在Android系统中一个运行一个apk就相当于启动了一个进程。  线程:指进程中的一个执行流程。线程总是属于某个进程，进程中的多个线程共享进程的内存。“同时”执行是人的感觉，线程之间实际上轮换执行。   Java中的线">
-<meta name="twitter:image" content="http://yoursite.com/2017/06/27/多线程/多线程/thread1.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/06/27/多线程/thread1.png">
   
     <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
   
@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -96,7 +96,7 @@
 <p>2.Runnable接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">		<span class="meta">@Override</span></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">			<span class="comment">// 处理耗时操作</span></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">new</span> Thread(runnable,<span class="string">"测试线程2"</span>).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="线程中的一些常见问题"><a href="#线程中的一些常见问题" class="headerlink" title="线程中的一些常见问题"></a>线程中的一些常见问题</h3><p>1.线程的名字可以开发者自己设置，也可以是JVM给定。<br>2.通过Thread.currentThread()获取线程的名称，且只能获取当前线程名称。<br>3.一系列线程按照一定的顺序启动，但不能保证按照该顺序执行完成。<br>4.当线程run方法结束时该线程完成。<br>5.线程只能启动一次，多次启动回报java.lang.IllegalThreadStateException:Thread already started。<br>6.在一个CPU的机器上，实际上在同一时刻只能运行一个线程。<br>7.尽管我们没有办法控制线程调度，但我们可以通过别的方式来影响线程调度。  </p>
-<h3 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h3><p><img src="多线程/thread1.png" alt="线程转换"><br>1.新状态:new了线程对象，但是没有调用start方法。<br>2.可运行状态:线程有资格运行，但是调度还没有把他选定为运行状态时所处的状态。此时该线程已经调用的start方法。<br>3.运行状态:线程调运从运行池中选定一个线程作为当前线程时所处的状态。线程唯一进入运行状态的方式。<br>4.等待/阻塞/睡眠状态:线程没有条件运行，如果某件事件出现会返回到可运行状态。<br> sleep()&lt;–&gt;sleep()结束<br> yield()&lt;–&gt;再次获取CPU<br> wait() &lt;–&gt; notify()/notifyAll()<br> join() &lt;–&gt; join()中断 直到加入的线程执行完之后，当前线程才能继续执行<br> synchronized/lock&lt;–&gt;同步锁被释放<br> 上述几种情况可导致运行状态到阻塞、阻塞到可运行状态或运行状态<br>5.死亡状态:当线程的run方法完成就认为它死去。这个线程对象也许是活的，但是他已经不是一个单独执行的线程。</p>
+<h3 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h3><p><img src="/2017/06/27/多线程/thread1.png" alt="线程转换"><br>1.新状态:new了线程对象，但是没有调用start方法。<br>2.可运行状态:线程有资格运行，但是调度还没有把他选定为运行状态时所处的状态。此时该线程已经调用的start方法。<br>3.运行状态:线程调运从运行池中选定一个线程作为当前线程时所处的状态。线程唯一进入运行状态的方式。<br>4.等待/阻塞/睡眠状态:线程没有条件运行，如果某件事件出现会返回到可运行状态。<br> sleep()&lt;–&gt;sleep()结束<br> yield()&lt;–&gt;再次获取CPU<br> wait() &lt;–&gt; notify()/notifyAll()<br> join() &lt;–&gt; join()中断 直到加入的线程执行完之后，当前线程才能继续执行<br> synchronized/lock&lt;–&gt;同步锁被释放<br> 上述几种情况可导致运行状态到阻塞、阻塞到可运行状态或运行状态<br>5.死亡状态:当线程的run方法完成就认为它死去。这个线程对象也许是活的，但是他已经不是一个单独执行的线程。</p>
 <h3 id="影响线程调度"><a href="#影响线程调度" class="headerlink" title="影响线程调度"></a>影响线程调度</h3><p>1.线程的交互<br>wait()/wait(long timeout)/wait(long timeout,int nanos)<br>当前线程等待，直到其他线程调用此对象的notify()或notifyAll()或超过指定的时间量<br>notify()/notifyAll()<br>唤醒此对象上等待的单个(所有)线程<br>注意:上述这些方法必须在同步环境中调用。换句话说线程不能调用对象上等待或通知的方法，除非该线程拥有此对象的锁。<br>2.线程的休眠<br>sleep(long millis)/sleep(long millis,int nanos)<br>当前线程休眠，使该线程让出CPU资源给其他线程，被休眠线程的休眠时间大于或等于mills<br>3.线程的优先级<br>setPriority(int priority) 0~10<br>优先级高的线程获取CPU资源的概率更大。<br>4.线程的让步<br>yield()<br>当前运行的线程让出CPU资源，并且该线程变为可运行状态，线程调度可以再一次选中该线程<br>5.线程的合并<br>join()/join(long mills)/join(long mills,int nanos)<br>一个线程必须等待另一个线程执行完毕才能执行。(等待时间最长为mills/mills+nanos)    </p>
 <h3 id="线程的同步"><a href="#线程的同步" class="headerlink" title="线程的同步"></a>线程的同步</h3><p><strong>为什么会有同步问题的提出？</strong><br>当多个线程访问同一个数据对象时，会对数据造成破快。 列子。<br>通过锁的方式保证数据的合理性。<br><strong>Java中内置的锁</strong></p>
 <p>1.synchronized<br>注意:释放锁就是指持锁的线程退出了synchronized同步的方法或代码块  </p>
@@ -116,7 +116,7 @@
 <p>自定义线程池</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line">                   <span class="keyword">int</span> maximumPoolSize,</div><div class="line">                   <span class="keyword">long</span> keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure>
 <p>corePoolSize:核心大小，线程池初始化的时候，就会有这么大<br>maximumPoolSize:线程池最大线程数<br>keepAliveTime:如果当前线程池中线程数大于corePoolSize,多余的线程，在等待keepAliveTime时间后如果还没有新的线程任务指派给它，它就会被回收。但若将allowCoreThreadTimeOut为true,不论线程池中的线程数是否大于corePoolSize，只要是空闲的线程超过keepAliveTime都会被回收。<br>unit:超时时间的单位。<br>workQueue:线程池的任务队列，通过execute方法提交的runnable对象会存储在这个队列中。  默认长度128<br>threadFactory:线程工厂，为线程池通过创建新线程的功能。<br>handler:任务无法执行时，回调handler的rejectedExecution方法来通知调用者。  </p>
-<p><img src="多线程/thread3.png" alt="线程转换"></p>
+<p><img src="/2017/06/27/多线程/thread3.png" alt="线程转换"></p>
 <h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="单线程的JavaScript"><a href="#单线程的JavaScript" class="headerlink" title="单线程的JavaScript"></a>单线程的JavaScript</h3><p>浏览器的内核是多线程的，它们在内核控制下相互配合以保持同步，一个浏览器中至少会实现三个常驻线程:<br><strong>javascript引擎线程</strong>:javascript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。<br><strong>GUI渲染线程</strong>:GUI渲染线程负责渲染浏览器界面，当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时,该线程就会执行。但需要注意GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。<br><strong>浏览器事件触发线程</strong>:事件触发线程，当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。（当线程中没有执行任何同步代码的前提下才会执行异步代码）  </p>
 <h3 id="js工作线程实现的方式"><a href="#js工作线程实现的方式" class="headerlink" title="js工作线程实现的方式"></a>js工作线程实现的方式</h3><p>1.setTimeout()  使用该函数将任务进行分割<br>2.Google Gears谷歌开发的浏览器插件工具，不提倡使用。<br>3.Web Worker借鉴Google Gears，规范定义了一套API，允许 Web 应用创建在后台执行 JavaScript 代码的工作线程。即工作线程在执行过程中不会对主页面造成影响。Web Worker 规范中定义了两类工作线程:  </p>
 <p>专属工作线程:只能为一个页面所使用,创建专属线程时要指定需要执行的js文件的URL。通过postMessage和onmessage来接收和发送消息。</p>
@@ -125,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/27/多线程/" data-id="cj4htcizl000y7q3rmm06qq1a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/27/多线程/" data-id="cj4i95evy000rin3rqx1jntdj" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -134,9 +134,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2017/06/29/ES6-String/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          ES6-String
+        
+      </div>
+    </a>
+  
   
     <a href="/2017/06/07/CreateReactNativeApp-Expo/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">CreateReactNativeApp-Expo</div>
     </a>
   
@@ -151,7 +160,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -161,7 +170,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
@@ -171,7 +180,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -190,9 +199,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
@@ -210,10 +223,6 @@
             <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
-          <li>
-            <a href="/2017/05/14/Android动画/">Android动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -227,7 +236,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

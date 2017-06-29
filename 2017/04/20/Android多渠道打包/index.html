@@ -11,14 +11,14 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/20/Android多渠道打包/index.html">
 <meta property="og:site_name" content="DarkAngel的技术小屋">
 <meta property="og:description" content="使用gradle构建Android应用的渠道包基本原理利用gradle的manifest merger功能，这个功能的主要用途是能够在运行时替换AndroidManifest.xml里面的内容 注意:下面以友盟统计为例    Step1:在AndroidManifest.xml文件中配置PlaceHolder(占位符)  12345&amp;lt;meta-data    android:name=&amp;qu">
-<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/Android多渠道打包/gradle3.png">
-<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/Android多渠道打包/gradle2.png">
-<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/Android多渠道打包/gradle1.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/gradle3.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/gradle2.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/gradle1.png">
 <meta property="og:updated_time" content="2017-05-10T09:31:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android多渠道打包">
 <meta name="twitter:description" content="使用gradle构建Android应用的渠道包基本原理利用gradle的manifest merger功能，这个功能的主要用途是能够在运行时替换AndroidManifest.xml里面的内容 注意:下面以友盟统计为例    Step1:在AndroidManifest.xml文件中配置PlaceHolder(占位符)  12345&amp;lt;meta-data    android:name=&amp;qu">
-<meta name="twitter:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/Android多渠道打包/gradle3.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/04/20/Android多渠道打包/gradle3.png">
   
     <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
   
@@ -56,9 +56,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -99,19 +99,19 @@
 <li>Step2:在Module下面的build.gradle中配置相应的内容</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 设置占位符默认值</div><div class="line">defaultConfig &#123;</div><div class="line">   manifestPlaceholders = [ UMENG_CHANNEL_VALUE:&quot;wandoujia&quot; ]</div><div class="line">&#125;</div><div class="line">// 渠道FlavorproductFlavors &#123;   wandoujia &#123;&#125;   baidu &#123;&#125;   c360 &#123;&#125;   uc &#123;&#125;&#125;productFlavors.all &#123;    flavor -&gt;   flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]&#125;signingConfigs &#123;</div><div class="line">   release &#123;</div><div class="line">     storeFile file(MYAPP_RELEASE_STORE_FILE)</div><div class="line">     storePassword MYAPP_RELEASE_STORE_PASSWORD</div><div class="line">     keyAlias MYAPP_RELEASE_KEY_ALIAS</div><div class="line">     keyPassword MYAPP_RELEASE_KEY_PASSWORD</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> 注意:MYAPP等相应的值在gradle-wrapper.properties中设置</div></pre></td></tr></table></figure>
-<p><img src="Android多渠道打包/gradle3.png" alt="gradle3">    </p>
+<p><img src="/2017/04/20/Android多渠道打包/gradle3.png" alt="gradle3">    </p>
 <ul>
 <li>Step3:此时有两种方式进行打包<br>方式一:使用AS的Generate Signed APK </li>
 </ul>
-<p><img src="Android多渠道打包/gradle2.png" alt="gradle2">    </p>
+<p><img src="/2017/04/20/Android多渠道打包/gradle2.png" alt="gradle2">    </p>
 <p>方式二:使用Module下的build.gradle配置</p>
-<p><img src="Android多渠道打包/gradle1.png" alt="gradle1"></p>
+<p><img src="/2017/04/20/Android多渠道打包/gradle1.png" alt="gradle1"></p>
 <p><a href="https://github.com/quanquanmiaomiao/LearnGradlePack" title="悬停显示" target="_blank" rel="external">多渠道打包DEMO地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/20/Android多渠道打包/" data-id="cj4htciy500017q3r48fzv2g3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/20/Android多渠道打包/" data-id="cj4i95ev30003in3rvg0ivf1h" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -121,7 +121,7 @@
 <nav id="article-nav">
   
     <a href="/2017/05/14/Android动画/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           Android动画
@@ -131,7 +131,7 @@
   
   
     <a href="/2017/04/18/CSS花样选择器/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">CSS花样选择器</div>
     </a>
   
@@ -146,7 +146,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -156,7 +156,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
@@ -166,7 +166,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -185,9 +185,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
@@ -205,10 +209,6 @@
             <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
-          <li>
-            <a href="/2017/05/14/Android动画/">Android动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -222,7 +222,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
