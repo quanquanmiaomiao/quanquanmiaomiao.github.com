@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CreateReactNativeApp-Expo | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###认识###CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CreateReactNativeApp-Expo">
+<meta property="og:url" content="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="###认识###CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以">
+<meta property="og:image" content="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/CreateReactNativeApp-Expo/app.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/CreateReactNativeApp-Expo/app1.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/CreateReactNativeApp-Expo/app2.png">
+<meta property="og:updated_time" content="2017-06-16T02:44:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CreateReactNativeApp-Expo">
+<meta name="twitter:description" content="###认识###CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以">
+<meta name="twitter:image" content="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/CreateReactNativeApp-Expo/app.png">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CreateReactNativeApp-Expo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/07/CreateReactNativeApp-Expo/" class="article-date">
+  <time datetime="2017-06-07T06:56:35.000Z" itemprop="datePublished">2017-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CreateReactNativeApp-Expo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###认识###<br>CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以及大部分的API,并支持Expo提供的API。<br>但是当我们不得不用到Native Code时怎么办？<br>Expo提供了对设备系统功能的访问比如(相机、手机联系人、本地存储以及其他硬件的访问)。<br>开发过程中引入需要使用react-native link的依赖时我们又怎么办？<br>我们可以使用ejecting, 提供运行 npm run eject 得到一个与react-native init类似的项目，此时你就需要XCode或者Android Studio。  </p>
+<p>###Expo项目的构建与运行###<br>1.使用桌面工具(XDE)直接构建<br><a href="https://xde-updates.exponentjs.com/download/mac" target="_blank" rel="external">macOS下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/win32" target="_blank" rel="external">Windows下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/linux-x86_64" target="_blank" rel="external">Linux下载地址</a><br>2.使用create-react-native-app构建Expo项目<br> <a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="external">create-react-native-app</a><br> 在使用该方法之前已经安装create-react-native-app</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g create-react-native-app</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ create-react-native-app myApp(应用的名称)</div><div class="line">$ cd myApp</div><div class="line">$ npm start</div></pre></td></tr></table></figure>
+<p> 启动成功出现下图，通过手机端的Expo扫描该二维码即可。  </p>
+<p> <img src="CreateReactNativeApp-Expo/app.png" alt="启动成功"><br>3.使用exp convert 将ReactNaive项目转换为Expo项目<br>在使用该方式之前确保已经安装Exp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g exp</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd your project</div><div class="line">$ exp convert</div></pre></td></tr></table></figure>
+<p>接着会有如下步骤的操作会提示你<br> <img src="CreateReactNativeApp-Expo/app1.png" alt="启动成功"><br>注意:不论使用上面哪种方式都需要在手机端安装Expo来调试你的应用程序<br><a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank" rel="external">安卓下载地址</a><br> PC端使用谷歌商店下载应用程序比较麻烦可以采用下面的方式下载:复制要下载程序的链接地址到<a href="https://apps.evozi.com/apk-downloader/#discuss" target="_blank" rel="external">这个地址</a>，GenerateDownloadLink即可。<br><a href="https://itunes.com/apps/exponent" target="_blank" rel="external">IOS下载地址</a>   </p>
+<p>###XDE工具的介绍###<br>Project<br>Restart<br>Help<br>Publish<br>Share<br>Device   </p>
+<p>###Expo项目的生命周期###<br><img src="CreateReactNativeApp-Expo/app2.png" alt="启动成功">    </p>
+<p>上面介绍了Expo Deploy之前的生命周期，下面具体介绍打包的生命周期(生成独立的APK或者IPA)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在保证需要打包的项目启动成功并配置打包相应的选项</div><div class="line">$ exp build:android(ios)</div><div class="line">$ exp build:status</div></pre></td></tr></table></figure>
+<p>打包成功后会生成类似这样的链接(<a href="https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk" target="_blank" rel="external">https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk</a>)<br><a href="https://docs.expo.io/versions/v17.0.0/guides/building-standalone-apps.html" target="_blank" rel="external">具体介绍请参考</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/" data-id="cj4htciyq000b7q3r1l9rjb89" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/27/多线程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          多线程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/05/Java的基本理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java的基本理解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/14/Android动画/">Android动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

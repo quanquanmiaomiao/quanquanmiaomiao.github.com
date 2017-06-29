@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RNGM基于0.0.23版本的改动 | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="RNGF(react-native-gifted-messenger)的缩写  文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能  根据产品需求自定义了一些Bubble 包括：ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble  修改时间展示的格式，添加中文支持  在渲染每一行消息时，添加posi">
+<meta name="keywords" content="work">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNGM基于0.0.23版本的改动">
+<meta property="og:url" content="http://yoursite.com/2017/02/13/RNGM基于0-0-23版本的改动/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="RNGF(react-native-gifted-messenger)的缩写  文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能  根据产品需求自定义了一些Bubble 包括：ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble  修改时间展示的格式，添加中文支持  在渲染每一行消息时，添加posi">
+<meta property="og:updated_time" content="2017-02-13T13:57:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RNGM基于0.0.23版本的改动">
+<meta name="twitter:description" content="RNGF(react-native-gifted-messenger)的缩写  文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能  根据产品需求自定义了一些Bubble 包括：ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble  修改时间展示的格式，添加中文支持  在渲染每一行消息时，添加posi">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-RNGM基于0-0-23版本的改动" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/13/RNGM基于0-0-23版本的改动/" class="article-date">
+  <time datetime="2017-02-13T13:41:33.000Z" itemprop="datePublished">2017-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RNGM基于0.0.23版本的改动
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RNGF(react-native-gifted-messenger)的缩写</p>
+<ol>
+<li><p>文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能</p>
+</li>
+<li><p>根据产品需求自定义了一些Bubble 包括：<br>ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble</p>
+</li>
+<li><p>修改时间展示的格式，添加中文支持</p>
+</li>
+<li><p>在渲染每一行消息时，添加position为middle的属性渲染SystemBubble</p>
+</li>
+<li><p>修改消息发送错误ErrorButton的样式去掉GiftedSpinner，添加重新发送消息功能</p>
+</li>
+<li><p>修改input处的样式并添加MenuButton(+)，修改TextInput的onChange事件</p>
+</li>
+<li><p>添加MenuView:随访模板、患者病例、快捷回复、就诊小结、发送图片、随访方案、WorkBook</p>
+</li>
+<li><p>发送消息时，重新组合消息</p>
+</li>
+<li><p>暴露关于聊天消息数据数组到组件外面去注入。删掉所有关于消息数据增删改的控制</p>
+</li>
+<li><p>去除顶部 获取更多历史消息按钮，转变为下拉刷新</p>
+</li>
+<li><p>添加TextBubble 关于多行文本展示，限制最大宽度</p>
+</li>
+<li><p>修改几乎所有的展示样式，颜色搭配等。</p>
+</li>
+<li><p>添加输入框多行文本支持</p>
+</li>
+<li><p>添加Image放大展示</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/13/RNGM基于0-0-23版本的改动/" data-id="cj4htciyv000i7q3refj5ondu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/02/13/RN组件收藏/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RN组件收藏
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/13/RN-Pad端优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RN_Pad端优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/14/Android动画/">Android动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

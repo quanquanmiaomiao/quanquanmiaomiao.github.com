@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android机型适配 | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配 语言适配若决定支持某种语言，则需要创建资源子目录和字符串资源文件    eg:    MyProject/    —res/    ——values/    ———strings.xml    ——values-es/     西班牙语    ———strings.xml    ——values-fr/     法语    ——">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android机型适配">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/Android机型适配/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配 语言适配若决定支持某种语言，则需要创建资源子目录和字符串资源文件    eg:    MyProject/    —res/    ——values/    ———strings.xml    ——values-es/     西班牙语    ———strings.xml    ——values-fr/     法语    ——">
+<meta property="og:updated_time" content="2017-02-16T02:23:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android机型适配">
+<meta name="twitter:description" content="注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配 语言适配若决定支持某种语言，则需要创建资源子目录和字符串资源文件    eg:    MyProject/    —res/    ——values/    ———strings.xml    ——values-es/     西班牙语    ———strings.xml    ——values-fr/     法语    ——">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android机型适配" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/Android机型适配/" class="article-date">
+  <time datetime="2017-02-15T08:36:39.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android机型适配
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配</code></p>
+<h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>若决定支持某种语言，则需要创建资源子目录和字符串资源文件<br>    eg:<br>    MyProject/<br>    —res/<br>    ——values/<br>    ———strings.xml<br>    ——values-es/     西班牙语<br>    ———strings.xml<br>    ——values-fr/     法语<br>    ———strings.xml<br>添加不同区域语言的字符串到相应的文件</p>
+<h2 id="屏幕适配"><a href="#屏幕适配" class="headerlink" title="屏幕适配"></a>屏幕适配</h2><p>4种普通尺寸:小(small)、普通(normal)、大(large)、超大(xlarge)<br>4种普通分辨率:低精度(ldpi)、中精度(mdpi)、高精度(hdpi)、超高精度(xhdpi)</p>
+<p>屏幕的方向也是一种考虑适配的尺寸变化<br>解决方案:创建不同的layout<br>    eg:<br>    MyProject/<br>    —res/<br>    ——layout/<br>    ———main.xml<br>    ——layout-large/<br>    ———main.xml<br>    ——layout-land/<br>    ———main.xml<br>    ——layout-large-land/<br>    ———main.xml</p>
+<p><code>注意:Android3.2及以上版本支持定义屏幕尺寸的高级方法，它允许根据屏幕的长度和宽度指定layout</code></p>
+<p>适配不同屏幕的注意点</p>
+<ol>
+<li>使用wrap_content、match_parent尺寸值代替硬编码的尺寸</li>
+<li>尽可能多的使用RelativeLayout,精准得到layout与子控件的关系</li>
+<li>使用最小宽度限定词 (最小限定词允许你根据设备的最小宽度(dp单位)来指定不同布局)<br><code>注意:最小宽度限定词只能在Android3.2或者更高版本使用</code></li>
+<li><p>使用布局别名<br> eg:<br> res/layout/main.xml<br> res/layout-large/main.xml<br> res/layout-sw600dp/main.xml<br> 最后两个文件是一样的,layout-sw600dp适配的是Android3.2的设备,layout-large适配的是其他低版本的Android设备,为了避免重复以及后期维护的复杂性采用别名方式进行适配<br> eg:<br> res/layout/main.xml<br> res/layout/main_two_pans.xml<br> 然后添加这两个文件:<br> res/values-large/layout.xml</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<p> res/values-sw600dp/layout.xml</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>背景图使用.9图</p>
+</li>
+<li>使用密度独立像素(dp、sp)的单位</li>
+<li>提供不同分辨率的图片</li>
+</ol>
+<h2 id="适配不同系统版本"><a href="#适配不同系统版本" class="headerlink" title="适配不同系统版本"></a>适配不同系统版本</h2><ol>
+<li>指定最小和目标API级别</li>
+<li>运行时检查系统版本<br><code>Android在Build常类中提供了对每一个版本的唯一代号，我们可以利用这些代号在我们的app中建立条件，保证依赖于高级别的API代码</code></li>
+<li>使用平台风格和主题</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/Android机型适配/" data-id="cj4htciyf00057q3rs7xap4hu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/02/22/AndroidHandler/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          AndroidHandler
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/14/Buck/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Buck</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/14/Android动画/">Android动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

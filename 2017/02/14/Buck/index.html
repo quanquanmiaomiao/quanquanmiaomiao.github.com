@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Buck | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android Buck支持Mac os x 、Linux 、 WindowsIOS Buck只支持Mac os x、Linux 、 Windows Mac OS X下构建Android 搭建Buck环境1.Homebrew方式下载Buck$ brew update $ brew tap facebook/fb $ brew install --HEAD buck 2.手动方式下载Buck手动构建">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Buck">
+<meta property="og:url" content="http://yoursite.com/2017/02/14/Buck/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="Android Buck支持Mac os x 、Linux 、 WindowsIOS Buck只支持Mac os x、Linux 、 Windows Mac OS X下构建Android 搭建Buck环境1.Homebrew方式下载Buck$ brew update $ brew tap facebook/fb $ brew install --HEAD buck 2.手动方式下载Buck手动构建">
+<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android_success.png">
+<meta property="og:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android.png">
+<meta property="og:updated_time" content="2017-03-13T09:35:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Buck">
+<meta name="twitter:description" content="Android Buck支持Mac os x 、Linux 、 WindowsIOS Buck只支持Mac os x、Linux 、 Windows Mac OS X下构建Android 搭建Buck环境1.Homebrew方式下载Buck$ brew update $ brew tap facebook/fb $ brew install --HEAD buck 2.手动方式下载Buck手动构建">
+<meta name="twitter:image" content="http://yoursite.com/2017/02/14/Buck/Buck/buck_android_success.png">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Buck" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/14/Buck/" class="article-date">
+  <time datetime="2017-02-14T07:16:03.000Z" itemprop="datePublished">2017-02-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Buck
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android Buck支持Mac os x 、Linux 、 Windows<br>IOS Buck只支持Mac os x、Linux 、 Windows</p>
+<p>Mac OS X下构建Android</p>
+<h1 id="搭建Buck环境"><a href="#搭建Buck环境" class="headerlink" title="搭建Buck环境"></a>搭建Buck环境</h1><h2 id="1-Homebrew方式下载Buck"><a href="#1-Homebrew方式下载Buck" class="headerlink" title="1.Homebrew方式下载Buck"></a>1.Homebrew方式下载Buck</h2><pre><code>$ brew update
+$ brew tap facebook/fb
+$ brew install --HEAD buck
+</code></pre><h2 id="2-手动方式下载Buck"><a href="#2-手动方式下载Buck" class="headerlink" title="2.手动方式下载Buck"></a>2.手动方式下载Buck</h2><p>手动构建Buck的前提要下载以下工具:<br><a href="https://developer.apple.com/xcode/features/" title="悬停显示" target="_blank" rel="external">Command Line Tools </a><br><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" title="悬停显示" target="_blank" rel="external">Oracle Java Development Kit</a><br><a href="http://ant.apache.org/" title="悬停显示" target="_blank" rel="external">Apache Ant 1.9 (or newer) </a><br><a href="https://www.python.org/downloads/" title="悬停显示" target="_blank" rel="external">Python 2.7 </a><br><a href="https://git-scm.com/download" title="悬停显示" target="_blank" rel="external">Git</a><br><a href="https://facebook.github.io/watchman/docs/install.html" title="悬停显示" target="_blank" rel="external">Watchman</a></p>
+<p>你可以选择使用Homebrew安装上面的工具.</p>
+<p>上面工具安装成后可以按照下面的方式 install buck<br>    git clone <a href="https://github.com/facebook/buck.git" target="_blank" rel="external">https://github.com/facebook/buck.git</a><br>    cd buck<br>    ant<br>    ./bin/buck –help</p>
+<p>build安装成功界面<br><img src="Buck/buck_android_success.png" alt="Build成功">        </p>
+<p>配置环境变量</p>
+<pre><code>$ cd ~
+$ vim ~/.bash_profile
+添加如下配置
+export PATH=$HOME/buck/bin:$PATH
+使配置立即生效
+$ source ~/.bash_profile
+</code></pre><h1 id="Buck构建Android"><a href="#Buck构建Android" class="headerlink" title="Buck构建Android"></a>Buck构建Android</h1><ol>
+<li><p>快速构建<br> $ touch .buckconfig &amp;&amp; buck quickstart</p>
+<p> 该命令在执行过程中会要求补全两个参数的值:<br> –dest-dir: 生成的Android工程的目录<br> –android-sdk: 本地Android SDK的目录<br> 注意:新版本–android-sdk参数失效了,可以在开发平台手动设置SDK</p>
+<p>Buck构建Android的目录结构<br><img src="Buck/buck_android.png" alt="Buck构建Android的目录结构"><br>进入到项目根目录执行如下命令</p>
+<p> 编译应用程序<br> $ buck build android别名<br> 安装应用到设备<br> $ buck install –run android别名 </p>
+<p>  创建IntelliJ工程<br> $ buck project –ide IntelliJ</p>
+</li>
+</ol>
+<h1 id="Buck的基本理解"><a href="#Buck的基本理解" class="headerlink" title="Buck的基本理解"></a>Buck的基本理解</h1><h2 id="Build-Rule"><a href="#Build-Rule" class="headerlink" title="Build Rule"></a>Build Rule</h2><p>   构建规则是从一组输入文件中生成一组输出文件的过程，是一种泛称。Buck已经内建了一系列的构建规则。比如构建Android代码是会用到规则</p>
+<p>   android_binary()生成一个apk文件，android_library() 生成jar包等</p>
+<p>   每个构建规则至少包括三个参数</p>
+<p>   1.name:构建规则的名称，在一个构建文件中必须保持其唯一性</p>
+<p>   2.deps:构建规则的依赖项，以一个构建目标的列表的形式表示</p>
+<p>   3.visibility:可见性，表明其他构建规则是否可以依赖该规则构建，以一个构建目标模式的列表形式表示</p>
+<p>   示例1</p>
+<pre><code>android_resource(
+  name = &apos;res&apos;,
+  res = &apos;res&apos;,
+  assets = &apos;assets&apos;,
+)
+
+android_library(
+  name = &apos;src&apos;,
+  srcs = glob([&apos;src/**/*.java&apos;]),
+  deps = [
+    &apos;:res&apos;,
+  ],)
+
+android_binary(
+  name = &apos;hello&apos;,
+  manifest = &apos;AndroidManifest.xml&apos;,
+  keystore = &apos;//keystores:prod&apos;,
+  package_type = &apos;release&apos;,
+  proguard_config = &apos;proguard.cfg&apos;,
+  deps = [
+    &apos;:res&apos;,
+    &apos;:src&apos;,
+  ],)
+</code></pre><p> 注意:buck中构建规则依赖的规则，会先于构建规则本身进行构建，构建规则和它的依赖之间是一个有向图，并且这个图的无闭环的。     </p>
+<h2 id="Build-Target"><a href="#Build-Target" class="headerlink" title="Build Target"></a>Build Target</h2><p>   Build Target 构建目标是一个字符串，用于标识工程中的某个构建规则，它常常作为Build Rule的参数使用。</p>
+<pre><code>&apos;//java/com/example/activity:activity&apos;
+</code></pre><p>   主要有三部分组成:</p>
+<p>   1.// 前缀表示路径是相对于工程的根目录</p>
+<p>   2.java/com/example/activity表示构建文件buck位于该目录中</p>
+<p>   3.:后面的activity表示构建文件里面定义的构建规则的名称，在一个构建文件中，构建规则的名字是唯一的</p>
+<p>   在同一个构建文件中，可以使用构建目标的相对路径来引用。相对路径以(:)冒号开始，后面紧跟三大组成部分的第三部分。如示例1</p>
+<h2 id="Build-File"><a href="#Build-File" class="headerlink" title="Build File"></a>Build File</h2><p>Build File 构建文件用于定义一个或者过个构建规则，统一命名为Buck.在一个工程中的java源文件只能被离它最近的Buck文件引用。</p>
+<p>示例</p>
+<pre><code>java/com/facebook/base/BUCK
+java/com/facebook/common/BUCK
+java/com/facebook/common/collect/BUCK
+</code></pre><p>base/Buck文件中的构建规则只能引用base/目录下的源文件</p>
+<p>common/Buck文件中的构建规则可以引用该目录下除去子目录collect之外的所有源文件</p>
+<p>collect/Buck文件中的构建规则只能引用collect中的源文件</p>
+<p>那么我们如何在common中引用base和collect中的构建规则呢?答案是 使用deps引用这些文件</p>
+<p>示例</p>
+<p>java/com/facebook/common/test/的代码需要依赖java/com/facebook/common/collect/包下面的代码,假设java/com/facebook/common/collect/BUCK文件中有一个构建规则如下：</p>
+<pre><code>java_library(
+   name = &apos;collect&apos;,
+   srcs = glob([&apos;*.java&apos;]),
+   deps = [
+ &apos;//java/com/facebook/base:base&apos;,
+  ],)
+</code></pre><p>那么java/com/facebook/common/BUCK文件应该定义规则如下：</p>
+<pre><code>java_library(
+   name = &apos;test&apos;,
+  srcs = glob([&apos;test/*.java&apos;]),
+  deps = [
+        &apos;//java/com/facebook/base:base&apos;,
+    &apos;//java/com/facebook/common/collect:collect&apos;,
+  ],)
+</code></pre><h2 id="Build-Target-Pattern"><a href="#Build-Target-Pattern" class="headerlink" title="Build Target Pattern"></a>Build Target Pattern</h2><p>Build Target Pattern构建目标模式是一个用来匹配一个或者多个构建目标的字符串，一般作为参数传递给构建规则中的visibility属性。一个构建目标其实也是一个构建模式，只是它匹配到的是它自己.</p>
+<pre><code># 匹配到 &apos;//apps/myapp:app&apos;
+&apos;//apps/myapp:app&apos;
+</code></pre><p>以冒号:结尾的构建目标模式可以匹配到同一目录中的构建目标</p>
+<pre><code># 匹配到 &apos;//apps/myapp:app_debug&apos; 和&apos;//apps/myapp:app_release&apos;
+&apos;//apps/myapp:&apos;
+</code></pre><p>以/…结尾的构建目标模式可以匹配到该目录及其子目录中的构建目标：</p>
+<pre><code># 匹配到 &apos;//apps:common&apos; and &apos;//apps/myapp:app&apos;
+&apos;//apps/...&apos;
+</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://buckbuild.com/setup/getting_started.html" title="悬停显示" target="_blank" rel="external">Buck官方文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/14/Buck/" data-id="cj4htciyj00067q3rb4a16ilz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/02/15/Android机型适配/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android机型适配
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/13/RN组件收藏/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RN组件收藏</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/14/Android动画/">Android动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

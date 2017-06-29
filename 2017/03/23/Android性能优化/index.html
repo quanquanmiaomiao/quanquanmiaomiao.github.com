@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android性能优化 | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##why大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。 Android UI CPU GPUCPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。 1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源 2.减少GPU的Overdraw(过度绘制:屏幕上的某">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android性能优化">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/Android性能优化/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="##why大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。 Android UI CPU GPUCPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。 1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源 2.减少GPU的Overdraw(过度绘制:屏幕上的某">
+<meta property="og:image" content="http://yoursite.com/2017/03/23/Android性能优化/Android性能优化/overdraw.png">
+<meta property="og:updated_time" content="2017-04-13T09:17:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android性能优化">
+<meta name="twitter:description" content="##why大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。 Android UI CPU GPUCPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。 1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源 2.减少GPU的Overdraw(过度绘制:屏幕上的某">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/23/Android性能优化/Android性能优化/overdraw.png">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/Android性能优化/" class="article-date">
+  <time datetime="2017-03-23T02:24:30.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##why<br>大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。</p>
+<h2 id="Android-UI-CPU-GPU"><a href="#Android-UI-CPU-GPU" class="headerlink" title="Android UI CPU GPU"></a>Android UI CPU GPU</h2><p>CPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。</p>
+<p>1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源</p>
+<p>2.减少GPU的Overdraw(过度绘制:屏幕上的某一个像素在同一帧的时间内被渲染多次)<br>检查过度渲染工具:手机设置-&gt;开发者选项-&gt;ShowGPUOverdraw的选项，可以观察到UI的Overdraw情况。</p>
+<p><img src="Android性能优化/overdraw.png" alt="Build成功"><br>蓝、绿、淡红、深红代表了4种不同程度的Overdraw情况。</p>
+<p>优化注意点:</p>
+<p>移除Window默认的Background</p>
+<p>移除XML布局文件中不必要的Background</p>
+<p>按需显示占位图片</p>
+<p>ClipRect &amp;&amp; Quickreject<br>Android系统提供了一些组件来避免不可见组件造成的Overdraw，但是对于那些复杂的自定义的View(重写了onDraw方法)，Android系统无法检测具体操作，系统无法监控并优化，也就无法避免Overdraw，针对上述情况我们可以通过canvas.clipRect()来帮助系统识别可见区域。该方法可以指定一块区域，只有在这个区域才会被绘制，其他区域被忽视。我们也可以使用canvas.quickReject()来判断是否没和某个矩形有交集,从而跳过那些非矩形区域的绘制操作。</p>
+<p>DisplayList<br>避免布局的嵌套<br>Profile GPU Rendering<br>蓝色:绘制DisplayList的时间<br>红色:OpenGL渲染DisplayList需要的时间<br>黄色:CPU等待GPU处理的时间</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/Android性能优化/" data-id="cj4htciy900037q3ry3vz8twg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/18/CSS花样选择器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CSS花样选择器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/22/单例模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">单例模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/14/Android动画/">Android动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
