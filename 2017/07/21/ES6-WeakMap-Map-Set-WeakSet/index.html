@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ES6-WeakMap/Map/Set/WeakSet | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MapMap是ES6新增的有序键值对集合,键值对(key,value)可以使任何类型的元素。 12345678910var map = new Map();var key1 = &amp;#123;toString():function()&amp;#123;return 2&amp;#125;&amp;#125;;var key2 = 2;map.set(key1,1);map.set(key2,2);map.hsa(key1">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6-WeakMap&#x2F;Map&#x2F;Set&#x2F;WeakSet">
+<meta property="og:url" content="http://yoursite.com/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="MapMap是ES6新增的有序键值对集合,键值对(key,value)可以使任何类型的元素。 12345678910var map = new Map();var key1 = &amp;#123;toString():function()&amp;#123;return 2&amp;#125;&amp;#125;;var key2 = 2;map.set(key1,1);map.set(key2,2);map.hsa(key1">
+<meta property="og:updated_time" content="2017-07-21T03:53:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6-WeakMap&#x2F;Map&#x2F;Set&#x2F;WeakSet">
+<meta name="twitter:description" content="MapMap是ES6新增的有序键值对集合,键值对(key,value)可以使任何类型的元素。 12345678910var map = new Map();var key1 = &amp;#123;toString():function()&amp;#123;return 2&amp;#125;&amp;#125;;var key2 = 2;map.set(key1,1);map.set(key2,2);map.hsa(key1">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ES6-WeakMap-Map-Set-WeakSet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/" class="article-date">
+  <time datetime="2017-07-21T02:25:28.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ES6-WeakMap/Map/Set/WeakSet
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map是ES6新增的有序键值对集合,键值对(key,value)可以使任何类型的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var map = new Map();</div><div class="line">var key1 = &#123;toString():function()&#123;return 2&#125;&#125;;</div><div class="line">var key2 = 2;</div><div class="line">map.set(key1,1);</div><div class="line">map.set(key2,2);</div><div class="line">map.hsa(key1); // true</div><div class="line">map.has(&apos;2&apos;); // false</div><div class="line">map.delete(2);</div><div class="line">map.size; // 1</div><div class="line">map.get(key2); // undefined</div></pre></td></tr></table></figure>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>你可以把WeakMap看作是Map的子集,它拥有和Map类似的set(key,value)、get(key)、has(key)、delete(key)、和clear()等方法，但没有size()属性,也没有任何与迭代相关的方法,如:no .entries(), no .keys(), no .values(), no .forEach(), no .clear()。  </p>
+<p>在WeakMap中key只能是<strong>非空的对象</strong>,WeakMap仅保持对key的弱引用,可以避免内存泄漏。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var map = new WeakMap();</div><div class="line">// 注意: 1和Symbol()都是值类型不能作为WeakMap的key</div><div class="line">map.set(1,2); // TypeError: Invalid value used as weak map key</div><div class="line">map.set(Symbol(),2); // TypeError: Invalid value used as weak map key</div></pre></td></tr></table></figure>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>Set是ES6新增的有序列表集合，它不包含重复项。  </p>
+<p>采用Object方式实现没有重复项存在的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var o = &#123;&#125;;</div><div class="line">var key1 = 2;</div><div class="line">var key2 = &#123;toString:function()&#123;return 2&#125;&#125;;</div><div class="line">var key3=&#123;x:1&#125;;</div><div class="line">var key4=&#123;y:1&#125;;</div><div class="line">o[key1] = 1;</div><div class="line">o[key2] = 2;</div><div class="line">o[key3] = 3;</div><div class="line">o[key4] = 4;</div><div class="line">// o: &#123;2:2,[object,object]:4&#125;</div></pre></td></tr></table></figure>
+<p>上述代码中最终o的结果为{2:2,[object,object]:4}, why?<br>在object中会对key进行toString()操作,导致key对应的数据被覆盖。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">key2.toString(); // 2</div><div class="line">key3.toString(); // &quot;[object,object]&quot;</div><div class="line">key4.toString(); // &quot;[]object,object&quot;</div></pre></td></tr></table></figure>
+<p>数组可以存放任何类型的数据，不过数据去重需要开发者手动实现。  </p>
+<p>Set可以有效的解决上面存在的问题。<br>Set可以通过add(item)方法想Set添加任意类型的元素，如果已经添加过则自动忽略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var set = new Set();</div><div class="line">var item1 = 2;</div><div class="line">var item2 = &#123;toString:function()&#123;return 2&#125;&#125;;</div><div class="line">var item3=&#123;x:1&#125;;</div><div class="line">var item4=&#123;y:1&#125;;</div><div class="line">set.add(item1);</div><div class="line">set.add(item2);</div><div class="line">set.add(item3);</div><div class="line">set.add(item4);</div><div class="line">// set:&#123;2, Object &#123;toString: function&#125;, Object &#123;x: 1&#125;, Object &#123;y: 1&#125;&#125;</div><div class="line">set.has(item1); // true</div><div class="line">set.delete(item1);</div><div class="line">set.has(item1); // false</div><div class="line">set.clear();</div><div class="line">set.size; // 0</div></pre></td></tr></table></figure>
+<p>注意:Set调用add、has、delete等方法对key进行比较不会做类型转换，可以使用 === 进行比较，但是也存在特殊情况:<br>NaN 只能添加一次 虽然 NaN === NaN 为false<br>-0或0或+0 可以同时存在,因为符号不一样虽然 -0===0 -0===+0 true</p>
+<h3 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h3><p>WeakSet和Set就像是WeakMap与Map的关系一样。WeakSet中的value只能是<strong>非空的对象</strong>且不能使用迭代器。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/" data-id="cj5dd4gxa000klz3rh9md3bi6" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/04/ES6-Proxy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">ES6_Proxy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

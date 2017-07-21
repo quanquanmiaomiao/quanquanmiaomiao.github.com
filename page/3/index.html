@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-CreateReactNativeApp-Expo" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ES6-Math" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/07/CreateReactNativeApp-Expo/" class="article-date">
-  <time datetime="2017-06-07T06:56:35.000Z" itemprop="datePublished">2017-06-07</time>
+    <a href="/2017/07/03/ES6-Math/" class="article-date">
+  <time datetime="2017-07-03T08:42:14.000Z" itemprop="datePublished">2017-07-03</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
+      <a class="article-title" href="/2017/07/03/ES6-Math/">ES6_Math</a>
     </h1>
   
 
@@ -83,27 +83,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###认识###<br>CreateReactNative是一个移动端APP开发套件，它可以让我们采用JavaScript进行开发高质量的iOS和Android应用。通过CreateReactNative开发React Native的时候，我们不需要打开xcode和android stduio甚至也许不要写任何原生代码。它是Facebook和Expo合作的产物,它支持ReactNative提供的所有组件以及大部分的API,并支持Expo提供的API。<br>但是当我们不得不用到Native Code时怎么办？<br>Expo提供了对设备系统功能的访问比如(相机、手机联系人、本地存储以及其他硬件的访问)。<br>开发过程中引入需要使用react-native link的依赖时我们又怎么办？<br>我们可以使用ejecting, 提供运行 npm run eject 得到一个与react-native init类似的项目，此时你就需要XCode或者Android Studio。  </p>
-<p>###Expo项目的构建与运行###<br>1.使用桌面工具(XDE)直接构建<br><a href="https://xde-updates.exponentjs.com/download/mac" target="_blank" rel="external">macOS下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/win32" target="_blank" rel="external">Windows下载地址</a><br><a href="https://xde-updates.exponentjs.com/download/linux-x86_64" target="_blank" rel="external">Linux下载地址</a><br>2.使用create-react-native-app构建Expo项目<br> <a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="external">create-react-native-app</a><br> 在使用该方法之前已经安装create-react-native-app</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g create-react-native-app</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ create-react-native-app myApp(应用的名称)</div><div class="line">$ cd myApp</div><div class="line">$ npm start</div></pre></td></tr></table></figure>
-<p> 启动成功出现下图，通过手机端的Expo扫描该二维码即可。  </p>
-<p> <img src="/2017/06/07/CreateReactNativeApp-Expo/app.png" alt="启动成功"><br>3.使用exp convert 将ReactNaive项目转换为Expo项目<br>在使用该方式之前确保已经安装Exp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g exp</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd your project</div><div class="line">$ exp convert</div></pre></td></tr></table></figure>
-<p>接着会有如下步骤的操作会提示你<br> <img src="/2017/06/07/CreateReactNativeApp-Expo/app1.png" alt="启动成功"><br>注意:不论使用上面哪种方式都需要在手机端安装Expo来调试你的应用程序<br><a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank" rel="external">安卓下载地址</a><br> PC端使用谷歌商店下载应用程序比较麻烦可以采用下面的方式下载:复制要下载程序的链接地址到<a href="https://apps.evozi.com/apk-downloader/#discuss" target="_blank" rel="external">这个地址</a>，GenerateDownloadLink即可。<br><a href="https://itunes.com/apps/exponent" target="_blank" rel="external">IOS下载地址</a>   </p>
-<p>###XDE工具的介绍###<br>Project<br>Restart<br>Help<br>Publish<br>Share<br>Device   </p>
-<p>###Expo项目的生命周期###<br><img src="/2017/06/07/CreateReactNativeApp-Expo/app2.png" alt="启动成功">    </p>
-<p>上面介绍了Expo Deploy之前的生命周期，下面具体介绍打包的生命周期(生成独立的APK或者IPA)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在保证需要打包的项目启动成功并配置打包相应的选项</div><div class="line">$ exp build:android(ios)</div><div class="line">$ exp build:status</div></pre></td></tr></table></figure>
-<p>打包成功后会生成类似这样的链接(<a href="https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk" target="_blank" rel="external">https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40quanquanmiaomiao%2FDEMO-3988b6c0-50e5-11e7-a61d-0a580a780033-signed.apk</a>)<br><a href="https://docs.expo.io/versions/v17.0.0/guides/building-standalone-apps.html" target="_blank" rel="external">具体介绍请参考</a></p>
+        <h3 id="ES6中Math方法的扩展"><a href="#ES6中Math方法的扩展" class="headerlink" title="ES6中Math方法的扩展"></a>ES6中Math方法的扩展</h3><p><strong>Math.sign</strong><br>判断一个数是正数、负数还是零  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Math.sign(0); // 0</div><div class="line">Math.sign(3); // 1</div><div class="line">Math.sign(-3); // -1</div></pre></td></tr></table></figure>
+<p><strong>Math.trunc</strong><br>与Math.floor(向下取整)、Math.ceil(向上取整)类似，Math.trunc只取整数部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Math.trunc(1.2); // 1</div><div class="line">Math.trunc(1.9); // 1</div><div class="line">Math.floor(1.2); // 1</div><div class="line">Math.floor(1.9); // 1</div><div class="line">Math.ceil(1.2); // 2</div><div class="line">Math.ceil(1.9); // 2</div></pre></td></tr></table></figure>
+<p>注意:当输入的值是不能识别成number或输入值为NaN,其返回值为NaN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Math.trunc(NaN); // NaN</div><div class="line">Math.trunc(&quot;foolr&quot;); // NaN</div></pre></td></tr></table></figure>
+<p><strong>Math.cbrt</strong><br>返回输入值的立方根  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Math.cbrt(-1); // -1</div><div class="line">Math.cbrt(8); // 2</div><div class="line">Math.cbrt(&apos;8&apos;); // 2</div><div class="line">Math.cbrt(NaN); // NaN</div></pre></td></tr></table></figure>
+<p><strong>Math.expml</strong><br>e = Math.E (2.718281828459045) 自然对数函数的底数<br>假如Math.expml输入的值为n,则该函数的返回值为e的n次方-1  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Math.expml(1); // 1.718281828459045</div><div class="line">Math.expml(0); // 0</div></pre></td></tr></table></figure>
+<p><strong>Math.loglp</strong><br>Math.expml的逆运算，即返回值为ln(value +1) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Math.log1p((Math.E-1)); // 1</div><div class="line">Math.log1p(0); // 0</div></pre></td></tr></table></figure>
+<p><strong>Math.log10</strong><br>返回值为log以10为底value的对数  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Math.log10(10); // 1</div><div class="line">Math.log10(1000); // 3</div></pre></td></tr></table></figure>
+<p><strong>Math.log2</strong><br>返回值为log以2为底value的对数  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Math.log2(8); // 3</div></pre></td></tr></table></figure>
+<p><strong>Math.hypot</strong><br>返回所有参数和的平方根  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Math.hypot(1,2,3); // (1^2+2^2+3^2)开平方 = 3.741657386773941</div></pre></td></tr></table></figure>
+<p>注意:Math.hypot中参数的个数不确定</p>
+<p><strong>Math.clz32</strong><br>js中整数使用32位二进制表示，Math.clz32方法返回一个数的32位无符号整数形式有多少个前导0  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Math.clz32(1); // 31</div></pre></td></tr></table></figure>
+<p><strong>Math.fround</strong><br>返回一个数的单精度浮点数形式  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Math.fround(1); // 1</div><div class="line">Math.fround(1.5); // 1.5</div><div class="line">Math.fround(1.5567); // 1.5566999912261963</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/07/CreateReactNativeApp-Expo/" data-id="cj4j93pl5000c153r2aauvjk5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/03/ES6-Math/" data-id="cj5dd4gx4000clz3rpq1zmgsd" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
     </footer>
   </div>
   
@@ -114,7 +125,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -122,7 +133,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -132,9 +143,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -142,9 +153,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -153,7 +164,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -161,9 +172,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -171,18 +194,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -198,7 +209,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

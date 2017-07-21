@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-RN-Pad端优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Buck" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/13/RN-Pad端优化/" class="article-date">
-  <time datetime="2017-02-13T10:38:09.000Z" itemprop="datePublished">2017-02-13</time>
+    <a href="/2017/02/14/Buck/" class="article-date">
+  <time datetime="2017-02-14T07:16:03.000Z" itemprop="datePublished">2017-02-14</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/RN-Pad端优化/">RN_Pad端优化</a>
+      <a class="article-title" href="/2017/02/14/Buck/">Buck</a>
     </h1>
   
 
@@ -83,51 +83,111 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本篇文章是介绍在实践开发中遇到的一些性能问题给出的优化方案。</p>
-<h3 id="ListView的优化"><a href="#ListView的优化" class="headerlink" title="ListView的优化"></a>ListView的优化</h3><ol>
-<li><p>注意rowHasChanged函数中条件的设置，如果设置不当会造成全量渲染导致卡顿现象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dataSource = <span class="keyword">new</span> ListView.DataSource(&#123;</div><div class="line">  <span class="attr">rowHasChanged</span>: <span class="function">(<span class="params">r1, r2</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> r1.data.id !== r2.data.id || r1.selected !== r2.selected</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>设置ListView的initialListSize属性，指定组件刚挂载的时候渲染N行，来确保首屏显示合适数量的数据。</p>
-</li>
-<li>ListView进行分页显示.</li>
-</ol>
-<h3 id="ReactNativeRouterFlux的优化"><a href="#ReactNativeRouterFlux的优化" class="headerlink" title="ReactNativeRouterFlux的优化"></a>ReactNativeRouterFlux的优化</h3><ol>
-<li>设置<code>duration={0}</code>,取消页面之间的跳转动画，消除跳转页面卡顿现象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> &lt;Scene </div><div class="line">    key=<span class="string">"root"</span></div><div class="line">    navigationBarStyle=&#123;commonStyle.navigator&#125;</div><div class="line">    titleStyle=&#123;[commonStyle.naviTitle, commonStyle.middleTitle]&#125;</div><div class="line">    backButtonTextStyle=&#123;commonStyle.naviTitle&#125;</div><div class="line">    duration=&#123;<span class="number">0</span>&#125;</div><div class="line">    backButtonImage=&#123;<span class="built_in">require</span>(<span class="string">'../util/image/back_chevron.png'</span>)&#125;</div><div class="line">  &gt;&lt;/Scence&gt;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="优化首次登陆时，融云推送大批量消息时的逻辑"><a href="#优化首次登陆时，融云推送大批量消息时的逻辑" class="headerlink" title="优化首次登陆时，融云推送大批量消息时的逻辑"></a>优化首次登陆时，融云推送大批量消息时的逻辑</h3><ol>
-<li><p>当首次登陆接收融云大批量消息时,将js与原生端的推送消息改为批量推送,减少js端与原生端连接的性能损耗。</p>
-</li>
-<li><p>js端接收到消息后的处理逻辑,一次性设置到Redcer中,消除患者沟通列表的多次渲染。</p>
-</li>
-</ol>
-<h3 id="数据请求时的处理"><a href="#数据请求时的处理" class="headerlink" title="数据请求时的处理"></a>数据请求时的处理</h3><ol>
-<li>为所有有网络请求的页面添加loading效果,提升用户体验,消除不连贯的体验。</li>
-</ol>
-<h3 id="HTTP-Request耗时日志"><a href="#HTTP-Request耗时日志" class="headerlink" title="HTTP Request耗时日志"></a>HTTP Request耗时日志</h3><ol>
-<li>去掉HTTP Request耗时日志,这是由于react-native本身框架的原因造成。</li>
-</ol>
-<h3 id="录音功能"><a href="#录音功能" class="headerlink" title="录音功能"></a>录音功能</h3><ol>
-<li><p>正在录音中可以返回到其他页面做别的任务,也可以黑屏或者后台录音。</p>
-</li>
-<li><p>修改录音绑定和workbook处开始录音的处理逻辑,一次只能有一个录音。</p>
+        <p>Android Buck支持Mac os x 、Linux 、 Windows<br>IOS Buck只支持Mac os x、Linux 、 Windows</p>
+<p>Mac OS X下构建Android</p>
+<h1 id="搭建Buck环境"><a href="#搭建Buck环境" class="headerlink" title="搭建Buck环境"></a>搭建Buck环境</h1><h2 id="1-Homebrew方式下载Buck"><a href="#1-Homebrew方式下载Buck" class="headerlink" title="1.Homebrew方式下载Buck"></a>1.Homebrew方式下载Buck</h2><pre><code>$ brew update
+$ brew tap facebook/fb
+$ brew install --HEAD buck
+</code></pre><h2 id="2-手动方式下载Buck"><a href="#2-手动方式下载Buck" class="headerlink" title="2.手动方式下载Buck"></a>2.手动方式下载Buck</h2><p>手动构建Buck的前提要下载以下工具:<br><a href="https://developer.apple.com/xcode/features/" title="悬停显示" target="_blank" rel="external">Command Line Tools </a><br><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" title="悬停显示" target="_blank" rel="external">Oracle Java Development Kit</a><br><a href="http://ant.apache.org/" title="悬停显示" target="_blank" rel="external">Apache Ant 1.9 (or newer) </a><br><a href="https://www.python.org/downloads/" title="悬停显示" target="_blank" rel="external">Python 2.7 </a><br><a href="https://git-scm.com/download" title="悬停显示" target="_blank" rel="external">Git</a><br><a href="https://facebook.github.io/watchman/docs/install.html" title="悬停显示" target="_blank" rel="external">Watchman</a></p>
+<p>你可以选择使用Homebrew安装上面的工具.</p>
+<p>上面工具安装成后可以按照下面的方式 install buck<br>    git clone <a href="https://github.com/facebook/buck.git" target="_blank" rel="external">https://github.com/facebook/buck.git</a><br>    cd buck<br>    ant<br>    ./bin/buck –help</p>
+<p>build安装成功界面<br><img src="/2017/02/14/Buck/buck_android_success.png" alt="Build成功">        </p>
+<p>配置环境变量</p>
+<pre><code>$ cd ~
+$ vim ~/.bash_profile
+添加如下配置
+export PATH=$HOME/buck/bin:$PATH
+使配置立即生效
+$ source ~/.bash_profile
+</code></pre><h1 id="Buck构建Android"><a href="#Buck构建Android" class="headerlink" title="Buck构建Android"></a>Buck构建Android</h1><ol>
+<li><p>快速构建<br> $ touch .buckconfig &amp;&amp; buck quickstart</p>
+<p> 该命令在执行过程中会要求补全两个参数的值:<br> –dest-dir: 生成的Android工程的目录<br> –android-sdk: 本地Android SDK的目录<br> 注意:新版本–android-sdk参数失效了,可以在开发平台手动设置SDK</p>
+<p>Buck构建Android的目录结构<br><img src="/2017/02/14/Buck/buck_android.png" alt="Buck构建Android的目录结构"><br>进入到项目根目录执行如下命令</p>
+<p> 编译应用程序<br> $ buck build android别名<br> 安装应用到设备<br> $ buck install –run android别名 </p>
+<p>  创建IntelliJ工程<br> $ buck project –ide IntelliJ</p>
 </li>
 </ol>
-<h3 id="其他页面的优化"><a href="#其他页面的优化" class="headerlink" title="其他页面的优化"></a>其他页面的优化</h3><ol>
-<li><p>无档案患者列表, 数据结构与新UI所需要的数据结构不符,转换数据结构。</p>
-</li>
-<li><p>患者动态页面, 数据结构与新UI所需要的数据结构不符,转换数据结构。</p>
-</li>
-</ol>
+<h1 id="Buck的基本理解"><a href="#Buck的基本理解" class="headerlink" title="Buck的基本理解"></a>Buck的基本理解</h1><h2 id="Build-Rule"><a href="#Build-Rule" class="headerlink" title="Build Rule"></a>Build Rule</h2><p>   构建规则是从一组输入文件中生成一组输出文件的过程，是一种泛称。Buck已经内建了一系列的构建规则。比如构建Android代码是会用到规则</p>
+<p>   android_binary()生成一个apk文件，android_library() 生成jar包等</p>
+<p>   每个构建规则至少包括三个参数</p>
+<p>   1.name:构建规则的名称，在一个构建文件中必须保持其唯一性</p>
+<p>   2.deps:构建规则的依赖项，以一个构建目标的列表的形式表示</p>
+<p>   3.visibility:可见性，表明其他构建规则是否可以依赖该规则构建，以一个构建目标模式的列表形式表示</p>
+<p>   示例1</p>
+<pre><code>android_resource(
+  name = &apos;res&apos;,
+  res = &apos;res&apos;,
+  assets = &apos;assets&apos;,
+)
+
+android_library(
+  name = &apos;src&apos;,
+  srcs = glob([&apos;src/**/*.java&apos;]),
+  deps = [
+    &apos;:res&apos;,
+  ],)
+
+android_binary(
+  name = &apos;hello&apos;,
+  manifest = &apos;AndroidManifest.xml&apos;,
+  keystore = &apos;//keystores:prod&apos;,
+  package_type = &apos;release&apos;,
+  proguard_config = &apos;proguard.cfg&apos;,
+  deps = [
+    &apos;:res&apos;,
+    &apos;:src&apos;,
+  ],)
+</code></pre><p> 注意:buck中构建规则依赖的规则，会先于构建规则本身进行构建，构建规则和它的依赖之间是一个有向图，并且这个图的无闭环的。     </p>
+<h2 id="Build-Target"><a href="#Build-Target" class="headerlink" title="Build Target"></a>Build Target</h2><p>   Build Target 构建目标是一个字符串，用于标识工程中的某个构建规则，它常常作为Build Rule的参数使用。</p>
+<pre><code>&apos;//java/com/example/activity:activity&apos;
+</code></pre><p>   主要有三部分组成:</p>
+<p>   1.// 前缀表示路径是相对于工程的根目录</p>
+<p>   2.java/com/example/activity表示构建文件buck位于该目录中</p>
+<p>   3.:后面的activity表示构建文件里面定义的构建规则的名称，在一个构建文件中，构建规则的名字是唯一的</p>
+<p>   在同一个构建文件中，可以使用构建目标的相对路径来引用。相对路径以(:)冒号开始，后面紧跟三大组成部分的第三部分。如示例1</p>
+<h2 id="Build-File"><a href="#Build-File" class="headerlink" title="Build File"></a>Build File</h2><p>Build File 构建文件用于定义一个或者过个构建规则，统一命名为Buck.在一个工程中的java源文件只能被离它最近的Buck文件引用。</p>
+<p>示例</p>
+<pre><code>java/com/facebook/base/BUCK
+java/com/facebook/common/BUCK
+java/com/facebook/common/collect/BUCK
+</code></pre><p>base/Buck文件中的构建规则只能引用base/目录下的源文件</p>
+<p>common/Buck文件中的构建规则可以引用该目录下除去子目录collect之外的所有源文件</p>
+<p>collect/Buck文件中的构建规则只能引用collect中的源文件</p>
+<p>那么我们如何在common中引用base和collect中的构建规则呢?答案是 使用deps引用这些文件</p>
+<p>示例</p>
+<p>java/com/facebook/common/test/的代码需要依赖java/com/facebook/common/collect/包下面的代码,假设java/com/facebook/common/collect/BUCK文件中有一个构建规则如下：</p>
+<pre><code>java_library(
+   name = &apos;collect&apos;,
+   srcs = glob([&apos;*.java&apos;]),
+   deps = [
+ &apos;//java/com/facebook/base:base&apos;,
+  ],)
+</code></pre><p>那么java/com/facebook/common/BUCK文件应该定义规则如下：</p>
+<pre><code>java_library(
+   name = &apos;test&apos;,
+  srcs = glob([&apos;test/*.java&apos;]),
+  deps = [
+        &apos;//java/com/facebook/base:base&apos;,
+    &apos;//java/com/facebook/common/collect:collect&apos;,
+  ],)
+</code></pre><h2 id="Build-Target-Pattern"><a href="#Build-Target-Pattern" class="headerlink" title="Build Target Pattern"></a>Build Target Pattern</h2><p>Build Target Pattern构建目标模式是一个用来匹配一个或者多个构建目标的字符串，一般作为参数传递给构建规则中的visibility属性。一个构建目标其实也是一个构建模式，只是它匹配到的是它自己.</p>
+<pre><code># 匹配到 &apos;//apps/myapp:app&apos;
+&apos;//apps/myapp:app&apos;
+</code></pre><p>以冒号:结尾的构建目标模式可以匹配到同一目录中的构建目标</p>
+<pre><code># 匹配到 &apos;//apps/myapp:app_debug&apos; 和&apos;//apps/myapp:app_release&apos;
+&apos;//apps/myapp:&apos;
+</code></pre><p>以/…结尾的构建目标模式可以匹配到该目录及其子目录中的构建目标：</p>
+<pre><code># 匹配到 &apos;//apps:common&apos; and &apos;//apps/myapp:app&apos;
+&apos;//apps/...&apos;
+</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://buckbuild.com/setup/getting_started.html" title="悬停显示" target="_blank" rel="external">Buck官方文档</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/RN-Pad端优化/" data-id="cj4j93plb000h153rtpuomevn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/14/Buck/" data-id="cj5dd4gww0006lz3rn6iydty5" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 
     </footer>
   </div>
@@ -139,7 +199,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/16/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span>
+    <a class="extend prev" rel="prev" href="/page/16/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/18/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -147,7 +207,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -157,9 +217,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -167,9 +227,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -178,7 +238,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -186,9 +246,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -196,18 +268,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -223,7 +283,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

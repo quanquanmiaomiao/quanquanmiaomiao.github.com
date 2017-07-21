@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-React学习路线" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-CSS花样选择器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/21/React学习路线/" class="article-date">
-  <time datetime="2017-03-21T10:18:11.000Z" itemprop="datePublished">2017-03-21</time>
+    <a href="/2017/04/18/CSS花样选择器/" class="article-date">
+  <time datetime="2017-04-18T15:04:05.000Z" itemprop="datePublished">2017-04-18</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/21/React学习路线/">React学习路线</a>
+      <a class="article-title" href="/2017/04/18/CSS花样选择器/">CSS花样选择器</a>
     </h1>
   
 
@@ -83,36 +83,127 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##Step1:<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" title="悬停显示" target="_blank" rel="external">React入门</a></p>
-<p>React的基本理解以及注意点</p>
-<h5 id="在html中插入react"><a href="#在html中插入react" class="headerlink" title="在html中插入react"></a>在html中插入react</h5><p>注意:</p>
-<p>（1）jsx与javaScript不兼容,凡是使用jsx都加上type=”text/babel”</p>
-<p>（2）首先加载相关的三个库,react.js:React的核心库、react-dom.js:提供与dom相关的功能、browser.js:将jsx转换为javaScript</p>
-<h5 id="jsx基本语法规则"><a href="#jsx基本语法规则" class="headerlink" title="jsx基本语法规则"></a>jsx基本语法规则</h5><p>遇到html标签(以 &lt; 开头 )，就按照html规则解析，遇到代码块( 以{ 开头 }就用JavaScript规则解析</p>
-<h5 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h5><p>每个组件都有自己的render方法，并在组件中包含一个顶层标签</p>
-<h5 id="PropTypes"><a href="#PropTypes" class="headerlink" title="PropTypes"></a>PropTypes</h5><p>组件类的PropTypes属性。校验React组件属性的数据类型。</p>
-<h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><p>this.props对象的属性与组件属性一一对应。但是注意this.props.children他表示组件的所有子节点，为了避免children数据类型的不确定性带来的问题，react提供了React.Children方法来处理children。</p>
-<h5 id="this-ref"><a href="#this-ref" class="headerlink" title="this.ref"></a>this.ref</h5><p>通过this.ref获取真实的DOM节点</p>
-<h5 id="this-state"><a href="#this-state" class="headerlink" title="this.state"></a>this.state</h5><p>一种React与用户交互的状态机制。注意this.props与this.state的区分</p>
-<h5 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h5><pre><code>Mounting:已插入真实的DOM 
-Updating:正在被重新渲染
-Unmounting:已移除真实的DOM
-</code></pre><p>React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。</p>
-<pre><code>componentWillMount()
-componentDidMount()
-componentWillUpdate(object nextProps, object nextState)
-componentDidUpdate(object prevProps, object prevState)
-componentWillUnmount()
-</code></pre><p>此外，React 还提供两种特殊状态的处理函数</p>
-<pre><code>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
-shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调    用
-</code></pre><p><a href="http://reactjs.cn/react/docs/component-api.html" target="_blank" rel="external">官方文档</a></p>
-<p>##Step2:<a href="https://react-guide.github.io/react-router-cn/" title="悬停显示" target="_blank" rel="external">React Router入门</a></p>
-
+        <ul>
+<li>通配符选择器<br>用星号“*”类定义，该选择器可以与任何元素匹配</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* &#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;红色字体&lt;/h1&gt;</div><div class="line">&lt;h2&gt;红色字体&lt;/h2&gt;</div><div class="line">&lt;p&gt;红色字体&lt;/p&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>派生选择器<br>通过依据元素在其位置的上下文关系来定义样式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">li strong &#123;</div><div class="line"> font-style: italic; font-weight: normal;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;&lt;strong&gt;粗体字&lt;/strong&gt;&lt;/p&gt;&lt;li&gt;&lt;strong&gt;我是斜体字，因为strong元素位于li元素内&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;我是正常字体&lt;/li&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>id选择器<br>id选择器可以为标有特定id的HTML元素指定特定的样式。id选择器以 “#” 来定义。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#red &#123;color:red;&#125;</div><div class="line">#green &#123;color:green;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;p id=&quot;red&quot;&gt;这个段落是红色&lt;/p&gt;</div><div class="line">&lt;p id=&quot;green&quot;&gt;这个段落是绿色&lt;/p&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>类选择器<br>类选择器可以为标有特定class的HTML元素指定特定的样式。类选择器以 “.” 来定义。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.center &#123;text-align: center;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p class=&quot;center&quot;&gt;这里的文本居中显示&lt;/p&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>元素选择器<br>文档的元素是最基本的选择器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">div &#123;background-color: green;&#125;</div><div class="line">p &#123;background-color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;该模块的背景色为绿色&lt;/div&gt;</div><div class="line">&lt;p&gt;该段落的背景色为红色&lt;/p&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>属性选择器<br>对带有指定属性的HTML元素设置样式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[title]&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1 title=&quot;hello&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1 title=&quot;world&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1&gt;字体颜色为默认颜色&lt;/h1&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[title=hello]&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1 title=&quot;hello&quot;&gt;字体颜色为红色&lt;/h1&gt;</div><div class="line">&lt;h1 title=&quot;world&quot;&gt;字体颜色为默认颜色&lt;/h1&gt;</div><div class="line">&lt;h1&gt;字体颜色为默认颜色&lt;/h1&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>子元素选择器<br>为某元素的子元素指定特定的样式  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">h1 &gt; strong&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&lt;strong&gt;红色字体&lt;/strong&gt;&lt;/h1&gt;</div><div class="line">&lt;h1&gt;&lt;em&gt;&lt;strong&gt;默认颜色的字体&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>相邻兄弟选择器<br>为紧接在另一元素后的元素，且二者有相同父元素指定特定的样式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">h1+p&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&lt;/h1&gt;</div><div class="line">&lt;p&gt;红色字体&lt;/p&gt;</div><div class="line">&lt;p&gt;默认颜色的字体&lt;/p&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>伪类<br>CSS 伪类用于向某些选择器添加特殊的效果 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:active</td>
+<td style="text-align:center">向被激活的元素添加样式</td>
+</tr>
+<tr>
+<td>:focus</td>
+<td style="text-align:center">向拥有焦点的元素添加样式</td>
+</tr>
+<tr>
+<td>:hover</td>
+<td style="text-align:center">当鼠标悬浮在元素上方时，向元素添加样式</td>
+</tr>
+<tr>
+<td>:link</td>
+<td style="text-align:center">向未被访问的连接添加样式</td>
+</tr>
+<tr>
+<td>:visited</td>
+<td style="text-align:center">向已被访问的连接添加样式</td>
+</tr>
+<tr>
+<td>:first-child</td>
+<td style="text-align:center">向元素的第一个子元素添加样式</td>
+</tr>
+<tr>
+<td>:lang</td>
+<td style="text-align:center">向带有指定lang属性的元素添加样式</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p :first-child&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"> &lt;p&gt;红色字体&lt;/p&gt;</div><div class="line"> &lt;p&gt;默认颜色的字体&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>伪元素<br>与伪类类似也是向某些选择器设置特殊效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:first-letter</td>
+<td style="text-align:center">向文本的第一个字母添加特殊样式</td>
+</tr>
+<tr>
+<td>:first-line</td>
+<td style="text-align:center">向文本的首行添加特殊样式</td>
+</tr>
+<tr>
+<td>:before</td>
+<td style="text-align:center">在元素之前添加内容</td>
+</tr>
+<tr>
+<td>:after</td>
+<td style="text-align:center">在元素之后添加内容</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p:first-letter&#123;color: red;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;红 默认颜色&lt;/p&gt;</div></pre></td></tr></table></figure>
+<h3 id="注意-以上选择器均可组合使用"><a href="#注意-以上选择器均可组合使用" class="headerlink" title="注意:以上选择器均可组合使用"></a>注意:以上选择器均可组合使用</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/React学习路线/" data-id="cj4j93plj000r153r1n0zjifo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/18/CSS花样选择器/" data-id="cj5dd4gx3000alz3rsilerh6n" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -125,7 +216,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/10/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/12/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/10/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -133,7 +224,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -143,9 +234,9 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -153,9 +244,9 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -164,7 +255,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -172,9 +263,21 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -182,18 +285,6 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -209,7 +300,7 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

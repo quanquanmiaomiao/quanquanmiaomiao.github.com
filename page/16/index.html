@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,12 +61,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-RNGM基于0-0-23版本的改动" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android机型适配" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/13/RNGM基于0-0-23版本的改动/" class="article-date">
-  <time datetime="2017-02-13T13:41:33.000Z" itemprop="datePublished">2017-02-13</time>
+    <a href="/2017/02/15/Android机型适配/" class="article-date">
+  <time datetime="2017-02-15T08:36:39.000Z" itemprop="datePublished">2017-02-15</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/RNGM基于0-0-23版本的改动/">RNGM基于0.0.23版本的改动</a>
+      <a class="article-title" href="/2017/02/15/Android机型适配/">Android机型适配</a>
     </h1>
   
 
@@ -83,45 +87,39 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>RNGF(react-native-gifted-messenger)的缩写</p>
+        <p><code>注:Android设备兼容包括:语言适配、屏幕适配、不同系统版本适配</code></p>
+<h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>若决定支持某种语言，则需要创建资源子目录和字符串资源文件<br>    eg:<br>    MyProject/<br>    —res/<br>    ——values/<br>    ———strings.xml<br>    ——values-es/     西班牙语<br>    ———strings.xml<br>    ——values-fr/     法语<br>    ———strings.xml<br>添加不同区域语言的字符串到相应的文件</p>
+<h2 id="屏幕适配"><a href="#屏幕适配" class="headerlink" title="屏幕适配"></a>屏幕适配</h2><p>4种普通尺寸:小(small)、普通(normal)、大(large)、超大(xlarge)<br>4种普通分辨率:低精度(ldpi)、中精度(mdpi)、高精度(hdpi)、超高精度(xhdpi)</p>
+<p>屏幕的方向也是一种考虑适配的尺寸变化<br>解决方案:创建不同的layout<br>    eg:<br>    MyProject/<br>    —res/<br>    ——layout/<br>    ———main.xml<br>    ——layout-large/<br>    ———main.xml<br>    ——layout-land/<br>    ———main.xml<br>    ——layout-large-land/<br>    ———main.xml</p>
+<p><code>注意:Android3.2及以上版本支持定义屏幕尺寸的高级方法，它允许根据屏幕的长度和宽度指定layout</code></p>
+<p>适配不同屏幕的注意点</p>
 <ol>
-<li><p>文本Bubble 修改了其样式，并为之添加可点击事件，实现文本复制的功能</p>
+<li>使用wrap_content、match_parent尺寸值代替硬编码的尺寸</li>
+<li>尽可能多的使用RelativeLayout,精准得到layout与子控件的关系</li>
+<li>使用最小宽度限定词 (最小限定词允许你根据设备的最小宽度(dp单位)来指定不同布局)<br><code>注意:最小宽度限定词只能在Android3.2或者更高版本使用</code></li>
+<li><p>使用布局别名<br> eg:<br> res/layout/main.xml<br> res/layout-large/main.xml<br> res/layout-sw600dp/main.xml<br> 最后两个文件是一样的,layout-sw600dp适配的是Android3.2的设备,layout-large适配的是其他低版本的Android设备,为了避免重复以及后期维护的复杂性采用别名方式进行适配<br> eg:<br> res/layout/main.xml<br> res/layout/main_two_pans.xml<br> 然后添加这两个文件:<br> res/values-large/layout.xml</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<p> res/values-sw600dp/layout.xml</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;resources&gt;</div><div class="line">  &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_two_pans&lt;/item&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
 </li>
-<li><p>根据产品需求自定义了一些Bubble 包括：<br>ImageBubble、RemarkBubble、SystemBubble、VoiceBubble、MsgGroupBubble</p>
+<li><p>背景图使用.9图</p>
 </li>
-<li><p>修改时间展示的格式，添加中文支持</p>
-</li>
-<li><p>在渲染每一行消息时，添加position为middle的属性渲染SystemBubble</p>
-</li>
-<li><p>修改消息发送错误ErrorButton的样式去掉GiftedSpinner，添加重新发送消息功能</p>
-</li>
-<li><p>修改input处的样式并添加MenuButton(+)，修改TextInput的onChange事件</p>
-</li>
-<li><p>添加MenuView:随访模板、患者病例、快捷回复、就诊小结、发送图片、随访方案、WorkBook</p>
-</li>
-<li><p>发送消息时，重新组合消息</p>
-</li>
-<li><p>暴露关于聊天消息数据数组到组件外面去注入。删掉所有关于消息数据增删改的控制</p>
-</li>
-<li><p>去除顶部 获取更多历史消息按钮，转变为下拉刷新</p>
-</li>
-<li><p>添加TextBubble 关于多行文本展示，限制最大宽度</p>
-</li>
-<li><p>修改几乎所有的展示样式，颜色搭配等。</p>
-</li>
-<li><p>添加输入框多行文本支持</p>
-</li>
-<li><p>添加Image放大展示</p>
-</li>
+<li>使用密度独立像素(dp、sp)的单位</li>
+<li>提供不同分辨率的图片</li>
+</ol>
+<h2 id="适配不同系统版本"><a href="#适配不同系统版本" class="headerlink" title="适配不同系统版本"></a>适配不同系统版本</h2><ol>
+<li>指定最小和目标API级别</li>
+<li>运行时检查系统版本<br><code>Android在Build常类中提供了对每一个版本的唯一代号，我们可以利用这些代号在我们的app中建立条件，保证依赖于高级别的API代码</code></li>
+<li>使用平台风格和主题</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/RNGM基于0-0-23版本的改动/" data-id="cj4j93plc000i153rr08hd3tk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/Android机型适配/" data-id="cj5dd4gwt0005lz3rkl3nym2c" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 
     </footer>
   </div>
@@ -133,7 +131,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/15/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/15/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/17/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -141,7 +139,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -151,9 +149,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -161,9 +159,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -172,7 +170,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -180,9 +178,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -190,18 +200,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -217,7 +215,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

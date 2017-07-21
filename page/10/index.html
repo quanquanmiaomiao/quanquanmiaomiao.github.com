@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android多渠道打包" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/22/单例模式/" class="article-date">
-  <time datetime="2017-03-22T15:36:04.000Z" itemprop="datePublished">2017-03-22</time>
+    <a href="/2017/04/20/Android多渠道打包/" class="article-date">
+  <time datetime="2017-04-20T13:38:53.000Z" itemprop="datePublished">2017-04-20</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/22/单例模式/">单例模式</a>
+      <a class="article-title" href="/2017/04/20/Android多渠道打包/">Android多渠道打包</a>
     </h1>
   
 
@@ -83,71 +83,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>确保类中只有一个实例，而且自行实例话并向整个系统提供该实例</p>
-<h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>避免产生多个对象消耗过多的资源</p>
-<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><h6 id="饿汉单例模式"><a href="#饿汉单例模式" class="headerlink" title="饿汉单例模式"></a>饿汉单例模式</h6><pre><code>private static final ClassName name = new ClassName();
-public static ClassName getClassName() {
- return name;
-}
-</code></pre><h6 id="懒汉单例模式"><a href="#懒汉单例模式" class="headerlink" title="懒汉单例模式"></a>懒汉单例模式</h6><pre><code>public class ClassName {
- private static ClassName name;
- private ClassName(){}
- public static syntronized ClassName getClassName() {
-  if(name == null) {
-      name = new ClassName();
-  }
-  return name;
- }
-}
-</code></pre><p>注意:syntronized关键字，保证在多线程下单例模式对象的唯一性。</p>
-<p>优点只有在使用的时候才会被实例化，节约资源。</p>
-<p>缺点每次调用都会造成同步开销。</p>
-<h6 id="Double-Check-Lock"><a href="#Double-Check-Lock" class="headerlink" title="Double Check Lock"></a>Double Check Lock</h6><p>既能需要时实例化，又能保证线程安全</p>
-<pre><code>public class ClassName {
- private static ClassName name = null;
- private ClassName(){}
- public static ClassName getClassName() {
- if(name == null) {
-  syntronized (ClassName.class) {
-   if(name == null) {
-    name = new ClassName();
-   }
-  }
- }
- return name;
-}
-</code></pre><p>注意:DCL在一定程度上解决了资源消耗、多余的同步、线程安全等问题，但由于java内存模型的原因偶尔会失败(java6版本下使用会出问题)</p>
-<h6 id="静态内部类单例模式"><a href="#静态内部类单例模式" class="headerlink" title="静态内部类单例模式"></a>静态内部类单例模式</h6><pre><code>public class ClassName {
- private ClassName(){}
- public static ClassName getClassName() {
-  ClasssHolder.name;
- }
- // 静态内部类
- private static class ClassHolder{
-  private static final ClassName name = new ClassName();
- }
-}
-</code></pre><p>注意:保证线程安全以及对象的唯一性，同时也推迟了实例化，推荐使用</p>
-<h6 id="枚举单例模式"><a href="#枚举单例模式" class="headerlink" title="枚举单例模式"></a>枚举单例模式</h6><pre><code>public class ClassName {}
-public enum EnumName {
-NAME;
-private ClassName name;
-EnumName() {
-    name = new ClassName();
-}
-public ClassName getClassName() {
-    return name;
-}
-</code></pre><p>}</p>
+        <h2 id="使用gradle构建Android应用的渠道包"><a href="#使用gradle构建Android应用的渠道包" class="headerlink" title="使用gradle构建Android应用的渠道包"></a>使用gradle构建Android应用的渠道包</h2><p>基本原理利用gradle的manifest merger功能，这个功能的主要用途是能够在运行时替换AndroidManifest.xml里面的内容</p>
+<p>注意:下面以友盟统计为例  </p>
+<ul>
+<li>Step1:在AndroidManifest.xml文件中配置PlaceHolder(占位符)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data </div><div class="line">   android:name=&quot;UMENG_CHANNEL&quot;</div><div class="line">   android:value=&quot;$&#123;UMENG_CHANNEL_VALUE&#125;&quot;</div><div class="line">/&gt;</div><div class="line">注意:UMENG_CHANNEL_VALUE是在Model下面build.gradle里定义的变量</div></pre></td></tr></table></figure>
+<ul>
+<li>Step2:在Module下面的build.gradle中配置相应的内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 设置占位符默认值</div><div class="line">defaultConfig &#123;</div><div class="line">   manifestPlaceholders = [ UMENG_CHANNEL_VALUE:&quot;wandoujia&quot; ]</div><div class="line">&#125;</div><div class="line">// 渠道FlavorproductFlavors &#123;   wandoujia &#123;&#125;   baidu &#123;&#125;   c360 &#123;&#125;   uc &#123;&#125;&#125;productFlavors.all &#123;    flavor -&gt;   flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]&#125;signingConfigs &#123;</div><div class="line">   release &#123;</div><div class="line">     storeFile file(MYAPP_RELEASE_STORE_FILE)</div><div class="line">     storePassword MYAPP_RELEASE_STORE_PASSWORD</div><div class="line">     keyAlias MYAPP_RELEASE_KEY_ALIAS</div><div class="line">     keyPassword MYAPP_RELEASE_KEY_PASSWORD</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> 注意:MYAPP等相应的值在gradle-wrapper.properties中设置</div></pre></td></tr></table></figure>
+<p><img src="/2017/04/20/Android多渠道打包/gradle3.png" alt="gradle3">    </p>
+<ul>
+<li>Step3:此时有两种方式进行打包<br>方式一:使用AS的Generate Signed APK </li>
+</ul>
+<p><img src="/2017/04/20/Android多渠道打包/gradle2.png" alt="gradle2">    </p>
+<p>方式二:使用Module下的build.gradle配置</p>
+<p><img src="/2017/04/20/Android多渠道打包/gradle1.png" alt="gradle1"></p>
+<p><a href="https://github.com/quanquanmiaomiao/LearnGradlePack" title="悬停显示" target="_blank" rel="external">多渠道打包DEMO地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/单例模式/" data-id="cj4j93pli000q153r29mcmy23" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/20/Android多渠道打包/" data-id="cj5dd4gwn0002lz3r52juz0n3" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
     </footer>
   </div>
   
@@ -158,7 +118,7 @@ public ClassName getClassName() {
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/9/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/11/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/11/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -166,7 +126,7 @@ public ClassName getClassName() {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -176,9 +136,9 @@ public ClassName getClassName() {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -186,9 +146,9 @@ public ClassName getClassName() {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -197,7 +157,7 @@ public ClassName getClassName() {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -205,9 +165,21 @@ public ClassName getClassName() {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -215,18 +187,6 @@ public ClassName getClassName() {
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -242,7 +202,7 @@ public ClassName getClassName() {
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

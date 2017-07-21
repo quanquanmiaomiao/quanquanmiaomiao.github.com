@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ES6_Proxy | DarkAngel的技术小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对象的内部方法假如，我们有一个Person对象，定义如下: 123456var Person = &amp;#123;	name: &amp;quot;小红&amp;quot;,&amp;#125;Person.name; // 小红 Person.age = 12;Paerson.age; // 12 为什么我们通过”.”操作或者”[]”操作或赋值”=”操作可以得到我们想要的结果？ECMAScript标准委员会定义了一个由14">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6_Proxy">
+<meta property="og:url" content="http://yoursite.com/2017/07/04/ES6-Proxy/index.html">
+<meta property="og:site_name" content="DarkAngel的技术小屋">
+<meta property="og:description" content="对象的内部方法假如，我们有一个Person对象，定义如下: 123456var Person = &amp;#123;	name: &amp;quot;小红&amp;quot;,&amp;#125;Person.name; // 小红 Person.age = 12;Paerson.age; // 12 为什么我们通过”.”操作或者”[]”操作或赋值”=”操作可以得到我们想要的结果？ECMAScript标准委员会定义了一个由14">
+<meta property="og:updated_time" content="2017-07-21T03:54:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6_Proxy">
+<meta name="twitter:description" content="对象的内部方法假如，我们有一个Person对象，定义如下: 123456var Person = &amp;#123;	name: &amp;quot;小红&amp;quot;,&amp;#125;Person.name; // 小红 Person.age = 12;Paerson.age; // 12 为什么我们通过”.”操作或者”[]”操作或赋值”=”操作可以得到我们想要的结果？ECMAScript标准委员会定义了一个由14">
+  
+    <link rel="alternate" href="/atom.xml" title="DarkAngel的技术小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DarkAngel的技术小屋</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ES6-Proxy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/04/ES6-Proxy/" class="article-date">
+  <time datetime="2017-07-04T06:46:42.000Z" itemprop="datePublished">2017-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ES6_Proxy
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="对象的内部方法"><a href="#对象的内部方法" class="headerlink" title="对象的内部方法"></a>对象的内部方法</h3><p>假如，我们有一个Person对象，定义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = &#123;</div><div class="line">	name: &quot;小红&quot;,</div><div class="line">&#125;</div><div class="line">Person.name; // 小红 </div><div class="line">Person.age = 12;</div><div class="line">Paerson.age; // 12</div></pre></td></tr></table></figure>
+<p>为什么我们通过”.”操作或者”[]”操作或赋值”=”操作可以得到我们想要的结果？<br>ECMAScript标准委员会定义了一个由14种内部方法组成的集合，适用于所有对象通用的接口。<br><strong>obj.prop或obj[prop] 相当于调用 obj.[[Get]]（key,receiver)</strong><br><strong>obj.prop = value或obj[prop] 相当于调用obj.[[Set]]（key,value,receiver）</strong> </p>
+<p>在整个ES6标准中，任何语法或者对象相关的内建函数都是基于这14种内部方法构建的。但是我们可以通过Proxy(代理)的方式任意替换这14中内部方法。  </p>
+<h3 id="Proxy-代理"><a href="#Proxy-代理" class="headerlink" title="Proxy 代理"></a>Proxy 代理</h3><p>ES6规范定义了一个全新的全局构造函数:Proxy，他可以接受两个参数:目标对象(target)、句柄对象(handler)。如:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var target = &#123;&#125;;</div><div class="line">var handler = &#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div></pre></td></tr></table></figure>
+<p><strong>代理与目标对象之间的关系</strong><br>代理的行为很简单:将代理的所有内部方法转发至目标对象。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">proxy.color = &quot;red&quot;;</div><div class="line">target.color; // &quot;red&quot;&quot;</div></pre></td></tr></table></figure>
+<p>proxy.[[Set]]（）应该调用target.[[Set]]（）方法，就会在目标对象上创建一个新的属性，即target.color为“red”。  </p>
+<p><strong>句柄对象</strong><br>句柄对象的方法可以覆写任意代理的内部方法。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var target = &#123;&#125;;</div><div class="line">var handler = &#123;</div><div class="line">	set:function(target,key,value,receiver)&#123;</div><div class="line">		throw new Error(&quot;请不要为这个对象设置属性。&quot;)</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.name; // Error 请不要为这个对象设置属性。</div></pre></td></tr></table></figure>
+<p>句柄方法的完整列表可以在<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy#Methods_of_the_handler_object" target="_blank" rel="external">MDN有关代理的页面</a>上找到，一个有14种方法，与ES6中定义的14种内部方法一致。  </p>
+<p>所有句柄方法都是可选的，没有被句柄拦截的内部方法会直接指向目标对象。 </p>
+<p>注意:Babel不支持Proxy，现在只有Microsoft Edge和Mozilla Firefox支持</p>
+<h3 id="Proxy-Traps"><a href="#Proxy-Traps" class="headerlink" title="Proxy Traps"></a>Proxy Traps</h3><p><strong>construct</strong></p>
+<p><strong>getPrototypeOf</strong><br>使用handler.getPrototypeOf方法可以诱骗下面的这些属性、方法以及操作:<br>Object.prototype.<strong>proto</strong><br>Object.prototype.isPrototypeOf()<br>Object.prototype.getPrototypeOf()<br>Reflect.prototype.getPrototypeOf()<br>instanceof  </p>
+<p>比如，当我们通过访问代理，可以使用handler.getPrototypeOf让一个对象假装自己是数组。然而，这并不能使代理成为真正的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	getPrototypeOf: target =&gt; Array.prototype</div><div class="line">&#125;</div><div class="line">var target = &#123;&#125;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy instanceof Array; // true</div><div class="line">proxy.push; // undefined</div></pre></td></tr></table></figure>
+<p>从上面的列子可以看出，proxy并没有拥有数组的方法，我们可以使用get解决上面问题，当target找不到某个属性，可以通过反射在Array.prototype上去寻找。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	getPrototypeOf:target =&gt; Array.prototype,</div><div class="line">	get(target,key)&#123;</div><div class="line">		return Reflect.get(target,key) || Reflect.get(Array.prototype,key)</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var target = &#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.push; // function push() &#123; [native code] &#125;</div><div class="line">proxy.push(&apos;a&apos;,&apos;b&apos;);</div><div class="line">proxy; // &#123;0:&apos;a&apos;,1:&apos;b&apos;&#125;</div></pre></td></tr></table></figure>
+<p>当然你也可以通过访问代理让某个对象认为自己是一个字符串或者其他什么东西。  </p>
+<p><strong>setPrototypeOf</strong><br>Object.setPrototypeOf用来设置当前对象的原型，传统的方式使用<strong>proto</strong>来读取或设置当前对象的原型。  </p>
+<p>当然，我们可以使用handler.setPrototypeOf为Object.setPrototypeOf设置trap(陷阱？？)  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	setPrototypeOf(target,proto)&#123;</div><div class="line">		Object.setPrototypeOf(target,proto);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var proto = &#123;&#125;;</div><div class="line">var target = function()&#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.setPrototypeOf(proxy,proto);</div><div class="line">proxy.prototype === proto; // true</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/04/ES6-Proxy/" data-id="cj5dd4gx6000elz3r340o2wvu" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          ES6-WeakMap/Map/Set/WeakSet
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/03/ES6-Math/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">ES6_Math</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/29/ES6-String/">ES6-String</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/27/多线程/">多线程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 曹文娟<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

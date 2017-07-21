@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ES6-String" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ES6-WeakMap-Map-Set-WeakSet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/29/ES6-String/" class="article-date">
-  <time datetime="2017-06-29T02:56:03.000Z" itemprop="datePublished">2017-06-29</time>
+    <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/" class="article-date">
+  <time datetime="2017-07-21T02:25:28.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/29/ES6-String/">ES6-String</a>
+      <a class="article-title" href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
     </h1>
   
 
@@ -83,64 +83,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="花样方式get-String"><a href="#花样方式get-String" class="headerlink" title="花样方式get String"></a>花样方式get String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var name = &quot;Jack&quot;;</div><div class="line">var str0 = &apos;hi,Jack&apos;;</div><div class="line">var str1 = &quot;hi,Jack&quot;;</div><div class="line">var str2 = `hi,$&#123;name&#125;`;</div><div class="line">var str3 = &quot;hi,&quot;+name;</div></pre></td></tr></table></figure>
-<p>若在字符串中既包含 ‘ 又包含 “ 怎么办？转移字符 \ 来帮你。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;I\&apos;m\&quot;OK\&quot;!&apos;;</div></pre></td></tr></table></figure>
-<p>想要换行怎么办？\n or 模板字符串。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var str1 = &quot;hi,\n Jack&quot;;</div><div class="line">var str2 = `hi,</div><div class="line">Jack`;</div></pre></td></tr></table></figure>
-<h3 id="操作字符串"><a href="#操作字符串" class="headerlink" title="操作字符串"></a>操作字符串</h3><p><strong>String.prototype.startsWith</strong><br>字符串是以“该字符串”开始的吗？  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">// ES5 indexOf 返回值为匹配到的第一个字符的下标，匹配失败返回-1</div><div class="line">	str.indexOf(&quot;hello&quot;); // 0</div><div class="line">	str.indexOf(&quot;ello&quot;); // 1</div><div class="line">	str.indexOf(&quot;hw&quot;); // -1</div><div class="line">	str.startsWith(&quot;hello&quot;); // true</div><div class="line">	str.startsWith(&quot;world&quot;); // true</div></pre></td></tr></table></figure>
-<p>不管是ES5的indexOf还是ES6的startsWith都有一个缺省值，该缺省值默认为0且该缺省值表示从哪个位置开始匹配。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello,hello&quot;;</div><div class="line">str.indexOf(&quot;hello&quot;,6) === 6; // true</div><div class="line">str.startsWith(&quot;hello&quot;,6); // true</div></pre></td></tr></table></figure>
-<p><strong>String.prototype.endsWith</strong><br>字符串是以“该字符串”结束的吗？  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">str.endsWith(&quot;world&quot;); // true</div></pre></td></tr></table></figure>
-<p>缺省值默认值为str.lenght-1且表示匹配到哪个位置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">str.sendsWith(&quot;hello&quot;,5); // true</div><div class="line">str.sendsWith(&quot;hello&quot;,6); // false</div></pre></td></tr></table></figure>
-<p><strong>String.prototype.includes</strong><br>字符串包含“该字符串”吗？  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">str.includes(&quot;or&quot;); // true</div><div class="line">str.includes(&quot;hw&quot;); // false</div><div class="line">// 缺省值默认值为0且表示从哪个位置开始匹配</div><div class="line">str.includes(&quot;or&quot;,5); // true</div><div class="line">str.includes(&quot;or&quot;,10); // false</div></pre></td></tr></table></figure>
-<p><strong>String.prototype.repeat</strong><br>字符串重复n遍  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var str = &quot;wo&quot;;</div><div class="line">str.repeat(0); // &apos;&apos;</div><div class="line">str.repeat(1); // &apos;wo&apos;</div><div class="line">str.repeat(3); // &apos;wowowo&apos;</div><div class="line">str.repeat(1.9); // &apos;wo&apos;</div><div class="line">str.repeat(-1); // RangeError</div><div class="line">str.repeat(Infinity); // RangeError</div><div class="line">str.repeat(&apos;wo&apos;); // &apos;&apos;</div><div class="line">str.repeat(&apos;3&apos;); // &apos;wowowo&apos;</div></pre></td></tr></table></figure>
-<p>注意:n必须是正数且有限,当n为小数时向下取整,当n不为number时会被自动转换为number  </p>
-<p><strong>String.prototype[Symbol.iterator]</strong></p>
-<p>在ES6之前，我们可以通过下标访问具体的字符，一个字符串就像是一个数组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">for(let i=0;i&lt;str.length;i++)&#123;</div><div class="line">	console.log(str[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在ES6中字符串是可迭代的，所以我们可以通过for..of实现上面的功能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">for(let point of str)&#123;</div><div class="line">	console.log(point);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>JS中的字符是以UTF-16的格式存储的，每个字符可以用码点去表示且码点范围为[U+0000,U+FFFF]，每个字符固定2个字节，对于那些需要4个字节存储的字符(unicode码点大于0xFFFF的字符)，JS会认为它们是两个字符。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = &apos;\u0061&apos;;  // &apos;a&apos;</div><div class="line">var str = &apos;\ud83d\udc0e&apos;; // &apos;🐎&apos;</div><div class="line">// ES6中4个字节的字符表示方法</div><div class="line">var str = &apos;\u&#123;1f40e&#125;&apos;; // &apos;🐎&apos;</div></pre></td></tr></table></figure>
-<p>如果’\u’后面是超过0xFFFF的数值，(比如’\u1f40e’)，js会理解成’\u1f40+e’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;\u1f40e&apos;; // &apos;ὀe&apos;</div></pre></td></tr></table></figure>
-<p>在ES6对上述问题做了改进，我们可以使用{}让码点正确解读</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = &apos;\u&#123;1f40e&#125;&apos;; // &apos;🐎&apos;</div></pre></td></tr></table></figure>
-<p>‘🐎👱❤’的长度是多少？ 3也许你会这样回答，❌，应该是5，因为’🐎👱❤’的码点表示是’\ud83d\udc0e\ud83d\udc71\u2764’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&apos;🐎👱❤&apos;.length; // 5</div><div class="line">console.log(Object.keys(&apos;🐎👱❤&apos;)); // [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;]</div></pre></td></tr></table></figure>
-<p>在ES6中，想要得到4个字节的字符的长度我们可以采取下面的方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[...&apos;🐎👱❤&apos;].length;  // 3</div></pre></td></tr></table></figure>
-<p>那我们遍历’🐎👱❤’还能得到我们想要得到的字符吗？<br>ES6之前通过下面的方式显然是不行的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎👱❤&apos; ;</div><div class="line">for(let i =0;i&lt;str.length;i++)&#123;</div><div class="line">	console.log(str[i]);   // � � � � ❤</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但在ES6中我们可以使用 string iterator可以解决上述问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎👱❤&apos; ;</div><div class="line">for(let point of str)&#123;</div><div class="line">	console.log(point); // 🐎  👱  ❤</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>‘foo̅’的长度是多少？ 3 又❌，是4</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&apos;foo\u0305&apos;.length;  // 4</div><div class="line">&apos;foo̅&apos;.length; // 4</div><div class="line">[...&apos;foo̅&apos;].length; // 4</div><div class="line">&apos;\u0305&apos;;  // &apos; ̅&apos;</div><div class="line">&apos;_\u0305&apos;;  // &apos;=&apos;</div><div class="line">&apos;foo\u0305&apos;;  // &apos;foo̅&apos;</div></pre></td></tr></table></figure>
-<p>当我们运气不佳的时候，通过码点来分割字符串时，会发现并不是我们所想象的那样,它们会组合成其他字形，也是下面我们提到的合成符。关于’foo̅’长度到底是多少，我们可以采用正则表达式帮我们解决。感兴趣的请移步<a href="https://mathiasbynens.be/notes/javascript-unicode#other-grapheme-clusters" title="悬停显示" target="_blank" rel="external">这里</a>。想了解JS Unicode存在的问题请移步<a href="https://mathiasbynens.be/notes/javascript-unicode" title="悬停显示" target="_blank" rel="external">这里</a>。</p>
-<h3 id="和编码有关的操作"><a href="#和编码有关的操作" class="headerlink" title="和编码有关的操作"></a>和编码有关的操作</h3><p><strong>String.prototype.codePointAt</strong><br>返回一个字符的码点(该码点是十进制的),并且也能正确返回4个字节字符串的码点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var str = &apos;🐎&apos;;</div><div class="line">// ES6之前</div><div class="line">str.charAt(0); // �</div><div class="line">str.charCodeAt(0); //  55357</div><div class="line">str.charCodeAt(1	); //  56334</div><div class="line">// ES6</div><div class="line">str.codePointAt(0); // 128014</div><div class="line">str.codePointAt(0).toString(16); // &apos;1f40e&apos;</div><div class="line">str.codePointAt(1); // 56334</div></pre></td></tr></table></figure>
-<p><strong>String.fromCodePoint</strong><br>返回码点对应的字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// ES6之前,fromCharCode不能正确解读大于0xFFF的码点</div><div class="line">String.fromCharCode(0x1f40e); // &apos;&apos;</div><div class="line">// ES6</div><div class="line">String.fromCodePoint(0x1f40e); // &apos;🐎&apos;</div><div class="line">String.fromCodePoint(128014); // &apos;🐎&apos;</div><div class="line">String.fromCodePoint(128014, 128113, 10084); // &apos;🐎👱❤&apos;</div></pre></td></tr></table></figure>
-<p><strong>String.prototype.normalize</strong><br>为了表示语调和重音符号，Unicode提供了两种方式:<br>方式一:直接提供带重音符号的字符 (如 Ǒ (\u01D1)）<br>方式二:提供合成符,号即原字符与重音符号的合成 (如 O（\u004F）和ˇ（\u030C）合成Ǒ（\u004F\u030C)）<br>‘\u01D1’===’\u004F\u030C’ 意义是等价的但是JS不能识别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;\u01D1&apos;===&apos;\u004F\u030C&apos;; // false</div></pre></td></tr></table></figure>
-<p>ES6提供了String.prototype.normalize方法，将字符的不同表示方法统一为同样的形式，称为Unicode的正规化  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;\u01D1&apos;.normalize()===&apos;\u004F\u030C&apos;.normalize(); // true</div></pre></td></tr></table></figure>
-<p>normalize可以接受四个参数<br>NFC:默认参数，表示“标准等价合成”(视觉和意义上的等价)，返回多个简单字符的合成字符<br>NFD:表示“标准等价分解”，即在标准等价的前提下，返回合成字符分解的多个简单字符<br>NFKC:表示“兼容等价合成”(语义上等价，如“囍”和“喜喜” 视觉不等价但语义是等价的)，返回合成字符<br>NFKD:表示“兼容等价分解”，即在兼容等价的前提下，返回合成字符分解的多个简单字符  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFC&apos;).codePointAt(0); // 465</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFC&apos;).codePointAt(1); // undefined</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFD&apos;).codePointAt(0); // 79</div><div class="line">&apos;\u004F\u030C&apos;.normalize(&apos;NFD&apos;).codePointAt(1); // 780</div></pre></td></tr></table></figure>
-<p>注意:normalize不能识别三个或三个以上字符合成的字符串。</p>
+        <h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map是ES6新增的有序键值对集合,键值对(key,value)可以使任何类型的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var map = new Map();</div><div class="line">var key1 = &#123;toString():function()&#123;return 2&#125;&#125;;</div><div class="line">var key2 = 2;</div><div class="line">map.set(key1,1);</div><div class="line">map.set(key2,2);</div><div class="line">map.hsa(key1); // true</div><div class="line">map.has(&apos;2&apos;); // false</div><div class="line">map.delete(2);</div><div class="line">map.size; // 1</div><div class="line">map.get(key2); // undefined</div></pre></td></tr></table></figure>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>你可以把WeakMap看作是Map的子集,它拥有和Map类似的set(key,value)、get(key)、has(key)、delete(key)、和clear()等方法，但没有size()属性,也没有任何与迭代相关的方法,如:no .entries(), no .keys(), no .values(), no .forEach(), no .clear()。  </p>
+<p>在WeakMap中key只能是<strong>非空的对象</strong>,WeakMap仅保持对key的弱引用,可以避免内存泄漏。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var map = new WeakMap();</div><div class="line">// 注意: 1和Symbol()都是值类型不能作为WeakMap的key</div><div class="line">map.set(1,2); // TypeError: Invalid value used as weak map key</div><div class="line">map.set(Symbol(),2); // TypeError: Invalid value used as weak map key</div></pre></td></tr></table></figure>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>Set是ES6新增的有序列表集合，它不包含重复项。  </p>
+<p>采用Object方式实现没有重复项存在的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var o = &#123;&#125;;</div><div class="line">var key1 = 2;</div><div class="line">var key2 = &#123;toString:function()&#123;return 2&#125;&#125;;</div><div class="line">var key3=&#123;x:1&#125;;</div><div class="line">var key4=&#123;y:1&#125;;</div><div class="line">o[key1] = 1;</div><div class="line">o[key2] = 2;</div><div class="line">o[key3] = 3;</div><div class="line">o[key4] = 4;</div><div class="line">// o: &#123;2:2,[object,object]:4&#125;</div></pre></td></tr></table></figure>
+<p>上述代码中最终o的结果为{2:2,[object,object]:4}, why?<br>在object中会对key进行toString()操作,导致key对应的数据被覆盖。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">key2.toString(); // 2</div><div class="line">key3.toString(); // &quot;[object,object]&quot;</div><div class="line">key4.toString(); // &quot;[]object,object&quot;</div></pre></td></tr></table></figure>
+<p>数组可以存放任何类型的数据，不过数据去重需要开发者手动实现。  </p>
+<p>Set可以有效的解决上面存在的问题。<br>Set可以通过add(item)方法想Set添加任意类型的元素，如果已经添加过则自动忽略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var set = new Set();</div><div class="line">var item1 = 2;</div><div class="line">var item2 = &#123;toString:function()&#123;return 2&#125;&#125;;</div><div class="line">var item3=&#123;x:1&#125;;</div><div class="line">var item4=&#123;y:1&#125;;</div><div class="line">set.add(item1);</div><div class="line">set.add(item2);</div><div class="line">set.add(item3);</div><div class="line">set.add(item4);</div><div class="line">// set:&#123;2, Object &#123;toString: function&#125;, Object &#123;x: 1&#125;, Object &#123;y: 1&#125;&#125;</div><div class="line">set.has(item1); // true</div><div class="line">set.delete(item1);</div><div class="line">set.has(item1); // false</div><div class="line">set.clear();</div><div class="line">set.size; // 0</div></pre></td></tr></table></figure>
+<p>注意:Set调用add、has、delete等方法对key进行比较不会做类型转换，可以使用 === 进行比较，但是也存在特殊情况:<br>NaN 只能添加一次 虽然 NaN === NaN 为false<br>-0或0或+0 可以同时存在,因为符号不一样虽然 -0===0 -0===+0 true</p>
+<h3 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h3><p>WeakSet和Set就像是WeakMap与Map的关系一样。WeakSet中的value只能是<strong>非空的对象</strong>且不能使用迭代器。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/29/ES6-String/" data-id="cj4j93pl8000e153r17h80vqd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/" data-id="cj5dd4gxa000klz3rh9md3bi6" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
     </footer>
   </div>
   
@@ -151,7 +117,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -159,7 +125,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -169,9 +135,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -179,9 +145,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -190,7 +156,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -198,9 +164,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -208,18 +186,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -235,7 +201,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

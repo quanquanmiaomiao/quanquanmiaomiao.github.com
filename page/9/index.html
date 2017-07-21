@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Android性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android动画" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/23/Android性能优化/" class="article-date">
-  <time datetime="2017-03-23T02:24:30.000Z" itemprop="datePublished">2017-03-23</time>
+    <a href="/2017/05/14/Android动画/" class="article-date">
+  <time datetime="2017-05-14T07:15:51.000Z" itemprop="datePublished">2017-05-14</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/Android性能优化/">Android性能优化</a>
+      <a class="article-title" href="/2017/05/14/Android动画/">Android动画</a>
     </h1>
   
 
@@ -83,26 +83,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##why<br>大部分手机的屏幕刷新频率是60hz,若在1000/60 = 16.67ms不能完成一帧的任务，就会造成丢帧现象，用户就会感受到卡顿。</p>
-<h2 id="Android-UI-CPU-GPU"><a href="#Android-UI-CPU-GPU" class="headerlink" title="Android UI CPU GPU"></a>Android UI CPU GPU</h2><p>CPU负责把UI组件计算成Ploygons、Texture,然后交给GPU进行栅格化渲染。</p>
-<p>1.去除非必需组件,非必需组件会造成CPU的重复计算以及GPU的额外资源</p>
-<p>2.减少GPU的Overdraw(过度绘制:屏幕上的某一个像素在同一帧的时间内被渲染多次)<br>检查过度渲染工具:手机设置-&gt;开发者选项-&gt;ShowGPUOverdraw的选项，可以观察到UI的Overdraw情况。</p>
-<p><img src="/2017/03/23/Android性能优化/overdraw.png" alt="Build成功"><br>蓝、绿、淡红、深红代表了4种不同程度的Overdraw情况。</p>
-<p>优化注意点:</p>
-<p>移除Window默认的Background</p>
-<p>移除XML布局文件中不必要的Background</p>
-<p>按需显示占位图片</p>
-<p>ClipRect &amp;&amp; Quickreject<br>Android系统提供了一些组件来避免不可见组件造成的Overdraw，但是对于那些复杂的自定义的View(重写了onDraw方法)，Android系统无法检测具体操作，系统无法监控并优化，也就无法避免Overdraw，针对上述情况我们可以通过canvas.clipRect()来帮助系统识别可见区域。该方法可以指定一块区域，只有在这个区域才会被绘制，其他区域被忽视。我们也可以使用canvas.quickReject()来判断是否没和某个矩形有交集,从而跳过那些非矩形区域的绘制操作。</p>
-<p>DisplayList<br>避免布局的嵌套<br>Profile GPU Rendering<br>蓝色:绘制DisplayList的时间<br>红色:OpenGL渲染DisplayList需要的时间<br>黄色:CPU等待GPU处理的时间</p>
-
+        <h2 id="Android-帧动画"><a href="#Android-帧动画" class="headerlink" title="Android 帧动画"></a>Android 帧动画</h2><p><strong>概念</strong><br>帧动画非常容易理解，就是由N张静态图片收集起来，然后通过我们的控制依次显示这些图片。<br><strong>两种用法</strong><br>1.采用XML文件实现<br>2.Java代码实现(通过类<strong>AnimationDrawable</strong>)<br>具体实现方式在这就不详细说，百度一大堆<del>~</del>  </p>
+<h2 id="Android补间动画-视图动画"><a href="#Android补间动画-视图动画" class="headerlink" title="Android补间动画(视图动画)"></a>Android补间动画(视图动画)</h2><p>Android补间动画提供了AlphaAnimation(透明),RotateAnimation(旋转),TranslateAnimation(平移),ScaleAnimation(缩放)四种动画方式以及提供了AnimationSet动画集合，混合使用多种动画。<br>具体实现请参考百度<del>~</del>~  </p>
+<h2 id="Android属性动画-Android3-0之后出现"><a href="#Android属性动画-Android3-0之后出现" class="headerlink" title="Android属性动画(Android3.0之后出现)"></a>Android属性动画(Android3.0之后出现)</h2><p><strong>为什么会出现属性动画？</strong><br>1.补间动画功能比较单调，只有四种动画(透明度，旋转，缩放，平移)。<br>2.补间动画针对的对象只是UI控件。<br>3.补间动画改变的只是显示效果,不会去改变View的属性。<br>eg:当某元素发生了补间动画之后，该元素的点击事件还在原来的位置。<br><strong>什么是属性动画？</strong><br>1.属性动画是补间动画的增强版，不止可以实现四种动画效果，还可以定义任何属性的变化。<br>2.执行动画的对象不只是UI控件，可以对任何对象执行动画。<br>3.属性动画通过对目标对象进行复制来修改其属性,完美解决了补间动画的缺陷(只是显示效果,不会去改变View的属性)。<br><strong>相关API</strong><br><strong>1.Animator</strong><br>创建属性动画的基类，一般不会直接用，一般使用它的两个子类。<br><strong>2.ValueAnimator</strong><br>ValueAnimator本身不提供任何动画效果，它更像一个数值发生器，用来产生有一定规律的数字，从而让调用者来控制动画的实现过程。<br>使用流程<br>1.调用ValueAnimator的静态方法ofInt(),ofFloat(),或ofObject()创建ValueAnimator的实例。<br>2.调用实例的setXXX方法设置动画持续时间 ，插值方式，重复次数等。<br>3.调用实例的addUpdateListener添加AnimatorUpdateListener监听器，在该监听器中可以获取ValueAnimator计算出来的值，可以将这些值应用到指定对象上。<br>4.调用实例的start方法开启动画。<br><a href="https://github.com/quanquanmiaomiao/LeranValueAnimator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>3.ObjectAnimator</strong><br>ObjectAnimator，通过该类我们可以直接对任意对象的“任意属性”进行动画操作，“任意属性”中的属性必须有get、set方法。<br>使用流程<br>1.调用ObjectAnimator的静态方法ofInt(),ofFloat(),或ofObject()创建ObjectAnimator的实例，与ValueAnimator中的静态方法的区别是，ObjectAnimator中静态方法多了要操作的对象以及对象的属性。<br>2.调用实例的setXXX方法设置动画的持续时间，插值方式，重复次数等。<br>3.调用实例的start方法开启动画。<br>注意:若一个属性没有get、set方法那我们是否就束手无策了呢？当然不，Google提供了两种方案来解决此问题。<br>方案1：提供自定义一个属性类或者包装类间接的给该属性增加get、set方法。<br>方案2：提供ValueAnimator实现。<br><a href="https://github.com/quanquanmiaomiao/LearnObjectAnimator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>4.AnimatorSet</strong><br>对于多个属性动画效果作用于同一个对象，我们可以通过PropertyValuesHolder实现，当然我们也可以通过AnimatorSet来时实现，并且能更精确的控制动画效果的顺序。下面我们来分别介绍两种方案。<br>方案1:PropertyValuesHolder<br>直接上代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">PropertyValuesHolder pvh1 = PropertyValuesHolder.ofFloat(<span class="string">"translationX"</span>,<span class="number">300</span>);</div><div class="line">PropertyValuesHolder pvh2 = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">PropertyValuesHolder pvh3 = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view,pvh1,pvh2,pvh3);</div><div class="line">animator.setDuration(<span class="number">6000</span>).start();</div></pre></td></tr></table></figure></p>
+<p>方案2:AnimatorSet<br>还是直接上代码吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ObjectAnimator oa1 = ObjectAnimator.ofFloat(view,<span class="string">"translationX"</span>,<span class="number">300</span>);</div><div class="line">ObjectAnimator oa2 = ObjectAnimator.ofFloat(view,<span class="string">"scaleX"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">ObjectAnimator oa3 = ObjectAnimator.ofFloat(view,<span class="string">"scaleY"</span>,<span class="number">1f</span>,<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">AnimatorSet set = <span class="keyword">new</span> AnimatorSet();</div><div class="line">set.setDuration(<span class="number">6000</span>);</div><div class="line">set.playTogether(oa1,oa2,oa3);</div><div class="line">set.start();</div></pre></td></tr></table></figure></p>
+<p>playTogether顾名思义，动画一起执行，在属性动画中AnimatorSet还可以通过playSequentially()、animatorSet.play().width().before().after()等方法控制多个动画协同工作，从而达到动画播放顺序的精确控制。<br><a href="https://github.com/quanquanmiaomiao/LearnAnimatorSet" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br><strong>5.Evaluator</strong><br>上面章节中我们用到了ofInt()、ofFloat()、ofObject()等方法多动画进行操作，但是它们是怎么过渡的呢？带着疑问我们一起来认识认识我们的新朋友Evaluator(计算器)。它告诉动画系统如何从初始值过渡到结束值。<br>在Android中有以下几种Evaluator:<br>1.IntEvaluator 用于计算int类型属性值的计算器<br>2.FloatEvaluator 用于计算float类型属性值的计算器<br>3.ArgbEvaluator 用于计算十六进制形式表示的颜色值的计算器<br>4.TypeEvaluator 计算器的接口，可以实现自定义计算器<br>废话不多说，直接看代码。<br><a href="https://github.com/quanquanmiaomiao/LearnEvaluator" title="悬停显示" target="_blank" rel="external">具体实例请参考</a><br>注意:TyprEvaluetor的主要实现是重载evaluate方法，该方法计算了动画过渡的过程，计算公式为:动画值=初始值+完成度*(结束值-开始值)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PointEvaluator</span> <span class="keyword">implements</span> <span class="title">TypeEvaluator</span>&lt;<span class="title">Point</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Point <span class="title">evaluate</span><span class="params">(<span class="keyword">float</span> fraction, Point start, Point end)</span> </span>&#123;</div><div class="line">        <span class="keyword">float</span> x = start.getX() + fraction * (end.getX() - start.getX());</div><div class="line">        <span class="keyword">float</span> y = start.getY() + fraction * (end.getY() - start.getY());</div><div class="line">        Point point = <span class="keyword">new</span> Point(x, y);</div><div class="line">        <span class="keyword">return</span> point;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Android布局动画"><a href="#Android布局动画" class="headerlink" title="Android布局动画"></a>Android布局动画</h2><p>所谓布局动画是指作用在ViewGroup上，给ViewGroup增加View时添加一个动画过渡效果。<br>两种方式实现<br>方案1:XML中设置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:animateLayoutChanges=<span class="string">"true"</span></div></pre></td></tr></table></figure></p>
+<p>ViewGroup在添加子View会呈现默认的过渡效果</p>
+<p>方案2:通过LayoutAnimationController自定义View的过渡效果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">LinearLayout layout = (LinearLayout)findViewById(R.id.layout);</div><div class="line">ScaleAnimation sa = <span class="keyword">new</span> ScaleAnimation(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">sa.setDuration(<span class="number">3000</span>);</div><div class="line">LayoutAnimationController lac = <span class="keyword">new</span> LayoutAnimationController(sa,<span class="number">0.5f</span>);</div><div class="line">lac.setOrder(LayoutAnimationController.ORDER_NORMAL);</div><div class="line">layout.setLayoutAnimation(lac);</div></pre></td></tr></table></figure></p>
+<p>LayoutAnimationController中第一个参数作用的动画效果，第二个参数(delay)动画的延迟时间，<br>若delay不为0，可以设置View的显示顺序。<br>LayoutAnimationController.ORDER_NORMAL  顺序<br>LayoutAnimationController.ORDER_RANDOM 随机<br>LayoutAnimationController.ORDER_REVERSE 反序</p>
+<h2 id="Android自定义动画"><a href="#Android自定义动画" class="headerlink" title="Android自定义动画"></a>Android自定义动画</h2><h2 id="Android5-X-SVG矢量动画机制"><a href="#Android5-X-SVG矢量动画机制" class="headerlink" title="Android5.X SVG矢量动画机制"></a>Android5.X SVG矢量动画机制</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/Android性能优化/" data-id="cj4j93pkz0004153rg3t2m3hb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/14/Android动画/" data-id="cj5dd4gwi0000lz3rwrloscev" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
     </footer>
   </div>
   
@@ -113,7 +109,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/8/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/10/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/10/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -121,7 +117,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -131,9 +127,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -141,9 +137,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -152,7 +148,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -160,9 +156,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -170,18 +178,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -197,7 +193,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

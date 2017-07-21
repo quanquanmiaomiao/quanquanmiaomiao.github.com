@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-多线程" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ES6-Proxy" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/27/多线程/" class="article-date">
-  <time datetime="2017-06-27T03:54:10.000Z" itemprop="datePublished">2017-06-27</time>
+    <a href="/2017/07/04/ES6-Proxy/" class="article-date">
+  <time datetime="2017-07-04T06:46:42.000Z" itemprop="datePublished">2017-07-04</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/27/多线程/">多线程</a>
+      <a class="article-title" href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
     </h1>
   
 
@@ -83,75 +83,39 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="为什么使用多线程"><a href="#为什么使用多线程" class="headerlink" title="为什么使用多线程?"></a>为什么使用多线程?</h3><p>通过减少CPU空闲的时间来达到提高效率的目的。</p>
-<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p><strong>进程</strong>:指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间，并且一个进程可以启动多个线程。比如在Android系统中一个运行一个apk就相当于启动了一个进程。 </p>
-<p><strong>线程</strong>:指进程中的一个执行流程。线程总是属于某个进程，进程中的多个线程共享进程的内存。<br>“同时”执行是人的感觉，线程之间实际上轮换执行。  </p>
-<h3 id="Java中的线程"><a href="#Java中的线程" class="headerlink" title="Java中的线程"></a>Java中的线程</h3><p>1.Thread类  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void main() &#123;</div><div class="line"> 	new Thread(&quot;测试线程1&quot;)&#123;</div><div class="line"> 		@Override</div><div class="line">           public void run() &#123;</div><div class="line">               super.run();</div><div class="line">               //处理耗时操作</div><div class="line">           &#125;</div><div class="line"> 	&#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.Runnable接口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void main() &#123;</div><div class="line">	Runnable runnable = new Runnable() &#123;</div><div class="line">		@Override</div><div class="line">		public void run() &#123;</div><div class="line">			// 处理耗时操作</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	new Thread(runnable,&quot;测试线程2&quot;).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>注意:Runnable对象只是Thread对象的target，Runnable实现类包含的run方法仅仅作为线程的执行体，实际的线程对象依然是Thread实例，该Thread线程只是负责执行其target的run方法。</p>
-<h3 id="线程中的一些常见问题"><a href="#线程中的一些常见问题" class="headerlink" title="线程中的一些常见问题"></a>线程中的一些常见问题</h3><p>1.线程的名字可以开发者自己设置，也可以是JVM给定。<br>2.通过Thread.currentThread()获取线程的名称，且只能获取当前线程名称。<br>3.一系列线程按照一定的顺序启动，但不能保证按照该顺序执行完成。<br>4.当线程run方法结束时该线程完成。<br>5.线程只能启动一次，多次启动回报java.lang.IllegalThreadStateException:Thread already started。<br>6.在一个CPU的机器上，实际上在同一时刻只能运行一个线程。<br>7.尽管我们没有办法控制线程调度，但我们可以通过别的方式来影响线程调度。  </p>
-<h3 id="线程状态转换"><a href="#线程状态转换" class="headerlink" title="线程状态转换"></a>线程状态转换</h3><p><img src="/2017/06/27/多线程/thread1.png" alt="线程转换"><br>1.新状态:new了线程对象，但是没有调用start方法。<br>2.可运行状态:线程有资格运行，但是调度还没有把他选定为运行状态时所处的状态。此时该线程已经调用的start方法。<br>3.运行状态:线程调运从运行池中选定一个线程作为当前线程时所处的状态。线程唯一进入运行状态的方式。<br>4.等待/阻塞/睡眠状态:线程没有条件运行，如果某件事件出现会返回到可运行状态。<br> sleep()&lt;–&gt;sleep()结束<br> yield()&lt;–&gt;再次获取CPU<br> wait() &lt;–&gt; notify()/notifyAll()<br> join() &lt;–&gt; join()中断 直到加入的线程执行完之后，当前线程才能继续执行<br> synchronized/lock&lt;–&gt;同步锁被释放<br> 上述几种情况可导致运行状态到阻塞、阻塞到可运行状态或运行状态<br>5.死亡状态:当线程的run方法完成就认为它死去。这个线程对象也许是活的，但是他已经不是一个单独执行的线程。</p>
-<h3 id="影响线程调度"><a href="#影响线程调度" class="headerlink" title="影响线程调度"></a>影响线程调度</h3><p>1.线程的交互<br>wait()/wait(long timeout)/wait(long timeout,int nanos)<br>当前线程等待，直到其他线程调用此对象的notify()或notifyAll()或超过指定的时间量<br>notify()/notifyAll()<br>唤醒此对象上等待的单个(所有)线程<br>注意:上述这些方法必须在同步环境中调用。换句话说线程不能调用对象上等待或通知的方法，除非该线程拥有此对象的锁。<br>2.线程的休眠<br>sleep(long millis)/sleep(long millis,int nanos)<br>当前线程休眠，使该线程让出CPU资源给其他线程，被休眠线程的休眠时间大于或等于mills<br>3.线程的优先级<br>setPriority(int priority) 0~10<br>优先级高的线程获取CPU资源的概率更大。<br>4.线程的让步<br>yield()<br>当前运行的线程让出CPU资源，并且该线程变为可运行状态，线程调度可以再一次选中该线程<br>5.线程的合并<br>join()/join(long mills)/join(long mills,int nanos)<br>一个线程必须等待另一个线程执行完毕才能执行。(等待时间最长为mills/mills+nanos)    </p>
-<h3 id="线程的同步"><a href="#线程的同步" class="headerlink" title="线程的同步"></a>线程的同步</h3><p><strong>为什么会有同步问题的提出？</strong><br>当多个线程访问同一个数据对象时，会对数据造成破快。 列子。<br>通过锁的方式保证数据的合理性。  </p>
-<p>1.synchronized</p>
-<pre><code>public void setData(int data) {
-  synchronized (this) {
-    this.data = this.data + data;
-      try {
-        Thread.sleep(20);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    System.out.println(Thread.currentThread().getName() + &quot;当前值&quot; +this.data);
-  }
-}
-</code></pre><p>2.volatile<br>缺点:同步性差，容易出错<br>有点:简单，开销小<br>场景:i++操作，计算机的处理:读取 -&gt; 修改 -&gt; 写入，在多线程情况下，当这些步骤操作了一部分，另一个线程就引用该变量此时读到的就是脏数据。 采用volatile来同步变量i,避免脏数据的产生。<br>注意:Java以及不推荐使用了，Java5已经引入了原子量的概念来解决该问题。</p>
-<p>3.1 Lock<br>注意:需要手动释放锁</p>
-<pre><code> public void setData(int data) {
-    lock.lock();
-    try{
-        this.data = this.data+data;
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(Thread.currentThread().getName() + &quot;当前值&quot; + this.data);
-    }finally {
-        lock.unlock();
-    }
-}
-</code></pre><p> 4.Semaphore 信号量的方式实现同步<br>场景举例:5个班需要开班会，但是现在只有3个教室</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void setData(int data) &#123;</div><div class="line">    try &#123;</div><div class="line">        semaphore.acquire();</div><div class="line">        String name = Thread.currentThread().getName();</div><div class="line">        this.data = this.data + data;</div><div class="line">        Thread.sleep((long) (Math.random() * 1000));</div><div class="line">        System.out.println(name + &quot;当前值 = &quot; + this.data);</div><div class="line">        semaphore.release();</div><div class="line">     &#125; catch (InterruptedException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>5.原子量 AtomicLong(XXX)<br>注意:原子量只能保证单个变量在某一个操作过程是安全的，无法保证在整个代码块的安全性， 所以还是需要Lock/synchronized来保证整个代码块的安全性。  </p>
-<p><strong>小结</strong><br>1.当一个类能很好的同步来保护它的数据时，我们称这个类为“线程安全的”。<br>2.线程同步的目的是保护多个线程操作数据时不被破坏。<br>3.锁同步的是方法，不是对象或者变量。<br>4.线程同步是通过锁来实现，每个对象有且只有一个锁,一旦某一线程获取了该锁，其他访问该对象的线程就不能再访问该对象的同步方法(发送阻塞)。<br>5.死锁是线程间相互等待锁造成的，在开发过程中需要注意。  </p>
-<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p><strong>为什么会出现线程池，这是什么鬼？</strong><br>执行一个线程所需要的时间 = 线程创建的时间 + run方法执行的时间(包括同步的时间) + 线程销毁的时间<br>线程池的思想就是开辟一块内存空间，里面存放众多(未死亡)的线程，当有线程任务时，从池中直接取出一个，该任务执行完之后再放入池中，这样可以避免反复创建和销毁线程带来的性能开销，节省系统资源。</p>
-<p><strong>各种类型的线程池</strong><br>1.newCachedThreadPool()  </p>
-<p>可缓存线程池，先查看池中有没有前创建好的线程，有，复用，没有，创建新的线程加入池中。<br>注意:可复用的线程必须是timeout idle内的池中线程，缺省是60s,超过这个idle时长，线程实例会被终止并移出池。所以该类型的线程池适用于一些生存周期比较短的任务。  </p>
-<p>2.newFixedThreadPool()   </p>
-<p>固定大小的线程池，也能复用线程，但不能随时创建新线程，在任意时间点，最多只有固定数量的活动线程，如果有新的线程要创建，只能放到另外的队列中等待，直到当前线程中的某个线程终止直接被移出池子。<br>注意:该类型的线程池没有idle,创建的线程会一直存在。  </p>
-<p>3.newScheduledThreadPool() </p>
-<p>调度型线程池，线程池中的线程数也是固定的，但是可以根据schedule一次delay执行，换句话可周期性执行 </p>
-<p>4.SingleThreadExecutor </p>
-<p>单任务线程池，任意时间线程池中只有一个线程  </p>
-<p>5.ThreadPoolExecutor</p>
-<p>自定义线程池</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                     int maximumPoolSize,</div><div class="line">                     long keepAliveTime,</div><div class="line">                     TimeUnit unit,</div><div class="line">                     BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                     ThreadFactory threadFactory,</div><div class="line">                     RejectedExecutionHandler handler)</div></pre></td></tr></table></figure>
-<p>corePoolSize:核心大小，线程池初始化的时候，就会有这么大<br>maximumPoolSize:线程池最大线程数<br>keepAliveTime:如果当前线程池中线程数大于corePoolSize,多余的线程，在等待keepAliveTime时间后如果还没有新的线程任务指派给它，它就会被回收。但若将allowCoreThreadTimeOut为true,不论线程池中的线程数是否大于corePoolSize，只要是空闲的线程超过keepAliveTime都会被回收。<br>unit:超时时间的单位。<br>workQueue:线程池的任务队列，通过execute方法提交的runnable对象会存储在这个队列中。  默认长度128<br>threadFactory:线程工厂，为线程池通过创建新线程的功能。<br>handler:任务无法执行时，回调handler的rejectedExecution方法来通知调用者。  </p>
-<p><img src="/2017/06/27/多线程/thread3.png" alt="线程转换"></p>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="单线程的JavaScript"><a href="#单线程的JavaScript" class="headerlink" title="单线程的JavaScript"></a>单线程的JavaScript</h3><p>浏览器的内核是多线程的，它们在内核控制下相互配合以保持同步，一个浏览器中至少会实现三个常驻线程:<br><strong>javascript引擎线程</strong>:javascript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。<br><strong>GUI渲染线程</strong>:GUI渲染线程负责渲染浏览器界面，当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时,该线程就会执行。但需要注意GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。<br><strong>浏览器事件触发线程</strong>:事件触发线程，当一个事件被触发时该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS的单线程关系所有这些事件都得排队等待JS引擎处理。（当线程中没有执行任何同步代码的前提下才会执行异步代码）  </p>
-<h3 id="js工作线程实现的方式"><a href="#js工作线程实现的方式" class="headerlink" title="js工作线程实现的方式"></a>js工作线程实现的方式</h3><p>1.setTimeout()  使用该函数将任务进行分割<br>2.Google Gears谷歌开发的浏览器插件工具，不提倡使用。<br>3.Web Worker借鉴Google Gears，规范定义了一套API，允许 Web 应用创建在后台执行 JavaScript 代码的工作线程。即工作线程在执行过程中不会对主页面造成影响。Web Worker 规范中定义了两类工作线程:  </p>
-<p>专属工作线程:只能为一个页面所使用,创建专属线程时要指定需要执行的js文件的URL。通过postMessage和onmessage来接收和发送消息。</p>
-<p>共享工作线程:可以被多个页面使用。共享工作线程所执行的 JavaScript 代码中，不能使用 onmessage来直接定义接收到消息时的处理方法，而需要使用 onconnect来定义接收到连接时的处理逻辑  </p>
+        <h3 id="对象的内部方法"><a href="#对象的内部方法" class="headerlink" title="对象的内部方法"></a>对象的内部方法</h3><p>假如，我们有一个Person对象，定义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = &#123;</div><div class="line">	name: &quot;小红&quot;,</div><div class="line">&#125;</div><div class="line">Person.name; // 小红 </div><div class="line">Person.age = 12;</div><div class="line">Paerson.age; // 12</div></pre></td></tr></table></figure>
+<p>为什么我们通过”.”操作或者”[]”操作或赋值”=”操作可以得到我们想要的结果？<br>ECMAScript标准委员会定义了一个由14种内部方法组成的集合，适用于所有对象通用的接口。<br><strong>obj.prop或obj[prop] 相当于调用 obj.[[Get]]（key,receiver)</strong><br><strong>obj.prop = value或obj[prop] 相当于调用obj.[[Set]]（key,value,receiver）</strong> </p>
+<p>在整个ES6标准中，任何语法或者对象相关的内建函数都是基于这14种内部方法构建的。但是我们可以通过Proxy(代理)的方式任意替换这14中内部方法。  </p>
+<h3 id="Proxy-代理"><a href="#Proxy-代理" class="headerlink" title="Proxy 代理"></a>Proxy 代理</h3><p>ES6规范定义了一个全新的全局构造函数:Proxy，他可以接受两个参数:目标对象(target)、句柄对象(handler)。如:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var target = &#123;&#125;;</div><div class="line">var handler = &#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div></pre></td></tr></table></figure>
+<p><strong>代理与目标对象之间的关系</strong><br>代理的行为很简单:将代理的所有内部方法转发至目标对象。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">proxy.color = &quot;red&quot;;</div><div class="line">target.color; // &quot;red&quot;&quot;</div></pre></td></tr></table></figure>
+<p>proxy.[[Set]]（）应该调用target.[[Set]]（）方法，就会在目标对象上创建一个新的属性，即target.color为“red”。  </p>
+<p><strong>句柄对象</strong><br>句柄对象的方法可以覆写任意代理的内部方法。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var target = &#123;&#125;;</div><div class="line">var handler = &#123;</div><div class="line">	set:function(target,key,value,receiver)&#123;</div><div class="line">		throw new Error(&quot;请不要为这个对象设置属性。&quot;)</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.name; // Error 请不要为这个对象设置属性。</div></pre></td></tr></table></figure>
+<p>句柄方法的完整列表可以在<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy#Methods_of_the_handler_object" target="_blank" rel="external">MDN有关代理的页面</a>上找到，一个有14种方法，与ES6中定义的14种内部方法一致。  </p>
+<p>所有句柄方法都是可选的，没有被句柄拦截的内部方法会直接指向目标对象。 </p>
+<p>注意:Babel不支持Proxy，现在只有Microsoft Edge和Mozilla Firefox支持</p>
+<h3 id="Proxy-Traps"><a href="#Proxy-Traps" class="headerlink" title="Proxy Traps"></a>Proxy Traps</h3><p><strong>construct</strong></p>
+<p><strong>getPrototypeOf</strong><br>使用handler.getPrototypeOf方法可以诱骗下面的这些属性、方法以及操作:<br>Object.prototype.<strong>proto</strong><br>Object.prototype.isPrototypeOf()<br>Object.prototype.getPrototypeOf()<br>Reflect.prototype.getPrototypeOf()<br>instanceof  </p>
+<p>比如，当我们通过访问代理，可以使用handler.getPrototypeOf让一个对象假装自己是数组。然而，这并不能使代理成为真正的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	getPrototypeOf: target =&gt; Array.prototype</div><div class="line">&#125;</div><div class="line">var target = &#123;&#125;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy instanceof Array; // true</div><div class="line">proxy.push; // undefined</div></pre></td></tr></table></figure>
+<p>从上面的列子可以看出，proxy并没有拥有数组的方法，我们可以使用get解决上面问题，当target找不到某个属性，可以通过反射在Array.prototype上去寻找。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	getPrototypeOf:target =&gt; Array.prototype,</div><div class="line">	get(target,key)&#123;</div><div class="line">		return Reflect.get(target,key) || Reflect.get(Array.prototype,key)</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var target = &#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.push; // function push() &#123; [native code] &#125;</div><div class="line">proxy.push(&apos;a&apos;,&apos;b&apos;);</div><div class="line">proxy; // &#123;0:&apos;a&apos;,1:&apos;b&apos;&#125;</div></pre></td></tr></table></figure>
+<p>当然你也可以通过访问代理让某个对象认为自己是一个字符串或者其他什么东西。  </p>
+<p><strong>setPrototypeOf</strong><br>Object.setPrototypeOf用来设置当前对象的原型，传统的方式使用<strong>proto</strong>来读取或设置当前对象的原型。  </p>
+<p>当然，我们可以使用handler.setPrototypeOf为Object.setPrototypeOf设置trap(陷阱？？)  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var handler = &#123;</div><div class="line">	setPrototypeOf(target,proto)&#123;</div><div class="line">		Object.setPrototypeOf(target,proto);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">var proto = &#123;&#125;;</div><div class="line">var target = function()&#123;&#125;;</div><div class="line">var proxy = new Proxy(target,handler);</div><div class="line">proxy.setPrototypeOf(proxy,proto);</div><div class="line">proxy.prototype === proto; // true</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/27/多线程/" data-id="cj4j93plf000n153r1nskknbr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/04/ES6-Proxy/" data-id="cj5dd4gx6000elz3r340o2wvu" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
     </footer>
   </div>
   
@@ -162,7 +126,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -170,7 +134,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/文章/">文章</a></li></ul>
     </div>
@@ -180,9 +144,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RreactNative/">RreactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -190,9 +154,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ES6/" style="font-size: 20px;">ES6</a> <a href="/tags/RreactNative/" style="font-size: 10px;">RreactNative</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -201,7 +165,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -209,9 +173,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/21/ES6-WeakMap-Map-Set-WeakSet/">ES6-WeakMap/Map/Set/WeakSet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/ES6-Proxy/">ES6_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/03/ES6-Math/">ES6_Math</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/ES6-String/">ES6-String</a>
@@ -219,18 +195,6 @@
         
           <li>
             <a href="/2017/06/27/多线程/">多线程</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/07/CreateReactNativeApp-Expo/">CreateReactNativeApp-Expo</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/05/Java的基本理解/">Java的基本理解</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ReactStorybook/">ReactStorybook</a>
           </li>
         
       </ul>
@@ -246,7 +210,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 曹文娟<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
